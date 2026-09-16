@@ -21,6 +21,7 @@ folded into the theme's PHP templates.
 | `post.html` | `single.php` | Ported |
 | `404.html` | `404.php` | Ported |
 | `styleguide.html` | — | Prototype reference only, do not port |
+| `specimen.html` | — | Material specimen sheet: texture, halftone, clay, paper→screen. Reference only |
 
 Every page carries HTML comments marking which WordPress template and which
 template tag each block corresponds to (`<!-- WP: the_content() -->` and so on),

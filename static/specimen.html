@@ -30,6 +30,7 @@
   --screen-angle:15deg;
   --htn-dot:5px;
   --htn-contrast:1.5;
+  --fade:.5;
 
   --serif:'Instrument Serif',Georgia,serif;
   --sans:'Jost',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
@@ -241,6 +242,156 @@ section:first-of-type{border-top:0}
 /* ---- FOOTER ---------------------------------------------- */
 footer{padding:4rem 0 6rem; border-top:1px solid var(--beige-dark)}
 
+
+/* ---- G · CLAY ---------------------------------------------
+   Clay as a material, not as a UI style. Fired earth, thrown
+   rings, pooled glaze, chipped edge — all the same cost as a
+   gradient, all consistent with a paper-and-ink world. */
+.clay{
+  position:relative; overflow:hidden; min-height:200px;
+  display:flex; align-items:flex-end; padding:1.25rem;
+}
+.clay__label{
+  position:relative; z-index:3; font-size:.6875rem;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--beige-light);
+}
+.clay__label--dark{color:var(--ink)}
+
+/* unglazed terracotta: warm, matte, lit from upper left */
+.clay-fired{
+  background:
+    radial-gradient(120% 90% at 28% 18%,rgb(255 255 255 /.16),transparent 62%),
+    linear-gradient(168deg,#BA6A5C 0%,#A25647 55%,#8E4739 100%);
+}
+/* throwing rings — the mark of the wheel */
+.clay-thrown::before{
+  content:''; position:absolute; inset:0; z-index:2;
+  background-image:repeating-radial-gradient(circle at 50% 128%,
+    rgb(13 31 34 /.07) 0 2px, transparent 2px 10px);
+}
+/* glaze pooling toward the foot */
+.clay-glaze::after{
+  content:''; position:absolute; inset:0; z-index:1;
+  background:linear-gradient(to bottom,transparent 45%,rgb(13 31 34 /.26) 100%);
+}
+/* raw chipped edge rather than a cut one */
+.clay-chip{
+  -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200' preserveAspectRatio='none'%3E%3Cpath d='M0 0h400v186c-24 9-41-5-63 0s-33 11-55 6-38-12-60-4-40 12-62 5-33-9-55-2-31 7-45 1-24-8-24-8z' fill='%23000'/%3E%3C/svg%3E");
+  mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200' preserveAspectRatio='none'%3E%3Cpath d='M0 0h400v186c-24 9-41-5-63 0s-33 11-55 6-38-12-60-4-40 12-62 5-33-9-55-2-31 7-45 1-24-8-24-8z' fill='%23000'/%3E%3C/svg%3E");
+  -webkit-mask-size:100% 100%; mask-size:100% 100%;
+  -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat;
+}
+
+/* --- tactility, three ways ------------------------------- */
+.tact{
+  background:var(--beige); padding:2.5rem 1.5rem; min-height:230px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1rem;
+  border:1px solid var(--beige-dark);
+}
+/* 1 · deboss — pressed into the stock. Paper-native. */
+.ctl-deboss{
+  font-family:var(--sans); font-size:.75rem; font-weight:500;
+  letter-spacing:.16em; text-transform:uppercase;
+  padding:1rem 2rem; color:var(--ink);
+  background:var(--beige);
+  box-shadow:inset 0 2px 3px rgb(13 31 34 /.18), inset 0 -1px 0 rgb(255 255 255 /.7);
+  border:1px solid var(--beige-dark);
+}
+/* 2 · clay object — a fired tile resting ON the paper */
+.ctl-clay{
+  font-family:var(--sans); font-size:.75rem; font-weight:500;
+  letter-spacing:.16em; text-transform:uppercase;
+  padding:1rem 2rem; color:#F6EDE9; border:0;
+  background:linear-gradient(168deg,#BA6A5C,#8E4739);
+  box-shadow:0 10px 20px rgb(13 31 34 /.22), inset 0 1px 0 rgb(255 255 255 /.28);
+}
+/* 3 · neumorphic — same colour as its ground, shadow only */
+.ctl-neu{
+  font-family:var(--sans); font-size:.75rem; font-weight:500;
+  letter-spacing:.16em; text-transform:uppercase;
+  padding:1rem 2rem; color:#8C9799; border:0; border-radius:16px;
+  background:var(--beige);
+  box-shadow:7px 7px 14px rgb(13 31 34 /.15), -7px -7px 14px rgb(255 255 255 /.8);
+}
+.ratio{
+  display:block; font-family:ui-monospace,monospace; font-size:.6875rem;
+  letter-spacing:.02em; margin-top:.25rem;
+}
+.ratio.pass{color:var(--fern-deep)}
+.ratio.fail{color:var(--terracotta-deep)}
+.tact__caption{font-size:.75rem; color:#5D6B6D; text-align:center; line-height:1.5; max-width:26ch}
+
+
+/* ---- H · PAPER → SCREEN -----------------------------------
+   Two materials, one surface. Paper is front-lit, warm, grained,
+   soft-edged, never pure white. A screen is back-lit, cool, flat,
+   pixel-gridded, and emits rather than reflects. The transition is
+   a gradient on the GROUND plus masks on every texture layer, so
+   each one attenuates independently. */
+.fade-strip{position:relative; min-height:560px; overflow:hidden;
+  background:linear-gradient(to bottom,
+    var(--beige) 0%, var(--beige) 26%, #C6CBBC 44%,
+    #7E8C8A 58%, #35474A 76%, var(--ink) 100%);
+}
+/* grain lives only in the paper half */
+.fade-grain{position:absolute; inset:0; z-index:2; mix-blend-mode:multiply; opacity:.34;
+  background-size:180px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 24%,transparent 62%);
+  mask-image:linear-gradient(to bottom,#000 0%,#000 24%,transparent 62%);
+}
+/* halftone dots hand over to a pixel grid at the midpoint */
+.fade-dots{position:absolute; inset:0; z-index:3; opacity:.5;
+  background-image:radial-gradient(circle,var(--ink) .9px,transparent 1.45px);
+  background-size:5px 5px;
+  -webkit-mask-image:linear-gradient(to bottom,#000 8%,transparent 46%);
+  mask-image:linear-gradient(to bottom,#000 8%,transparent 46%);
+}
+.fade-pixels{position:absolute; inset:0; z-index:3;
+  background-image:
+    repeating-linear-gradient(90deg,rgb(255 255 255 /.07) 0 1px,transparent 1px 3px),
+    repeating-linear-gradient(0deg,rgb(255 255 255 /.07) 0 1px,transparent 1px 3px);
+  -webkit-mask-image:linear-gradient(to bottom,transparent 52%,#000 88%);
+  mask-image:linear-gradient(to bottom,transparent 52%,#000 88%);
+}
+/* paper is lit from the front, a screen glows from behind */
+.fade-bloom{position:absolute; inset:0; z-index:1;
+  background:radial-gradient(64% 42% at 50% 94%,rgb(86 130 89 /.42),transparent 72%);
+  -webkit-mask-image:linear-gradient(to bottom,transparent 56%,#000 100%);
+  mask-image:linear-gradient(to bottom,transparent 56%,#000 100%);
+}
+.fade-mark{position:absolute; left:1.5rem; z-index:6;
+  font-size:.6875rem; letter-spacing:.2em; text-transform:uppercase;}
+.fade-mark--top{top:1.5rem; color:var(--ink)}
+.fade-mark--bot{bottom:1.5rem; color:var(--beige-light)}
+
+/* --- the same handover, scrubbable ----------------------- */
+.mix{position:relative; aspect-ratio:4/3; overflow:hidden; background:var(--ink)}
+.mix__paper{position:absolute; inset:0; background:var(--beige); opacity:calc(1 - var(--fade))}
+.mix__grain{position:absolute; inset:0; mix-blend-mode:multiply; background-size:180px;
+  opacity:calc((1 - var(--fade)) * .42);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E")}
+.mix__dots{position:absolute; inset:0; opacity:calc((1 - var(--fade)) * .55);
+  background-image:radial-gradient(circle,var(--ink) .9px,transparent 1.45px);
+  background-size:5px 5px}
+.mix__pixels{position:absolute; inset:0; opacity:var(--fade);
+  background-image:
+    repeating-linear-gradient(90deg,rgb(255 255 255 /.08) 0 1px,transparent 1px 3px),
+    repeating-linear-gradient(0deg,rgb(255 255 255 /.08) 0 1px,transparent 1px 3px)}
+.mix__bloom{position:absolute; inset:0; opacity:var(--fade);
+  background:radial-gradient(60% 45% at 50% 60%,rgb(86 130 89 /.35),transparent 72%)}
+.mix__label{position:absolute; inset:auto 0 0 0; z-index:5; padding:.9rem 1rem;
+  font-size:.6875rem; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--rose-light)}
+
+/* lighting logic, side by side */
+.lit{aspect-ratio:3/2; display:flex; align-items:center; justify-content:center;
+  font-size:.6875rem; letter-spacing:.16em; text-transform:uppercase}
+.lit--front{background:var(--beige); color:var(--ink);
+  box-shadow:inset 0 1px 0 rgb(255 255 255 /.8), 0 12px 24px rgb(13 31 34 /.14)}
+.lit--back{background:var(--ink); color:var(--beige-light);
+  box-shadow:0 0 44px rgb(86 130 89 /.34), inset 0 0 70px rgb(86 130 89 /.16)}
+
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -269,6 +420,11 @@ footer{padding:4rem 0 6rem; border-top:1px solid var(--beige-dark)}
       <label for="angle">Angle</label>
       <input type="range" id="angle" min="0" max="90" step="5" value="15">
       <output id="angleOut">15°</output>
+    </div>
+    <div class="ctrl">
+      <label for="fade">Paper→Screen</label>
+      <input type="range" id="fade" min="0" max="1" step="0.01" value="0.5">
+      <output id="fadeOut">0.50</output>
     </div>
     <div class="ctrl">
       <button type="button" id="flat" aria-pressed="false">Flat mode</button>
@@ -411,6 +567,88 @@ footer{padding:4rem 0 6rem; border-top:1px solid var(--beige-dark)}
     <div class="stratum" style="background:var(--rose)"><div class="paper-grain"></div><span class="stratum__label" style="color:var(--beige-light)">Gravel</span><span class="stratum__depth" style="color:var(--beige-light)">90–160 cm</span></div>
     <div class="stratum" style="background:var(--ink-light)"><div class="paper-grain" style="mix-blend-mode:screen;opacity:.3"></div><span class="stratum__label" style="color:var(--beige-light)">Fractured bedrock</span><span class="stratum__depth" style="color:var(--beige-light)">1.6–4 m</span></div>
     <div class="stratum" style="background:var(--ink)"><div class="paper-grain" style="mix-blend-mode:screen;opacity:.25"></div><span class="stratum__label" style="color:var(--beige-light)">Cellar</span><span class="stratum__depth" style="color:var(--beige-light)">4 m</span></div>
+  </div>
+</section>
+
+
+<!-- ================= G · CLAY ================= -->
+<section>
+  <div class="sec-head">
+    <span class="num">G</span>
+    <h2>Clay</h2>
+    <p class="note">Fired earth as a material — matte, warm, thrown, chipped. All of this is gradients and masks, so it costs nothing and stays consistent with a paper-and-ink world.</p>
+  </div>
+  <div class="grid g4">
+    <div class="clay clay-fired"><div class="paper-grain" style="opacity:.3"></div><span class="clay__label">Unglazed</span></div>
+    <div class="clay clay-fired clay-thrown"><div class="paper-grain" style="opacity:.3"></div><span class="clay__label">Throwing rings</span></div>
+    <div class="clay clay-fired clay-glaze"><div class="paper-grain" style="opacity:.3"></div><span class="clay__label">Pooled glaze</span></div>
+    <div class="clay clay-fired clay-chip"><div class="paper-grain" style="opacity:.3"></div><span class="clay__label">Chipped edge</span></div>
+  </div>
+
+  <div class="sec-head" style="margin-top:3.5rem">
+    <h3>Tactility, three ways</h3>
+    <p class="note">Same instinct — make it touchable — resolved three ways. The ratio under each is the live WCAG contrast of the control against its own ground, measured in your browser. <strong>1.4.11 asks for 3:1 on non-text UI.</strong></p>
+  </div>
+  <div class="grid g3">
+    <div class="tact">
+      <button class="ctl-deboss" type="button">Pressed</button>
+      <span class="ratio" data-fg="#DCDCC0" data-bg="#EBEBD3" data-min="3"></span>
+      <p class="tact__caption">Deboss. Paper-native, and the honest version of the neumorphic instinct — but it leans on its border for contrast.</p>
+    </div>
+    <div class="tact">
+      <button class="ctl-clay" type="button">Pressed</button>
+      <span class="ratio" data-fg="#A2564A" data-bg="#EBEBD3" data-min="3"></span>
+      <p class="tact__caption">Clay object resting on the paper. Dimensional, tactile, and it passes comfortably because it is a different material, not the same one extruded.</p>
+    </div>
+    <div class="tact">
+      <button class="ctl-neu" type="button">Pressed</button>
+      <span class="ratio" data-fg="#EBEBD3" data-bg="#EBEBD3" data-min="3"></span>
+      <p class="tact__caption">True neumorphism. Identical to its ground by definition, so the shape carries no contrast at all — only the shadow does, and shadows are not a contrast mechanism.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================= H · PAPER → SCREEN ================= -->
+<section>
+  <div class="sec-head">
+    <span class="num">H</span>
+    <h2>Notepaper fading into a <em>screen</em></h2>
+    <p class="note">Two materials on one surface. Paper is front-lit, warm, grained, soft-edged and never pure white. A screen is back-lit, cool, flat, pixel-gridded, and <em>emits</em> rather than reflects. The trick is that each texture layer carries its own gradient mask, so grain, dot screen, pixel grid and glow each hand over at a different point instead of cross-fading as one block.</p>
+  </div>
+
+  <div class="fade-strip">
+    <div class="fade-bloom"></div>
+    <div class="fade-grain"></div>
+    <div class="fade-dots"></div>
+    <div class="fade-pixels"></div>
+    <span class="fade-mark fade-mark--top">Notepaper · reflected light · 5px halftone</span>
+    <span class="fade-mark fade-mark--bot">Screen · emitted light · 3px pixel grid</span>
+  </div>
+
+  <div class="grid g3" style="margin-top:2rem">
+    <div class="spec" style="border:0;background:transparent">
+      <div class="mix">
+        <div class="mix__paper"></div>
+        <div class="mix__bloom"></div>
+        <div class="mix__grain"></div>
+        <div class="mix__dots"></div>
+        <div class="mix__pixels"></div>
+        <span class="mix__label">Scrub with the Paper→Screen slider</span>
+      </div>
+      <div class="spec__meta"><div class="spec__name">The handover, scrubbable</div>
+      <p class="spec__note">One variable drives five layers. Find the point where it stops being paper and starts being display — that crossing is where the hero should sit.</p></div>
+    </div>
+    <div class="spec" style="border:0;background:transparent">
+      <div class="lit lit--front">Front-lit · paper</div>
+      <div class="spec__meta"><div class="spec__name">Reflected</div>
+      <p class="spec__note">Highlight on the top edge, shadow cast below and away. The light source is in the room with you.</p></div>
+    </div>
+    <div class="spec" style="border:0;background:transparent">
+      <div class="lit lit--back">Back-lit · screen</div>
+      <div class="spec__meta"><div class="spec__name">Emitted</div>
+      <p class="spec__note">No cast shadow at all — a bloom that spills outward instead. This single swap does more than any amount of gradient work.</p></div>
+    </div>
   </div>
 </section>
 
@@ -615,6 +853,38 @@ footer{padding:4rem 0 6rem; border-top:1px solid var(--beige-dark)}
 
   document.getElementById('cloudName').textContent = CLOUD;
   paintAll();
+})();
+</script>
+
+<script>
+/* Live WCAG contrast readout — so the neumorphism argument is a
+   measurement rather than an opinion. */
+(() => {
+  const lin = c => { c /= 255; return c <= .03928 ? c/12.92 : Math.pow((c+.055)/1.055, 2.4); };
+  const lum = hex => {
+    const n = parseInt(hex.slice(1), 16);
+    return .2126*lin(n>>16 & 255) + .7152*lin(n>>8 & 255) + .0722*lin(n & 255);
+  };
+  const ratio = (a, b) => {
+    const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p);
+    return (x + .05) / (y + .05);
+  };
+  const fade = document.getElementById('fade');
+  const fadeOut = document.getElementById('fadeOut');
+  const applyFade = () => {
+    document.documentElement.style.setProperty('--fade', fade.value);
+    fadeOut.textContent = Number(fade.value).toFixed(2);
+  };
+  fade.addEventListener('input', applyFade);
+  applyFade();
+
+  document.querySelectorAll('.ratio').forEach(el => {
+    const r = ratio(el.dataset.fg, el.dataset.bg);
+    const min = parseFloat(el.dataset.min);
+    const ok = r >= min;
+    el.textContent = r.toFixed(2) + ':1 · ' + (ok ? 'passes' : 'fails') + ' ' + min + ':1';
+    el.className = 'ratio ' + (ok ? 'pass' : 'fail');
+  });
 })();
 </script>
 </body>
