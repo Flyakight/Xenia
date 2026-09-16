@@ -1,0 +1,621 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Material Specimen Sheet — Luxe Hospitality</title>
+<meta name="description" content="Texture, halftone and material treatments tested against the Xenia palette and real photography.">
+<link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Jost:wght@300;400;500;600&display=swap">
+<style>
+/* ============================================================
+   MATERIAL SPECIMEN SHEET
+   Standalone by design — no dependencies, no build, one file.
+   Everything here is a candidate, not a decision.
+   ============================================================ */
+
+:root {
+  /* palette */
+  --fern:#568259; --beige:#EBEBD3; --ink:#0D1F22; --terracotta:#AD5D4E; --rose:#9B6A6C;
+  --beige-dark:#DCDCC0; --beige-light:#F4F4E6; --ink-light:#16333A;
+  --terracotta-deep:#8E4739; --rose-light:#B58A8C; --fern-deep:#3E6141;
+
+  /* live controls */
+  --grain-opacity:.30;
+  --grain-scale:180px;
+  --dot-size:4px;
+  --dot-radius:.9px;
+  --screen-angle:15deg;
+  --htn-dot:5px;
+  --htn-contrast:1.5;
+
+  --serif:'Instrument Serif',Georgia,serif;
+  --sans:'Jost',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{background:var(--beige)}
+body{
+  margin:0; font-family:var(--sans); font-weight:300;
+  color:var(--ink); background:var(--beige);
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ---- LAYER 1 · SUBSTRATE ---------------------------------
+   Fixed to the viewport, so the grain belongs to the paper and
+   the content moves across it. Rasterised once, never on scroll. */
+.substrate{
+  position:fixed; inset:0; z-index:1; pointer-events:none;
+  opacity:var(--grain-opacity);
+  mix-blend-mode:multiply;
+  background-repeat:repeat;
+  background-size:var(--grain-scale) var(--grain-scale);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+}
+body.flat .substrate{display:none}
+
+/* Respect the people who asked for less */
+@media (prefers-reduced-transparency:reduce),(prefers-contrast:more){
+  .substrate{display:none}
+}
+
+.wrap{position:relative; z-index:2; max-width:1280px; margin:0 auto; padding:0 24px}
+
+/* ---- TYPE ------------------------------------------------ */
+h1,h2,h3{font-family:var(--serif); font-weight:400; letter-spacing:-.015em; margin:0}
+h1{font-size:clamp(2.75rem,7vw,5.5rem); line-height:.95}
+h1 em{font-style:italic}
+h2{font-size:clamp(1.75rem,3.5vw,2.75rem); line-height:1.05; margin-bottom:.25em}
+h3{font-size:1.25rem; margin-bottom:.4em}
+p{line-height:1.7; max-width:62ch; margin:0 0 1rem}
+.eyebrow{
+  display:inline-flex; align-items:center; gap:.7rem;
+  font-size:.6875rem; font-weight:500; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--terracotta); margin-bottom:.9rem;
+}
+.eyebrow::before{content:''; width:2.2rem; height:1px; background:currentColor}
+.lede{font-size:1.0625rem; color:#3C4C4F}
+.note{font-size:.8125rem; color:#5D6B6D; max-width:70ch}
+
+/* ---- SECTIONS -------------------------------------------- */
+section{padding:5rem 0; border-top:1px solid var(--beige-dark)}
+section:first-of-type{border-top:0}
+.sec-head{margin-bottom:2.5rem}
+.sec-head .num{
+  font-family:var(--sans); font-size:.6875rem; letter-spacing:.2em;
+  color:var(--rose); display:block; margin-bottom:.5rem;
+}
+
+/* ---- SPECIMEN GRID --------------------------------------- */
+.grid{display:grid; gap:1.75rem}
+.g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+@media(min-width:1000px){
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+}
+
+.spec{background:var(--beige-light); border:1px solid var(--beige-dark); display:flex; flex-direction:column}
+.spec__frame{position:relative; aspect-ratio:4/3; overflow:hidden; background:var(--beige-dark)}
+.spec__frame img{width:100%; height:100%; object-fit:cover; display:block}
+.spec__meta{padding:.85rem 1rem 1rem; display:flex; flex-direction:column; gap:.4rem; flex:1}
+.spec__name{font-size:.875rem; font-weight:500; letter-spacing:.01em}
+.spec__note{font-size:.75rem; color:#5D6B6D; line-height:1.5; margin:0}
+.recipe{
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:.6875rem; line-height:1.45; color:var(--ink);
+  background:var(--beige); border:1px solid var(--beige-dark);
+  padding:.45rem .55rem; word-break:break-all; cursor:copy; margin-top:auto;
+}
+.recipe:hover{border-color:var(--terracotta)}
+.recipe.copied{border-color:var(--fern); color:var(--fern-deep)}
+
+/* status + weight readout */
+.badge{
+  position:absolute; top:.5rem; left:.5rem; z-index:3;
+  font-size:.625rem; letter-spacing:.1em; text-transform:uppercase;
+  padding:.2rem .45rem; background:var(--ink); color:var(--beige-light);
+}
+.badge.ok{background:var(--fern)}
+.badge.fail{background:var(--terracotta-deep)}
+.weight{
+  position:absolute; bottom:.5rem; right:.5rem; z-index:3;
+  font-family:ui-monospace,monospace; font-size:.625rem;
+  padding:.2rem .45rem; background:rgb(13 31 34 /.78); color:#F4F4E6;
+}
+
+/* ---- CONTROLS -------------------------------------------- */
+.controls{
+  position:sticky; top:0; z-index:50;
+  background:rgb(235 235 211 /.94); backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--beige-dark);
+  padding:.75rem 24px;
+}
+.controls__inner{
+  max-width:1280px; margin:0 auto;
+  display:flex; flex-wrap:wrap; gap:1.25rem; align-items:center;
+}
+.ctrl{display:flex; align-items:center; gap:.5rem; font-size:.6875rem; letter-spacing:.08em; text-transform:uppercase}
+.ctrl input[type=range]{width:88px; accent-color:var(--terracotta)}
+.ctrl select,.ctrl button{
+  font:inherit; font-size:.6875rem; letter-spacing:.08em; text-transform:uppercase;
+  background:var(--beige-light); color:var(--ink);
+  border:1px solid var(--beige-dark); padding:.35rem .6rem; cursor:pointer;
+}
+.ctrl button[aria-pressed=true]{background:var(--ink); color:var(--beige-light); border-color:var(--ink)}
+.ctrl output{font-family:ui-monospace,monospace; font-size:.6875rem; min-width:3.2em}
+
+/* ---- A · SUBSTRATE SWATCHES ------------------------------ */
+.swatch{aspect-ratio:3/2; position:relative; border:1px solid var(--beige-dark)}
+.swatch span{
+  position:absolute; bottom:.6rem; left:.7rem;
+  font-size:.6875rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink);
+}
+.paper-grain{position:absolute; inset:0; mix-blend-mode:multiply; background-size:180px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E")}
+
+/* ---- B · DOT SCREEN -------------------------------------- */
+.screen-demo{position:relative; overflow:hidden}
+.screen-demo::after{
+  content:''; position:absolute; inset:-30%;
+  transform:rotate(var(--screen-angle));
+  background-image:radial-gradient(circle,var(--ink) var(--dot-radius),transparent calc(var(--dot-radius) + .55px));
+  background-size:var(--dot-size) var(--dot-size);
+  opacity:.5;
+}
+
+/* ---- C · CSS HALFTONE (runtime approximation) ------------- */
+.css-htn{
+  aspect-ratio:4/3;
+  background-image:
+    radial-gradient(circle at 50% 50%,#000 0%,#000 34%,#fff 68%,#fff 100%),
+    var(--src);
+  background-size:var(--htn-dot) var(--htn-dot),cover;
+  background-position:center,center;
+  background-blend-mode:hard-light;
+  filter:grayscale(1) contrast(var(--htn-contrast)) brightness(1.06);
+}
+
+/* ---- D · PRESS ARTIFACTS --------------------------------- */
+.press-demo{background:var(--beige-light); border:1px solid var(--beige-dark); padding:2.5rem 1.75rem; min-height:220px; display:flex; align-items:center; justify-content:center; text-align:center}
+
+/* misregistration: the terracotta plate printed a hair off */
+.misreg{position:relative; font-family:var(--serif); font-size:2.25rem; line-height:1.05}
+.misreg::before{
+  content:attr(data-text); position:absolute; left:2px; top:2px;
+  color:var(--terracotta); mix-blend-mode:multiply; pointer-events:none;
+}
+
+/* letterpress deboss — pressed into the stock */
+.deboss{
+  font-family:var(--serif); font-size:2.75rem; line-height:1; color:var(--beige);
+  text-shadow:0 1px 0 rgb(255 255 255 /.75),0 -1px 0 rgb(13 31 34 /.22);
+}
+
+/* ghost wordmark, blind embossed */
+.ghost{
+  font-family:var(--serif); font-size:clamp(3rem,9vw,7rem); line-height:.9; color:var(--beige);
+  text-shadow:0 1px 0 rgb(255 255 255 /.7),0 -1px 0 rgb(13 31 34 /.16);
+  letter-spacing:-.02em;
+}
+
+/* deckle — the section edge is torn, not cut */
+.deckle{
+  height:26px; width:100%; background:var(--beige-light);
+  -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='26' preserveAspectRatio='none'%3E%3Cpath d='M0 0h600v14c-30 6-52-4-82 1s-48 9-78 4-52-9-82-3-56 10-86 5-48-8-78-3-56 9-86 3-28-6-28-6z' fill='%23000'/%3E%3C/svg%3E");
+  mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='26' preserveAspectRatio='none'%3E%3Cpath d='M0 0h600v14c-30 6-52-4-82 1s-48 9-78 4-52-9-82-3-56 10-86 5-48-8-78-3-56 9-86 3-28-6-28-6z' fill='%23000'/%3E%3C/svg%3E");
+  -webkit-mask-size:600px 26px; mask-size:600px 26px;
+  -webkit-mask-repeat:repeat-x; mask-repeat:repeat-x;
+}
+
+/* arch aperture — the mask from the wireframe */
+.arch{position:relative; border-radius:50% 50% 0 0 / 42% 42% 0 0; overflow:hidden}
+
+/* type filled with ground */
+.filled{
+  font-family:var(--serif); font-size:clamp(3rem,11vw,8rem); line-height:.9;
+  letter-spacing:-.02em;
+  /* Solid fallback: if the fill image fails, the type stays readable
+     instead of clipping to transparent and vanishing. */
+  background-color:var(--terracotta);
+  background-size:cover; background-position:center;
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+
+/* ---- E · SOIL STRATA ------------------------------------- */
+.strata{border:1px solid var(--beige-dark)}
+.stratum{
+  position:relative; min-height:160px; display:flex; align-items:center;
+  padding:1.5rem 1.75rem; overflow:hidden;
+}
+.stratum__label{position:relative; z-index:2; font-size:.6875rem; letter-spacing:.18em; text-transform:uppercase}
+.stratum__depth{
+  position:relative; z-index:2; margin-left:auto;
+  font-family:ui-monospace,monospace; font-size:.6875rem; opacity:.7;
+}
+.stratum .paper-grain{opacity:.5}
+
+/* ---- FOOTER ---------------------------------------------- */
+footer{padding:4rem 0 6rem; border-top:1px solid var(--beige-dark)}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<div class="substrate" aria-hidden="true"></div>
+
+<!-- ================= CONTROLS ================= -->
+<div class="controls">
+  <div class="controls__inner">
+    <div class="ctrl">
+      <label for="photo">Photo</label>
+      <select id="photo"></select>
+    </div>
+    <div class="ctrl">
+      <label for="grain">Grain</label>
+      <input type="range" id="grain" min="0" max="0.7" step="0.01" value="0.30">
+      <output id="grainOut">0.30</output>
+    </div>
+    <div class="ctrl">
+      <label for="dot">Screen</label>
+      <input type="range" id="dot" min="2" max="12" step="0.5" value="4">
+      <output id="dotOut">4px</output>
+    </div>
+    <div class="ctrl">
+      <label for="angle">Angle</label>
+      <input type="range" id="angle" min="0" max="90" step="5" value="15">
+      <output id="angleOut">15°</output>
+    </div>
+    <div class="ctrl">
+      <button type="button" id="flat" aria-pressed="false">Flat mode</button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ================= MASTHEAD ================= -->
+<section>
+  <p class="eyebrow">Specimen sheet · Cloud <code id="cloudName"></code></p>
+  <h1>The texture of<br><em>terroir</em></h1>
+  <p class="lede" style="margin-top:1.5rem">Every treatment below is a candidate. Nothing here is a decision. Pick the ones that feel like your places and they become tokens.</p>
+  <p class="note"><strong>Reading this sheet:</strong> each tile shows a status chip (top left) and the real transferred weight (bottom right). Click any recipe to copy it. If a chip reads FAILED, that transformation string is wrong — tell me and I'll fix it. I built this without being able to reach Cloudinary, so the recipes are unverified.</p>
+</section>
+
+<!-- ================= A · SUBSTRATE ================= -->
+<section>
+  <div class="sec-head">
+    <span class="num">A</span>
+    <h2>Substrate</h2>
+    <p class="note">Grain belongs to the paper, not the plate — so this layer is fixed to the viewport and the page moves across it. One raster, rendered once, zero scroll cost. Use the Grain slider to find the threshold where it stops reading as noise and starts reading as stock. My instinct is 0.22–0.32.</p>
+  </div>
+  <div class="grid g4">
+    <div class="swatch" style="background:var(--beige)"><div class="paper-grain" style="opacity:.15"></div><span>Beige · 0.15</span></div>
+    <div class="swatch" style="background:var(--beige)"><div class="paper-grain" style="opacity:.30"></div><span>Beige · 0.30</span></div>
+    <div class="swatch" style="background:var(--beige)"><div class="paper-grain" style="opacity:.55"></div><span>Beige · 0.55</span></div>
+    <div class="swatch" style="background:var(--ink)"><div class="paper-grain" style="opacity:.4;mix-blend-mode:screen"></div><span style="color:var(--beige)">Ink · screen</span></div>
+    <div class="swatch" style="background:var(--terracotta)"><div class="paper-grain" style="opacity:.3"></div><span style="color:var(--beige)">Terracotta</span></div>
+    <div class="swatch" style="background:var(--fern)"><div class="paper-grain" style="opacity:.3"></div><span style="color:var(--beige)">Fern</span></div>
+    <div class="swatch screen-demo" style="background:var(--beige)"><span>Dot screen</span></div>
+    <div class="swatch screen-demo" style="background:var(--beige)"><div class="paper-grain" style="opacity:.25"></div><span>Screen + grain</span></div>
+  </div>
+</section>
+
+<!-- ================= B · PRESSED REGISTER ================= -->
+<section>
+  <div class="sec-head">
+    <span class="num">B</span>
+    <h2>The pressed register <em>·</em> Cloudinary</h2>
+    <p class="note">Baked server-side, delivered as a plain <code>&lt;img&gt;</code> — lazy loading, alt text and srcset all intact. Note the transformation order in every recipe: <code>w_</code> comes <em>before</em> <code>e_ordered_dither</code>, so the dot pitch stays fixed relative to the layout instead of drifting with delivered width. Watch the weight readouts: halftones are high-frequency and often come back smaller as PNG than as AVIF.</p>
+  </div>
+  <div class="grid g3" id="cldGrid"></div>
+</section>
+
+<!-- ================= C · HEAD TO HEAD ================= -->
+<section>
+  <div class="sec-head">
+    <span class="num">C</span>
+    <h2>Runtime <em>vs</em> baked</h2>
+    <p class="note">Same photograph, same intent. Left is pure CSS — a radial-gradient tile blended <code>hard-light</code> over the image at high contrast. It costs a network request of nothing, retunes live, and scales with the element. But it's a <code>div</code> with a background, so no alt text, no lazy loading, no srcset. Right is Cloudinary. This comparison is the whole question you asked.</p>
+  </div>
+  <div class="grid g2">
+    <div class="spec">
+      <div class="spec__frame"><div class="css-htn" id="cssHtn"></div></div>
+      <div class="spec__meta">
+        <div class="spec__name">CSS · blend-mode approximation</div>
+        <p class="spec__note">Dots clump in shadows but don't vary continuously with luminance — roughly 80% convincing. Free, live-tunable, semantically poor.</p>
+        <div class="recipe">background-blend-mode:hard-light; filter:grayscale(1) contrast(1.5)</div>
+      </div>
+    </div>
+    <div class="spec">
+      <div class="spec__frame"><span class="badge">…</span><img id="bakedHtn" alt="Halftone comparison, baked server-side" loading="lazy" decoding="async"></div>
+      <div class="spec__meta">
+        <div class="spec__name">Cloudinary · true ordered dither</div>
+        <p class="spec__note">Real variable screen, zero runtime cost, full <code>&lt;img&gt;</code> semantics. Costs a dependency and a per-image decision.</p>
+        <div class="recipe" id="bakedHtnRecipe"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= D · PRESS ARTIFACTS ================= -->
+<section>
+  <div class="sec-head">
+    <span class="num">D</span>
+    <h2>Press artifacts</h2>
+    <p class="note">Free in CSS, and disproportionately effective — perfect registration is the giveaway of digital, so introducing a controlled flaw is what reads as <em>printed</em> rather than <em>rendered</em>.</p>
+  </div>
+  <div class="grid g3">
+    <div class="press-demo"><div class="misreg" data-text="Terroir">Terroir</div></div>
+    <div class="press-demo"><div class="deboss">Pressed</div></div>
+    <div class="press-demo" style="padding:0;display:block">
+      <div style="background:var(--beige);height:100px"></div>
+      <div class="deckle"></div>
+      <div style="background:var(--beige-light);height:94px;display:flex;align-items:center;justify-content:center;font-size:.6875rem;letter-spacing:.18em;text-transform:uppercase">Deckled edge</div>
+    </div>
+  </div>
+  <div class="grid g2" style="margin-top:1.75rem">
+    <div class="press-demo" style="background:var(--beige);border:0;padding:3rem 1rem"><div class="ghost">Tannic</div></div>
+    <div class="press-demo" style="background:var(--beige);border:0;padding:3rem 1rem"><div class="filled" id="filledType">Soil</div></div>
+  </div>
+</section>
+
+<!-- ================= E · SHAPED PHOTOGRAPHY ================= -->
+<section>
+  <div class="sec-head">
+    <span class="num">E</span>
+    <h2>Shaped photography</h2>
+    <p class="note">The arch stays in CSS rather than baked with <code>fl_cutter</code>: resolution-independent, animatable, and the asset stays reusable in other crops. Cloudinary handles the <em>treatment</em>; CSS handles the <em>shape</em>.</p>
+  </div>
+  <div class="grid g3">
+    <div class="spec" style="border:0;background:transparent">
+      <div class="arch" style="aspect-ratio:3/4;background:var(--beige-dark)">
+        <span class="badge">…</span>
+        <img class="archImg" alt="Arch-masked plate" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover">
+      </div>
+      <div class="spec__meta"><div class="spec__name">Arch · lush plate</div></div>
+    </div>
+    <div class="spec" style="border:0;background:transparent">
+      <div class="arch" style="aspect-ratio:3/4;background:var(--beige-dark)">
+        <span class="badge">…</span>
+        <img class="archImgPressed" alt="Arch-masked pressed image" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover">
+      </div>
+      <div class="spec__meta"><div class="spec__name">Arch · pressed</div></div>
+    </div>
+    <div class="spec" style="border:0;background:transparent">
+      <div style="aspect-ratio:3/4;background:#fff;padding:14px 14px 52px;box-shadow:0 14px 34px rgb(13 31 34 /.18);transform:rotate(-1.4deg)">
+        <div style="position:relative;width:100%;height:100%;background:var(--beige-dark)">
+          <span class="badge">…</span>
+          <img class="printImg" alt="Print-bordered photograph" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover">
+        </div>
+      </div>
+      <div class="spec__meta" style="margin-top:1rem"><div class="spec__name">Print border</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= F · SOIL STRATA ================= -->
+<section>
+  <div class="sec-head">
+    <span class="num">F</span>
+    <h2>Soil strata</h2>
+    <p class="note">The vertical route descends into the cellar, so descend through the ground. Section grounds move down the soil horizon as you scroll — scroll depth becomes actual depth. This is the palette doing structural work rather than decorative work.</p>
+  </div>
+  <div class="strata">
+    <div class="stratum" style="background:#8C8A6B"><div class="paper-grain"></div><span class="stratum__label">Topsoil</span><span class="stratum__depth">0–30 cm</span></div>
+    <div class="stratum" style="background:var(--terracotta)"><div class="paper-grain"></div><span class="stratum__label" style="color:var(--beige-light)">Clay</span><span class="stratum__depth" style="color:var(--beige-light)">30–90 cm</span></div>
+    <div class="stratum" style="background:var(--rose)"><div class="paper-grain"></div><span class="stratum__label" style="color:var(--beige-light)">Gravel</span><span class="stratum__depth" style="color:var(--beige-light)">90–160 cm</span></div>
+    <div class="stratum" style="background:var(--ink-light)"><div class="paper-grain" style="mix-blend-mode:screen;opacity:.3"></div><span class="stratum__label" style="color:var(--beige-light)">Fractured bedrock</span><span class="stratum__depth" style="color:var(--beige-light)">1.6–4 m</span></div>
+    <div class="stratum" style="background:var(--ink)"><div class="paper-grain" style="mix-blend-mode:screen;opacity:.25"></div><span class="stratum__label" style="color:var(--beige-light)">Cellar</span><span class="stratum__depth" style="color:var(--beige-light)">4 m</span></div>
+  </div>
+</section>
+
+<footer>
+  <p class="eyebrow">Next</p>
+  <p class="note">Mark the specimens worth keeping and they become named transformations on your Cloudinary account (<code>t_pressed_coarse</code>, <code>t_material_clay</code>) plus a short list of CSS tokens. Then the Window gets built on whichever ground you picked.</p>
+</footer>
+
+</div>
+
+<script>
+(() => {
+  'use strict';
+
+  const CLOUD = 'da9j9kflk';
+  const BASE  = 'https://res.cloudinary.com/' + CLOUD + '/image/upload/';
+
+  const PHOTOS = [
+    { id:'DSC_0505-3_Large_u7hmim', v:'v1779895615', label:'DSC_0505' },
+    { id:'DSC_0481_Large_p1o89j',   v:'v1779895615', label:'DSC_0481' },
+    { id:'DSC_0944_Large_v7nkcc',   v:'v1779895615', label:'DSC_0944' }
+  ];
+  let active = PHOTOS[0];
+
+  const url = (t, p) => BASE + (t ? t + '/' : '') + (p || active).v + '/' + (p || active).id + '.jpg';
+
+  /* ---------------------------------------------------------
+     The candidate recipes.
+     Order matters: resize BEFORE dithering so dot pitch is
+     fixed relative to the layout, not the source resolution.
+     --------------------------------------------------------- */
+  const RECIPES = [
+    { name:'Plate · lush',
+      t:'f_auto,q_auto,w_900',
+      note:'The untouched register. This is what hero photography stays as — the thing you are actually selling.' },
+
+    { name:'Pressed · coarse halftone',
+      t:'w_900,e_grayscale,e_contrast:30,e_ordered_dither:6',
+      note:'Angled 4x4 screen. The archival voice. Check the weight against the AVIF version below.' },
+
+    { name:'Pressed · coarse, forced PNG',
+      t:'w_900,e_grayscale,e_contrast:30,e_ordered_dither:6,f_png',
+      note:'Same screen, lossless. A near-1-bit pattern is few colours, so this often beats f_auto outright.' },
+
+    { name:'Pressed · fine halftone',
+      t:'w_900,e_grayscale,e_contrast:20,e_ordered_dither:8',
+      note:'Angled 8x8. Holds more midtone detail — better on faces and interiors, weaker as a graphic device.' },
+
+    { name:'Pressed · orthogonal',
+      t:'w_900,e_grayscale,e_contrast:25,e_ordered_dither:11',
+      note:'Square grid instead of angled. Reads more technical, less newsprint.' },
+
+    { name:'Pressed · circles',
+      t:'w_900,e_grayscale,e_contrast:25,e_ordered_dither:13',
+      note:'Circle map. The most decorative of the set — probably too much for body imagery.' },
+
+    { name:'Duotone · ink → clay',
+      t:'w_900,e_grayscale,e_tint:100:rgb:0d1f22:0p:rgb:ad5d4e:100p',
+      note:'Shadows to Ink Black, highlights to Terracotta. Keeps tonal range while pulling the photo into the palette.' },
+
+    { name:'Duotone · ink → fern',
+      t:'w_900,e_grayscale,e_tint:100:rgb:0d1f22:0p:rgb:568259:100p',
+      note:'The botanical register. Candidate for vineyard and orchard imagery specifically.' },
+
+    { name:'Plate · film grain',
+      t:'f_auto,q_auto,w_900,e_noise:22',
+      note:'Grain baked onto the plate. Compare against the CSS substrate — this one scrolls with the photo, which is arguably wrong.' },
+
+    { name:'Plate · desaturated warm',
+      t:'f_auto,q_auto,w_900,e_saturation:-38,e_contrast:12',
+      note:'Not a texture, a temperament. Pulls colour photography toward the palette without committing to duotone.' },
+
+    { name:'Pressed · dithered duotone',
+      t:'w_900,e_grayscale,e_contrast:30,e_ordered_dither:8,e_tint:100:rgb:0d1f22:0p:rgb:ad5d4e:100p',
+      note:'Screen first, then tint. The most stylised option — one per page, maximum.' },
+
+    { name:'Material · blurred ground',
+      t:'w_900,e_blur:1200,e_saturation:-20',
+      note:'For section grounds rather than content. High blur compresses to almost nothing and reads as material, not image.' }
+  ];
+
+  /* --- weight + status reporting -------------------------- */
+  const report = (frame, src) => {
+    const badge = frame.querySelector('.badge');
+    const img = new Image();
+    img.onload = () => {
+      if (badge) { badge.textContent = 'ok'; badge.className = 'badge ok'; }
+      // Real transferred bytes, if the resource timing entry is available.
+      setTimeout(() => {
+        const e = performance.getEntriesByName(src)[0];
+        if (!e) return;
+        const bytes = e.transferSize || e.encodedBodySize;
+        if (!bytes) return;
+        const tag = document.createElement('span');
+        tag.className = 'weight';
+        tag.textContent = (bytes / 1024).toFixed(0) + ' KB';
+        frame.appendChild(tag);
+      }, 400);
+    };
+    img.onerror = () => {
+      if (badge) { badge.textContent = 'failed'; badge.className = 'badge fail'; }
+    };
+    img.src = src;
+  };
+
+  /* --- build the Cloudinary grid -------------------------- */
+  const grid = document.getElementById('cldGrid');
+
+  const buildGrid = () => {
+    grid.innerHTML = '';
+    RECIPES.forEach(r => {
+      const src = url(r.t);
+      const el = document.createElement('div');
+      el.className = 'spec';
+      el.innerHTML =
+        '<div class="spec__frame">' +
+          '<span class="badge">…</span>' +
+          '<img alt="' + r.name + ' specimen" loading="lazy" decoding="async">' +
+        '</div>' +
+        '<div class="spec__meta">' +
+          '<div class="spec__name">' + r.name + '</div>' +
+          '<p class="spec__note">' + r.note + '</p>' +
+          '<div class="recipe">' + r.t + '</div>' +
+        '</div>';
+      el.querySelector('img').src = src;
+      grid.appendChild(el);
+      report(el.querySelector('.spec__frame'), src);
+    });
+  };
+
+  /* --- the rest of the page's image slots ----------------- */
+  const paintAll = () => {
+    buildGrid();
+
+    const cssHtn = document.getElementById('cssHtn');
+    cssHtn.style.setProperty('--src', 'url("' + url('f_auto,q_auto,w_800') + '")');
+
+    const bakedSrc = url('w_800,e_grayscale,e_contrast:30,e_ordered_dither:6');
+    const baked = document.getElementById('bakedHtn');
+    baked.src = bakedSrc;
+    document.getElementById('bakedHtnRecipe').textContent = 'w_800,e_grayscale,e_contrast:30,e_ordered_dither:6';
+    report(baked.closest('.spec__frame'), bakedSrc);
+
+    const shaped = [
+      ['.archImg',        'f_auto,q_auto,w_700,ar_3:4,c_fill,g_auto'],
+      ['.archImgPressed', 'w_700,ar_3:4,c_fill,g_auto,e_grayscale,e_contrast:30,e_ordered_dither:8'],
+      ['.printImg',       'f_auto,q_auto,w_700,ar_1:1,c_fill,g_auto']
+    ];
+    shaped.forEach(([sel, t]) => {
+      const img = document.querySelector(sel);
+      if (!img) return;
+      const src = url(t);
+      img.src = src;
+      report(img.closest('.arch') || img.parentElement, src);
+    });
+
+    document.getElementById('filledType').style.backgroundImage =
+      'url("' + url('f_auto,q_auto,w_900,e_contrast:20') + '")';
+  };
+
+  /* --- controls ------------------------------------------- */
+  const root = document.documentElement;
+
+  const sel = document.getElementById('photo');
+  PHOTOS.forEach((p, i) => {
+    const o = document.createElement('option');
+    o.value = String(i); o.textContent = p.label;
+    sel.appendChild(o);
+  });
+  sel.addEventListener('change', e => { active = PHOTOS[+e.target.value]; paintAll(); });
+
+  const bind = (id, outId, prop, fmt) => {
+    const input = document.getElementById(id);
+    const out = document.getElementById(outId);
+    const apply = () => {
+      root.style.setProperty(prop, fmt(input.value));
+      out.textContent = fmt(input.value);
+    };
+    input.addEventListener('input', apply);
+    apply();
+  };
+  bind('grain', 'grainOut', '--grain-opacity', v => Number(v).toFixed(2));
+  bind('dot',   'dotOut',   '--dot-size',      v => v + 'px');
+  bind('angle', 'angleOut', '--screen-angle',  v => v + 'deg');
+
+  const flat = document.getElementById('flat');
+  flat.addEventListener('click', () => {
+    const on = flat.getAttribute('aria-pressed') === 'true';
+    flat.setAttribute('aria-pressed', String(!on));
+    document.body.classList.toggle('flat', !on);
+  });
+
+  /* --- click a recipe to copy it -------------------------- */
+  document.addEventListener('click', e => {
+    const r = e.target.closest('.recipe');
+    if (!r) return;
+    navigator.clipboard?.writeText(r.textContent.trim()).then(() => {
+      r.classList.add('copied');
+      setTimeout(() => r.classList.remove('copied'), 1200);
+    });
+  });
+
+  document.getElementById('cloudName').textContent = CLOUD;
+  paintAll();
+})();
+</script>
+</body>
+</html>
