@@ -466,6 +466,38 @@ footer{padding:4rem 0 6rem; border-top:1px solid var(--beige-dark)}
 }
 @media (max-width:700px){ .descent__hud{top:1rem; right:1rem} .descent__depth{font-size:1.1rem} }
 
+
+/* ---- J · ORGANIC SHAPES -----------------------------------
+   The Holime card's silhouette is border-radius:12rem plus
+   corner-shape:squircle. Two things make it organic: the radius
+   exceeds half the side (so it stops being a rounded rectangle),
+   and squircle removes the curvature break where an arc meets a
+   straight edge — the discontinuity the eye reads as manufactured.
+   corner-shape is new; every shape here degrades to plain
+   border-radius, which is close but visibly more mechanical. */
+.shape{position:relative; overflow:hidden; background:var(--beige-dark); aspect-ratio:3/4}
+.shape img{width:100%; height:100%; object-fit:cover; display:block}
+
+.sh-squircle{border-radius:30%; corner-shape:squircle}
+.sh-arch    {border-radius:50% 50% 8% 8% / 42% 42% 6% 6%; corner-shape:squircle}
+.sh-leaf    {border-radius:0 62% 0 62%; corner-shape:squircle}
+.sh-vessel  {border-radius:44% 44% 14% 14% / 54% 54% 16% 16%; corner-shape:squircle}
+.sh-stave   {border-radius:50% / 12%; corner-shape:squircle}
+/* poured slip — asymmetric on both axes, no two corners alike */
+.sh-blob    {border-radius:58% 42% 47% 53% / 46% 54% 48% 52%}
+
+/* the same radius, arcs vs superellipse, side by side */
+.sh-round   {border-radius:30%; corner-shape:round}
+
+.support{
+  display:inline-flex; align-items:center; gap:.5rem;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.75rem;
+  padding:.4rem .7rem; border:1px solid var(--beige-dark); background:var(--beige-light);
+}
+.support::before{content:''; width:.5rem; height:.5rem; border-radius:50%; background:var(--rose)}
+.support.yes::before{background:var(--fern)}
+.support.no::before{background:var(--terracotta-deep)}
+
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -750,6 +782,50 @@ footer{padding:4rem 0 6rem; border-top:1px solid var(--beige-dark)}
         <h3 id="descentTitle">Where the vines start</h3>
         <p id="descentLine">Thirty centimetres of it, and every argument about this place begins here.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================= J · ORGANIC SHAPES ================= -->
+<section>
+  <div class="sec-head">
+    <span class="num">J</span>
+    <h2>Organic shapes</h2>
+    <p class="note">Silhouettes with no straight-to-curve break in them. Each is a <code>border-radius</code> large enough to stop being a rounded rectangle, plus <code>corner-shape: squircle</code> to make the curvature continuous.</p>
+    <p style="margin-top:1rem"><span class="support" id="cornerSupport">checking corner-shape…</span></p>
+  </div>
+
+  <div class="grid g3">
+    <div class="spec" style="border:0;background:transparent">
+      <div class="shape sh-round"><img class="shapeImg" alt="Circular-arc corners" loading="lazy"></div>
+      <div class="spec__meta"><div class="spec__name">30% radius · circular arcs</div>
+      <p class="spec__note">The default. Look at the four points where the curve meets the edge — that break is what reads as UI.</p></div>
+    </div>
+    <div class="spec" style="border:0;background:transparent">
+      <div class="shape sh-squircle"><img class="shapeImg" alt="Squircle corners" loading="lazy"></div>
+      <div class="spec__meta"><div class="spec__name">30% radius · squircle</div>
+      <p class="spec__note">Identical radius, continuous curvature. Same silhouette, entirely different feeling.</p></div>
+    </div>
+    <div class="spec" style="border:0;background:transparent">
+      <div class="shape sh-leaf"><img class="shapeImg" alt="Leaf shape" loading="lazy"></div>
+      <div class="spec__meta"><div class="spec__name">Leaf</div>
+      <p class="spec__note">Two opposite corners fully rounded, two square. A vine leaf, a seed, a pointed arch.</p></div>
+    </div>
+    <div class="spec" style="border:0;background:transparent">
+      <div class="shape sh-arch"><img class="shapeImg" alt="Squircled arch" loading="lazy"></div>
+      <div class="spec__meta"><div class="spec__name">Arch · squircled</div>
+      <p class="spec__note">Section E's aperture, softened. The cellar door rather than a rounded rectangle.</p></div>
+    </div>
+    <div class="spec" style="border:0;background:transparent">
+      <div class="shape sh-vessel"><img class="shapeImg" alt="Vessel shape" loading="lazy"></div>
+      <div class="spec__meta"><div class="spec__name">Vessel</div>
+      <p class="spec__note">Wide shoulders, narrow foot. An amphora silhouette — the oldest wine container there is.</p></div>
+    </div>
+    <div class="spec" style="border:0;background:transparent">
+      <div class="shape sh-blob"><img class="shapeImg" alt="Poured shape" loading="lazy"></div>
+      <div class="spec__meta"><div class="spec__name">Poured slip</div>
+      <p class="spec__note">Eight radii, no two corners alike, no <code>corner-shape</code> needed — so this one works in every browser today.</p></div>
     </div>
   </div>
 </section>
@@ -1055,6 +1131,24 @@ footer{padding:4rem 0 6rem; border-top:1px solid var(--beige-dark)}
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onScroll, { passive: true });
   paint();
+})();
+</script>
+
+<script>
+/* Shape section: fill the photos and report corner-shape support,
+   since the property is new enough that the fallback matters. */
+(() => {
+  const badge = document.getElementById('cornerSupport');
+  if (badge) {
+    const ok = window.CSS && CSS.supports && CSS.supports('corner-shape', 'squircle');
+    badge.textContent = ok
+      ? 'corner-shape: supported in this browser — you are seeing true squircles'
+      : 'corner-shape: NOT supported here — falling back to circular arcs';
+    badge.className = 'support ' + (ok ? 'yes' : 'no');
+  }
+  const src = 'https://res.cloudinary.com/da9j9kflk/image/upload/'
+            + 'f_auto,q_auto,w_700,ar_3:4,c_fill,g_auto/v1779895615/DSC_0481_Large_p1o89j.jpg';
+  document.querySelectorAll('.shapeImg').forEach(img => { img.src = src; });
 })();
 </script>
 </body>
