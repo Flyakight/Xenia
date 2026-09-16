@@ -1,0 +1,38 @@
+{
+  "name": "luxe-hospitality-wp",
+  "version": "1.0.0",
+  "description": "A cinematic, frame-breaking WordPress theme for high-end wineries, resorts, and luxury travel experiences",
+  "main": "index.js",
+  "scripts": {
+    "start": "echo 'Luxe Hospitality Theme loaded'",
+    "build": "echo 'No build step required - theme uses CDN assets'",
+    "lint": "echo 'Add ESLint or other linting tools as needed'"
+  },
+  "keywords": [
+    "wordpress",
+    "theme",
+    "hospitality",
+    "luxury",
+    "travel",
+    "winery",
+    "resort",
+    "gsap",
+    "animations",
+    "cinematic"
+  ],
+  "author": "Your Name",
+  "license": "GPL-2.0-or-later",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/luxe-hospitality-wp"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/luxe-hospitality-wp/issues"
+  },
+  "homepage": "https://github.com/yourusername/luxe-hospitality-wp#readme",
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "stylelint": "^15.0.0",
+    "prettier": "^3.0.0"
+  }
+}

@@ -1,0 +1,23 @@
+/*!
+Theme Name: Luxe Hospitality
+Theme URI: https://github.com/yourusername/luxe-hospitality-wp
+Author: Your Name
+Author URI: https://yoursite.com
+Description: A cinematic, frame-breaking WordPress theme for high-end wineries, resorts, and luxury travel experiences. Built with Cormorant Garamond + DM Sans, GSAP animations, and Gutenberg.
+Version: 1.0.0
+Requires at least: 6.0
+Tested up to: 6.6
+Requires PHP: 7.4
+License: GPL v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: luxe
+Domain Path: /languages
+Tags: hospitality, luxury, travel, winery, resort, experience, cinematic, scroll-animation
+
+This theme is licensed under the GPL.
+Use it to make something cool, have fun, and share what you've learned.
+*/
+
+/* Import all stylesheets */
+@import url('./assets/css/style.css');
+@import url('./assets/css/layout.css');

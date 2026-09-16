@@ -1,0 +1,286 @@
+================================================================================
+LUXE HOSPITALITY WORDPRESS THEME - COMPLETE FILE LIST
+================================================================================
+
+Total Files: 22
+Total Size: ~92 KB (excludes CDN assets)
+Ready to deploy to: /wp-content/themes/luxe-hospitality-wp/
+
+================================================================================
+DOWNLOAD & INSTALLATION
+================================================================================
+
+OPTION 1: Download all files from this GitHub repo
+  1. Click "Code" → "Download ZIP"
+  2. Extract to /wp-content/themes/luxe-hospitality-wp/
+  3. Activate in WordPress admin → Appearance → Themes
+
+OPTION 2: Clone from GitHub
+  git clone https://github.com/yourusername/luxe-hospitality-wp.git wp-content/themes/luxe-hospitality-wp
+
+================================================================================
+COMPLETE FILE STRUCTURE (Copy this directory layout)
+================================================================================
+
+luxe-hospitality-wp/
+│
+├── ROOT LEVEL FILES (REQUIRED)
+│   ├── style.css .......................... Theme header & stylesheet registration
+│   ├── functions.php ...................... Theme setup, post types, enqueuing
+│   ├── header.php ......................... Navigation & header template
+│   ├── footer.php ......................... Footer & closing tags
+│   ├── index.php .......................... Archive fallback template
+│   ├── home.php ........................... Blog homepage template
+│   ├── single.php ......................... Single post template
+│   ├── single-property.php ................ Single property post type template
+│   ├── 404.php ............................ 404 error page template
+│   │
+│   ├── package.json ....................... NPM metadata (for GitHub)
+│   ├── .gitignore ......................... Git ignore rules (for GitHub)
+│   └── LICENSE ............................ GPL v2.0 license
+│
+├── DOCUMENTATION FILES
+│   ├── README.md .......................... START HERE - Setup & customization
+│   ├── README_GITHUB.md ................... GitHub-specific documentation
+│   ├── QUICKSTART.md ...................... 5-minute quick start guide
+│   ├── STRUCTURE.md ....................... File-by-file explanations
+│   ├── FILE_MANIFEST.md ................... This manifest with descriptions
+│   ├── GITHUB_SETUP.md .................... GitHub upload & release guide
+│   └── FILES_TO_DOWNLOAD.txt ............. This file
+│
+├── TEMPLATE PARTS DIRECTORY
+│   └── template-parts/
+│       └── content-property.php .......... Property detail page layout
+│
+└── ASSETS DIRECTORY
+    └── assets/
+        ├── css/
+        │   ├── style.css ................. Design system & base styles
+        │   ├── layout.css ................ Navigation, footer, layouts
+        │   └── block-editor.css .......... Gutenberg editor styles
+        │
+        └── js/
+            └── main.js .................. GSAP animations & interactions
+
+================================================================================
+FILE DESCRIPTIONS (Quick Reference)
+================================================================================
+
+🔧 CORE THEME (Must have all 4)
+  ✓ style.css                     WordPress recognizes this as theme
+  ✓ functions.php                 Theme functionality & setup
+  ✓ package.json                  GitHub metadata (optional but recommended)
+  ✓ .gitignore                    Tells Git what to ignore
+
+📄 TEMPLATES (WordPress page templates - all 8 recommended)
+  ✓ header.php                    HTML <head> and navigation
+  ✓ footer.php                    Footer and </html>
+  ✓ index.php                     Fallback archive template
+  ✓ home.php                      Blog homepage
+  ✓ single.php                    Blog posts
+  ✓ single-property.php           Property detail pages
+  ✓ 404.php                       Not found pages
+
+📁 TEMPLATE PARTS (Reusable components)
+  ✓ template-parts/content-property.php   Property page sections
+
+🎨 STYLESHEETS (All 3 enhance different areas)
+  ✓ assets/css/style.css          Main design system & components
+  ✓ assets/css/layout.css         Navigation, footer, layouts
+  ✓ assets/css/block-editor.css   Gutenberg editor styling
+
+🚀 JAVASCRIPT
+  ✓ assets/js/main.js             GSAP animations & interactions
+
+📚 DOCUMENTATION (Recommended reading)
+  ✓ README.md                     Complete setup & customization guide
+  ✓ QUICKSTART.md                 5-minute activation guide
+  ✓ STRUCTURE.md                  File explanations
+  ✓ FILE_MANIFEST.md              Detailed file descriptions
+
+================================================================================
+MINIMUM INSTALLATION
+================================================================================
+
+If you only want the theme to work (no documentation):
+
+1. Create folder structure:
+   /wp-content/themes/luxe-hospitality-wp/
+   └── assets/
+       ├── css/
+       └── js/
+   └── template-parts/
+
+2. Copy these files:
+   ✓ style.css
+   ✓ functions.php
+   ✓ header.php
+   ✓ footer.php
+   ✓ index.php
+   ✓ home.php
+   ✓ single.php
+   ✓ single-property.php
+   ✓ 404.php
+   ✓ template-parts/content-property.php
+   ✓ assets/css/*.css (all 3)
+   ✓ assets/js/main.js
+
+3. Activate in WordPress
+
+** NOT RECOMMENDED ** - Documentation files help with setup!
+
+================================================================================
+GITHUB UPLOAD CHECKLIST
+================================================================================
+
+Before pushing to GitHub:
+
+Folder Structure
+  [ ] All files are in correct directories
+  [ ] No extra files (old backups, IDE configs)
+  [ ] .gitignore is present
+
+Documentation
+  [ ] README_GITHUB.md has your GitHub username
+  [ ] GITHUB_SETUP.md is present
+  [ ] FILE_MANIFEST.md is present
+
+Git Setup
+  [ ] Initialized: git init
+  [ ] Files added: git add .
+  [ ] Committed: git commit -m "Initial commit"
+  [ ] Remote added: git remote add origin [your-repo-url]
+  [ ] Pushed: git push -u origin main
+
+GitHub Configuration
+  [ ] Repository created on GitHub
+  [ ] Description added
+  [ ] Topics added (wordpress, theme, hospitality, etc)
+  [ ] License set to GPL v2.0
+  [ ] Initial release v1.0.0 published
+
+================================================================================
+FILE SIZES REFERENCE
+================================================================================
+
+Core Files:
+  style.css                               1.2 KB
+  functions.php                          12 KB
+  package.json                            1.5 KB
+  .gitignore                              1 KB
+
+Templates:
+  header.php                              2.5 KB
+  footer.php                              2 KB
+  index.php                               2 KB
+  home.php                                2.5 KB
+  single.php                              2 KB
+  single-property.php                     1.5 KB
+  404.php                                 2 KB
+  template-parts/content-property.php     5 KB
+
+Stylesheets:
+  assets/css/style.css                    8 KB
+  assets/css/layout.css                   7 KB
+  assets/css/block-editor.css             4 KB
+
+JavaScript:
+  assets/js/main.js                       9 KB
+
+Documentation:
+  README.md                               8 KB
+  README_GITHUB.md                        7 KB
+  QUICKSTART.md                           3 KB
+  STRUCTURE.md                            9 KB
+  FILE_MANIFEST.md                        8 KB
+  GITHUB_SETUP.md                         7 KB
+
+LICENSE                                   35 KB
+
+TOTAL:                                    ~92 KB
+
+================================================================================
+QUICKSTART
+================================================================================
+
+1. Download all files
+2. Extract to /wp-content/themes/luxe-hospitality-wp/
+3. Go to WordPress admin → Appearance → Themes
+4. Activate "Luxe Hospitality"
+5. Read QUICKSTART.md (5 minutes)
+6. Done!
+
+================================================================================
+SUPPORT & DOCUMENTATION
+================================================================================
+
+Quick Start:          → QUICKSTART.md (5 minutes)
+Setup & Customization: → README.md (complete guide)
+File Organization:    → STRUCTURE.md (deep dive)
+File Details:         → FILE_MANIFEST.md (all files explained)
+GitHub Setup:         → GITHUB_SETUP.md (upload to GitHub)
+
+================================================================================
+WHAT'S INCLUDED
+================================================================================
+
+✅ Cinematic GSAP scroll animations
+✅ Frame-breaking responsive design
+✅ Parallax images on scroll
+✅ Custom post types (Properties, Experiences)
+✅ Gutenberg block support
+✅ ACF integration ready
+✅ Sticky navigation with mobile menu
+✅ Hero sections with typography effects
+✅ Card layouts with staggered reveals
+✅ Gallery grids (masonry)
+✅ Responsive & mobile-first
+✅ WCAG 2.1 AA accessible
+✅ Performance optimized
+✅ Well documented (6 guide files)
+✅ Ready for GitHub
+
+================================================================================
+WHAT'S NOT INCLUDED (Add separately)
+================================================================================
+
+❌ WordPress core (install separately)
+❌ Advanced Custom Fields Pro plugin (recommended but optional)
+❌ Sample images (use your own)
+❌ Logo (upload via WordPress Customizer)
+❌ Content (create posts/properties yourself)
+
+================================================================================
+TECHNICAL REQUIREMENTS
+================================================================================
+
+WordPress:    6.0+
+PHP:          7.4+
+Browsers:     Chrome 90+, Firefox 88+, Safari 14+
+Recommended:  ACF Pro (for custom fields)
+
+No build step required!
+Uses CDN for: Tailwind CSS, GSAP, Google Fonts
+
+================================================================================
+NEXT STEPS
+================================================================================
+
+1. Download all files ✓
+2. Extract to /wp-content/themes/luxe-hospitality-wp/ ✓
+3. Activate in WordPress admin ✓
+4. Read README.md ✓
+5. Follow QUICKSTART.md ✓
+6. Customize colors in assets/css/style.css ✓
+7. (Optional) Push to GitHub using GITHUB_SETUP.md ✓
+8. Build something amazing! 🎭
+
+================================================================================
+
+Made with ❤️ for hospitality brands that refuse to look like templates.
+
+GitHub: https://github.com/yourusername/luxe-hospitality-wp
+Issues: https://github.com/yourusername/luxe-hospitality-wp/issues
+Releases: https://github.com/yourusername/luxe-hospitality-wp/releases
+
+================================================================================
