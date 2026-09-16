@@ -392,6 +392,80 @@ footer{padding:4rem 0 6rem; border-top:1px solid var(--beige-dark)}
 .lit--back{background:var(--ink); color:var(--beige-light);
   box-shadow:0 0 44px rgb(86 130 89 /.34), inset 0 0 70px rgb(86 130 89 /.16)}
 
+
+/* ---- I · THE DESCENT --------------------------------------
+   One fixed gradient panned by scroll, after the Paradox pen.
+   Two details make it work: interpolation in oklch (warm to cool
+   without the grey mud sRGB gives you) and non-linear stop spacing
+   (most of the change happens near the surface, the way atmospheric
+   perspective compresses near the horizon).
+   Native scroll throughout — no virtual scroller, no hijacking. */
+.descent{position:relative; height:320vh; margin-top:2rem}
+.descent__stage{
+  position:sticky; top:0; height:100vh; overflow:hidden;
+  display:flex; align-items:flex-end;
+  border:1px solid var(--beige-dark);
+}
+.descent__ground{
+  position:absolute; inset:0; z-index:0;
+  background-size:100% 420%;
+  background-position-y:calc(var(--descent,0) * 100%);
+  /* sRGB fallback first, oklch override for browsers that have it */
+  background-image:linear-gradient(to bottom,
+    #8C8A6B 0%, #A17F62 9%, #AD5D4E 26%, #9B6A6C 46%,
+    #5E5A5E 63%, #2E4449 79%, #16333A 91%, #0D1F22 100%);
+  background-image:linear-gradient(in oklch to bottom,
+    #8C8A6B 0%, #A17F62 9%, #AD5D4E 26%, #9B6A6C 46%,
+    #5E5A5E 63%, #2E4449 79%, #16333A 91%, #0D1F22 100%);
+}
+.descent__grain{
+  position:absolute; inset:0; z-index:1; mix-blend-mode:multiply; opacity:.32;
+  background-size:180px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+}
+/* the chapter word — blind embossed rather than 4% opacity,
+   because on a material surface the paper-native move is a deboss */
+.descent__ghost{
+  position:absolute; z-index:2; left:-.03em; bottom:-.16em;
+  font-family:var(--serif); font-size:clamp(9rem,26vw,24rem);
+  line-height:1; letter-spacing:-.03em; white-space:nowrap;
+  user-select:none; pointer-events:none;
+  color:transparent;
+  text-shadow:0 2px 0 rgb(255 255 255 /.10), 0 -2px 0 rgb(13 31 34 /.22);
+  transition:opacity .45s ease;
+}
+.descent__copy{position:relative; z-index:3; padding:0 3vw 4vw; max-width:34rem}
+.descent__copy h3{
+  font-family:var(--serif); font-size:clamp(2rem,5vw,3.75rem);
+  line-height:1; color:var(--beige-light); margin-bottom:.6rem;
+}
+.descent__copy p{color:rgb(244 244 230 /.62); font-size:.9375rem; max-width:32ch; margin:0}
+.descent__tag{
+  font-size:.625rem; letter-spacing:.24em; text-transform:uppercase;
+  color:var(--rose-light); margin-bottom:1rem; display:block;
+}
+/* depth gauge — the pen's HUD, translated into the subject */
+.descent__hud{
+  position:absolute; z-index:4; top:4.5rem; right:2rem;
+  display:flex; flex-direction:column; align-items:flex-end; gap:.5rem;
+  pointer-events:none;
+  /* The ground runs from pale topsoil to near-black cellar, so no single
+     text colour passes at every depth. The gauge carries its own scrim. */
+  padding:.85rem 1rem; background:rgb(13 31 34 /.52);
+  backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px);
+}
+.descent__depth{
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:1.5rem; line-height:1; color:var(--beige-light);
+}
+.descent__bar{width:6rem; height:1px; background:rgb(244 244 230 /.28); position:relative}
+.descent__fill{position:absolute; inset:0 auto 0 0; width:0; background:var(--rose-light)}
+.descent__layer{
+  font-size:.625rem; letter-spacing:.24em; text-transform:uppercase;
+  color:var(--rose-light);
+}
+@media (max-width:700px){ .descent__hud{top:1rem; right:1rem} .descent__depth{font-size:1.1rem} }
+
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -652,6 +726,34 @@ footer{padding:4rem 0 6rem; border-top:1px solid var(--beige-dark)}
   </div>
 </section>
 
+
+<!-- ================= I · THE DESCENT ================= -->
+<section>
+  <div class="sec-head">
+    <span class="num">I</span>
+    <h2>The descent</h2>
+    <p class="note">Section F's strata, rebuilt as one continuous ground panned by scroll — the Paradox pen's mechanism in our material. Interpolated <code>in oklch</code> so the warm clay reaches the cool cellar without going grey, with stops compressed near the surface. The chapter word is blind-embossed rather than set at 4% opacity, because on a material surface that is the paper-native move. Scroll it.</p>
+  </div>
+
+  <div class="descent" id="descent">
+    <div class="descent__stage">
+      <div class="descent__ground"></div>
+      <div class="descent__grain"></div>
+      <span class="descent__ghost" id="descentGhost" aria-hidden="true">TOPSOIL</span>
+      <div class="descent__hud">
+        <span class="descent__depth" id="descentDepth">0.0 m</span>
+        <div class="descent__bar"><div class="descent__fill" id="descentFill"></div></div>
+        <span class="descent__layer" id="descentLayer">Topsoil</span>
+      </div>
+      <div class="descent__copy">
+        <span class="descent__tag" id="descentTag">Layer I · Surface</span>
+        <h3 id="descentTitle">Where the vines start</h3>
+        <p id="descentLine">Thirty centimetres of it, and every argument about this place begins here.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <footer>
   <p class="eyebrow">Next</p>
   <p class="note">Mark the specimens worth keeping and they become named transformations on your Cloudinary account (<code>t_pressed_coarse</code>, <code>t_material_clay</code>) plus a short list of CSS tokens. Then the Window gets built on whichever ground you picked.</p>
@@ -885,6 +987,74 @@ footer{padding:4rem 0 6rem; border-top:1px solid var(--beige-dark)}
     el.textContent = r.toFixed(2) + ':1 · ' + (ok ? 'passes' : 'fails') + ' ' + min + ':1';
     el.className = 'ratio ' + (ok ? 'pass' : 'fail');
   });
+})();
+</script>
+
+<script>
+/* The descent — native scroll only. Progress comes from the container's
+   own rect, rAF-throttled, written to one custom property. No virtual
+   scroller: the Paradox pen lerps document.body against a transformed
+   track, which costs you native scroll physics, breaks position:sticky
+   inside it, and in that pen ignores prefers-reduced-motion entirely. */
+(() => {
+  const el = document.getElementById('descent');
+  if (!el) return;
+
+  const STRATA = [
+    { at:0,   depth:'0.0 m',  name:'Topsoil',    ghost:'TOPSOIL',  tag:'Layer I · Surface',
+      title:'Where the vines start',
+      line:'Thirty centimetres of it, and every argument about this place begins here.' },
+    { at:.24, depth:'0.6 m',  name:'Clay',       ghost:'CLAY',     tag:'Layer II · Retention',
+      title:'What holds the water',
+      line:'Heavy, slow to warm, and the reason the old block ripens a week behind the rest.' },
+    { at:.46, depth:'1.3 m',  name:'Gravel',     ghost:'GRAVEL',   tag:'Layer III · Drainage',
+      title:'Where the roots turn down',
+      line:'Riverbed, left behind when the creek moved. The vines follow it further than you would think.' },
+    { at:.68, depth:'2.8 m',  name:'Bedrock',    ghost:'BEDROCK',  tag:'Layer IV · Fracture',
+      title:'The end of the soil',
+      line:'Fractured enough for water, not for roots. Everything above is borrowed from it.' },
+    { at:.88, depth:'4.0 m',  name:'Cellar',     ghost:'CELLAR',   tag:'Layer V · Arrival',
+      title:'Cut into the hill in 1962',
+      line:'Because the hill was cold. Every other reason came afterwards.' }
+  ];
+
+  const ghost = document.getElementById('descentGhost');
+  const depth = document.getElementById('descentDepth');
+  const fill  = document.getElementById('descentFill');
+  const layer = document.getElementById('descentLayer');
+  const tag   = document.getElementById('descentTag');
+  const title = document.getElementById('descentTitle');
+  const line  = document.getElementById('descentLine');
+
+  let ticking = false, current = -1;
+
+  const paint = () => {
+    ticking = false;
+    const r = el.getBoundingClientRect();
+    const travel = r.height - window.innerHeight;
+    if (travel <= 0) return;
+    const p = Math.min(Math.max(-r.top / travel, 0), 1);
+
+    el.style.setProperty('--descent', p.toFixed(4));
+    fill.style.width = (p * 100).toFixed(2) + '%';
+
+    let i = 0;
+    for (let n = 0; n < STRATA.length; n++) if (p >= STRATA[n].at) i = n;
+    if (i === current) return;
+    current = i;
+    const s = STRATA[i];
+    depth.textContent = s.depth;
+    layer.textContent = s.name;
+    ghost.textContent = s.ghost;
+    tag.textContent   = s.tag;
+    title.textContent = s.title;
+    line.textContent  = s.line;
+  };
+
+  const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(paint); } };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  paint();
 })();
 </script>
 </body>
