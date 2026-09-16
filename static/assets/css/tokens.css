@@ -1,0 +1,52 @@
+/* =====================================================
+   LUXE HOSPITALITY — DESIGN TOKENS
+   Single source of truth for the palette.
+   Edit these values and the whole site re-tints.
+   ===================================================== */
+
+:root {
+  /* ---- BRAND PALETTE ---- */
+  --fern:       #568259;  /* Fern          — botanical / vineyard green */
+  --beige:      #EBEBD3;  /* Beige         — page ground */
+  --ink:        #0D1F22;  /* Ink Black     — text, dark sections */
+  --terracotta: #AD5D4E;  /* Terracotta Clay — primary accent */
+  --rose:       #9B6A6C;  /* Smoky Rose    — secondary accent, meta */
+
+  /* ---- DERIVED TINTS ---- */
+  --beige-dark:  #DCDCC0;  /* hairlines, card borders */
+  --beige-light: #F4F4E6;  /* card surfaces, raised panels */
+  --ink-light:   #16333A;  /* gradient partner for dark sections */
+  --fern-deep:   #3E6141;
+  --terracotta-deep: #8E4739;
+  --rose-light:  #B58A8C;
+
+  /* ---- SEMANTIC ROLES ----
+     Components reference these, never the raw hues.
+     Swap a role to re-skin without touching components. */
+  --color-bg:            var(--beige);
+  --color-surface:       var(--beige-light);
+  --color-surface-alt:   #FFFFFF;
+  --color-text:          var(--ink);
+  --color-text-muted:    #4A5C5F;
+  --color-border:        var(--beige-dark);
+  --color-accent:        var(--terracotta);
+  --color-accent-hover:  var(--terracotta-deep);
+  --color-accent-soft:   var(--rose);
+  --color-nature:        var(--fern);
+  --color-inverse-bg:    var(--ink);
+  --color-inverse-text:  #F4F4E6;
+
+  /* ---- LEGACY ALIASES ----
+     The WP theme's original variable names, remapped onto the new
+     palette so existing components keep working untouched. */
+  --cream:           var(--beige);
+  --cream-dark:      var(--beige-dark);
+  --charcoal:        var(--ink);
+  --charcoal-light:  var(--ink-light);
+  --gold:            var(--terracotta);
+  --gold-muted:      var(--rose);
+  --wine:            var(--rose);
+  --wine-light:      var(--rose-light);
+  --neutral-400:     #9AA5A6;
+  --neutral-600:     #5D6B6D;
+}

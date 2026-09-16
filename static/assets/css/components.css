@@ -1,0 +1,350 @@
+/* =====================================================
+   LUXE HOSPITALITY — COMPONENTS ADDED IN STATIC PROTOTYPE
+   Everything here is new relative to the WP theme and is
+   written to drop straight into assets/css/ when ported.
+   ===================================================== */
+
+/* ---------- SKIP LINK (was styled but never rendered) ---------- */
+.skip-link {
+  position: absolute;
+  top: -60px;
+  left: var(--spacing-sm);
+  background: var(--color-inverse-bg);
+  color: var(--color-inverse-text);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  z-index: 1002;
+  transition: top 0.2s ease;
+}
+.skip-link:focus { top: var(--spacing-xs); }
+
+/* ---------- EYEBROW / SECTION LABEL ---------- */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--spacing-sm);
+}
+.eyebrow::before {
+  content: '';
+  width: 2.5rem;
+  height: 1px;
+  background: currentColor;
+}
+.eyebrow--centered { justify-content: center; }
+.eyebrow--nature { color: var(--color-nature); }
+.eyebrow--onDark { color: var(--rose-light); }
+
+/* ---------- HERO OVERLAY & SCRIM ---------- */
+.hero--full { min-height: 92vh; }
+
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(to bottom,
+      color-mix(in srgb, var(--ink) 55%, transparent) 0%,
+      color-mix(in srgb, var(--ink) 25%, transparent) 45%,
+      color-mix(in srgb, var(--ink) 70%, transparent) 100%);
+}
+
+.hero--dark .hero__content,
+.hero--dark .hero__content h1,
+.hero--dark .hero__content p {
+  color: var(--color-inverse-text);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  justify-content: center;
+}
+
+.hero__scroll-cue {
+  position: absolute;
+  bottom: var(--spacing-lg);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-inverse-text);
+  opacity: 0.75;
+}
+
+/* ---------- SPLIT / EDITORIAL SECTION ---------- */
+.split {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: var(--spacing-2xl);
+  align-items: center;
+}
+.split--reverse > *:first-child { order: 2; }
+
+.split__media {
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.split__media img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Frame-breaking rule the theme is named for: a hairline that
+   escapes the media box and sits under the copy. */
+.split__media::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 4px;
+  background: var(--color-accent);
+}
+
+.split__body p { max-width: 52ch; }
+
+@media (max-width: 768px) {
+  .split { gap: var(--spacing-xl); }
+  .split--reverse > *:first-child { order: 0; }
+}
+
+/* ---------- PROPERTY CARD ---------- */
+.property-card { padding: 0; display: flex; flex-direction: column; }
+.property-card .image-parallax { border-radius: 4px 4px 0 0; aspect-ratio: 4 / 3; }
+.property-card .image-parallax img { height: 100%; object-fit: cover; }
+.property-card__body { padding: var(--spacing-lg); flex: 1; }
+.property-card__body h3 { margin-bottom: var(--spacing-xs); }
+.property-card__region {
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-nature);
+  margin-bottom: var(--spacing-sm);
+}
+
+/* ---------- HORIZONTAL EXPERIENCE RAIL ---------- */
+.rail { overflow: hidden; padding-inline: 0; }
+.rail__track {
+  display: flex;
+  gap: var(--spacing-lg);
+  padding: 0 var(--spacing-md);
+  will-change: transform;
+}
+.rail__item {
+  flex: 0 0 min(420px, 78vw);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.rail__item img { aspect-ratio: 3 / 2; object-fit: cover; width: 100%; }
+.rail__item-body { padding: var(--spacing-lg); }
+
+/* No-JS / reduced-motion fallback: the rail scrolls by hand. */
+.rail--scrollable { overflow-x: auto; scroll-snap-type: x mandatory; }
+.rail--scrollable .rail__item { scroll-snap-align: start; }
+
+/* ---------- STAT ROW ---------- */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--spacing-xl);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--spacing-xl) 0;
+}
+.stat__figure {
+  font-family: var(--font-serif);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 1;
+  color: var(--color-accent);
+}
+.stat__label {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin: var(--spacing-xs) 0 0;
+}
+
+/* ---------- PULL QUOTE ---------- */
+.pullquote {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+  border-left: none;
+}
+.pullquote blockquote {
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+  line-height: 1.3;
+  font-style: italic;
+  margin: 0 0 var(--spacing-md);
+}
+.pullquote cite {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-style: normal;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent-soft);
+}
+
+/* ---------- BAND BACKGROUNDS ---------- */
+.band-nature {
+  background: var(--color-nature);
+  color: var(--color-inverse-text);
+}
+.band-nature h2, .band-nature h3 { color: var(--color-inverse-text); }
+.band-nature p { color: color-mix(in srgb, var(--color-inverse-text) 85%, transparent); }
+
+.band-surface { background: var(--color-surface-alt); }
+
+/* ---------- NEWSLETTER ---------- */
+.signup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  max-width: 520px;
+  margin: var(--spacing-lg) auto 0;
+}
+.signup input[type="email"] {
+  flex: 1 1 260px;
+  padding: 1rem;
+  font: inherit;
+  font-size: 0.9375rem;
+  color: var(--color-text);
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
+  border-radius: 0;
+}
+.signup input[type="email"]:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ---------- FOOTER COLUMNS (static stand-in for widget areas) ---------- */
+.footer-col h4 { color: var(--color-inverse-text); }
+.footer-col ul { list-style: none; margin: 0; padding: 0; }
+.footer-col li { margin-bottom: var(--spacing-xs); }
+.footer-col a,
+.footer-col p {
+  font-size: 0.9375rem;
+  color: color-mix(in srgb, var(--color-inverse-text) 72%, transparent);
+  transition: color 0.3s ease;
+}
+.footer-col a:hover { color: var(--color-accent-soft); }
+
+/* ---------- BUTTON VARIANTS ON DARK ---------- */
+.button--nature { border-color: var(--color-nature); color: var(--color-nature); }
+.button--nature::after { background: var(--color-nature); }
+.button--nature:hover { color: var(--color-inverse-text); }
+
+.button--ghost {
+  background: transparent;
+  border-color: color-mix(in srgb, var(--color-inverse-text) 60%, transparent);
+  color: var(--color-inverse-text);
+}
+.button--ghost::after { background: var(--color-inverse-text); }
+.button--ghost:hover { color: var(--color-text); }
+
+/* ---------- STYLEGUIDE PAGE ---------- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--spacing-md);
+}
+.swatch { border: 1px solid var(--color-border); border-radius: 4px; overflow: hidden; }
+.swatch__chip { height: 140px; }
+.swatch__meta { padding: var(--spacing-sm); background: var(--color-surface-alt); }
+.swatch__name { font-weight: 600; font-size: 0.9375rem; }
+.swatch__hex {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+}
+.swatch__role { font-size: 0.75rem; color: var(--color-text-muted); margin: 0; }
+
+.spec-table { width: 100%; border-collapse: collapse; font-size: 0.9375rem; }
+.spec-table th, .spec-table td {
+  text-align: left;
+  padding: var(--spacing-sm);
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: top;
+}
+.spec-table th { font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; }
+.spec-table code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.8125rem;
+  background: var(--color-surface);
+  padding: 0.1em 0.35em;
+}
+
+/* ---------- STATIC-ONLY: PROTOTYPE BAR ---------- */
+.proto-bar {
+  background: var(--color-inverse-bg);
+  color: var(--color-inverse-text);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  padding: var(--spacing-xs) var(--spacing-md);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  align-items: center;
+  justify-content: center;
+}
+.proto-bar a { color: var(--rose-light); }
+.proto-bar a:hover { color: var(--color-inverse-text); }
+.proto-bar strong { color: var(--color-inverse-text); font-weight: 600; }
+
+/* ---------- MISC UTILITIES USED BY THE PROTOTYPE ---------- */
+.mr-md { margin-right: var(--spacing-md); }
+.mx-auto { margin-left: auto; margin-right: auto; }
+.measure { max-width: 60ch; }
+.measure-center { max-width: 60ch; margin-left: auto; margin-right: auto; }
+
+/* Dark hero shows its photograph at full strength; the scrim does the
+   contrast work instead of the 0.4 opacity the base .hero__background uses. */
+.hero--dark .hero__background { opacity: 1; }
+.my-xl { margin-top: var(--spacing-xl); margin-bottom: var(--spacing-xl); }
+
+/* ---------- FIXES TO INHERITED THEME BEHAVIOUR ---------- */
+
+/* .grid-3 / .grid-2 use auto-fit minmax(), so inside the 1600px container a
+   "grid-3" renders as five columns on a desktop monitor. Cap the column count
+   at the number in the class name once there is room for it. */
+@media (min-width: 900px) {
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Card thumbnails: normalise ragged source ratios so a row of cards lines up. */
+.card .image-parallax img {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  width: 100%;
+}
+
+/* On dark ground the accent button fills instead of outlining, so the primary
+   action is the loudest thing in the section. */
+.hero--dark .button--gold,
+.section-cta .button--gold,
+.band-nature .button--gold {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-inverse-text);
+}
+.hero--dark .button--gold::after,
+.section-cta .button--gold::after,
+.band-nature .button--gold::after { background: var(--color-inverse-text); }
+.hero--dark .button--gold:hover,
+.section-cta .button--gold:hover,
+.band-nature .button--gold:hover { color: var(--color-accent); }
+
+/* The header is sticky, so anchored jumps land underneath it without this. */
+[id] { scroll-margin-top: 7rem; }

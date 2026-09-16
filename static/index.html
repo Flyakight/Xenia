@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Home — Luxe Hospitality</title>
+	<meta name="description" content="A working estate in Sonoma County with three properties and a long table.">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap">
+	<!-- tokens.css must load first: everything below reads its custom properties -->
+	<link rel="stylesheet" href="assets/css/tokens.css">
+	<link rel="stylesheet" href="assets/css/style.css">
+	<link rel="stylesheet" href="assets/css/layout.css">
+	<link rel="stylesheet" href="assets/css/components.css">
+</head>
+<body class="home">
+	<a class="skip-link" href="#main">Skip to content</a>
+
+	<!-- STATIC PROTOTYPE ONLY — delete this bar when porting back to WordPress -->
+	<div class="proto-bar">
+		<strong>Static prototype</strong>
+		<span>edit layout &amp; design here, then hand back for the WP port</span>
+		<a href="styleguide.html">Style guide</a>
+	</div>
+
+	<!-- ===== header.php ===== -->
+	<header class="site-header" role="banner">
+		<nav class="site-nav" role="navigation" aria-label="Main Navigation">
+			<div class="container">
+				<div class="nav-flex">
+
+					<!-- Logo — WP: the_custom_logo() / bloginfo('name') -->
+					<div class="nav-brand">
+						<a href="index.html" class="site-title">Luxe Hospitality</a>
+					</div>
+
+					<!-- Primary Menu — WP: wp_nav_menu( 'primary' ) -->
+					<div class="nav-menu-wrapper">
+						<ul class="nav-menu">
+							<li><a href="index.html" class="is-active">Home</a></li>
+							<li><a href="properties.html">Properties</a></li>
+							<li><a href="experiences.html">Experiences</a></li>
+							<li><a href="journal.html">Journal</a></li>
+							<li><a href="styleguide.html">Style Guide</a></li>
+						</ul>
+					</div>
+
+					<!-- Mobile Menu Toggle -->
+					<button class="nav-toggle" data-mobile-menu-toggle aria-label="Toggle Menu" aria-expanded="false">
+						<span class="nav-toggle-line"></span>
+						<span class="nav-toggle-line"></span>
+						<span class="nav-toggle-line"></span>
+					</button>
+
+				</div>
+			</div>
+		</nav>
+
+		<!-- Mobile Menu -->
+		<div class="nav-mobile" data-mobile-menu>
+			<ul class="nav-mobile-menu">
+				<li><a href="index.html">Home</a></li>
+				<li><a href="properties.html">Properties</a></li>
+				<li><a href="experiences.html">Experiences</a></li>
+				<li><a href="journal.html">Journal</a></li>
+				<li><a href="styleguide.html">Style Guide</a></li>
+			</ul>
+		</div>
+	</header>
+
+	<main id="main" class="site-main" role="main">
+
+	<!-- ===== front-page.php (NEW — no equivalent in the theme yet) ===== -->
+
+	<!-- HERO -->
+	<section class="hero hero--full hero--dark">
+		<img class="hero__background" src="assets/img/vineyard.svg" alt="">
+		<div class="hero__scrim"></div>
+		<div class="hero__content text-center">
+			<p class="eyebrow eyebrow--centered eyebrow--onDark">Sonoma County · Est. 1962</p>
+			<h1>A house at the end of the vine rows</h1>
+			<p class="mx-auto">Three estates, one ridge, and a long table that has not been cleared since the first harvest.</p>
+			<div class="hero__actions mt-lg">
+				<a href="properties.html" class="button button--ghost">Browse the estates</a>
+				<a href="experiences.html" class="button button--gold">Plan a visit</a>
+			</div>
+		</div>
+		<span class="hero__scroll-cue">Scroll</span>
+	</section>
+
+	<!-- INTRO / EDITORIAL SPLIT -->
+	<section class="section-intro py-2xl band-surface">
+		<div class="container">
+			<div class="split">
+				<div class="split__body scroll-fade">
+					<p class="eyebrow eyebrow--nature">The place</p>
+					<h2>Farmed by the same four families for sixty years</h2>
+					<p>Nothing here was designed to photograph well. The cellar was dug because the hill was cold, the terrace was poured because the kitchen ran out of room, and the orchard was planted because someone had seedlings.</p>
+					<p>What is left is a working property that happens to be beautiful, and rooms for the small number of people who want to stay inside one.</p>
+					<a href="journal.html" class="button mt-md">Read the journal</a>
+				</div>
+				<div class="split__media image-parallax scroll-fade">
+					<img src="assets/img/orchard.svg" alt="Orchard rows at the edge of the estate" loading="lazy" decoding="async">
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- PROPERTIES — WP: WP_Query( post_type => 'property' ) -->
+	<section class="section-properties py-2xl">
+		<div class="container">
+			<div class="text-center">
+				<p class="eyebrow eyebrow--centered">Where you sleep</p>
+				<h2>Three estates</h2>
+			</div>
+
+			<div class="grid-3 mt-xl" data-card-stagger>
+
+				<article class="card property-card scroll-fade">
+					<div class="image-parallax">
+						<img src="assets/img/cellar.svg" alt="The Estate House" loading="lazy" decoding="async">
+					</div>
+					<div class="property-card__body">
+						<span class="property-card__region">Dry Creek Valley</span>
+						<h3>The Estate House</h3>
+						<p>Six rooms above the barrel cellar, each opening onto the same long balcony.</p>
+						<a href="property.html" class="button button--gold mt-md">Discover</a>
+					</div>
+				</article>
+
+				<article class="card property-card scroll-fade">
+					<div class="image-parallax">
+						<img src="assets/img/terrace.svg" alt="Cellar Cottages" loading="lazy" decoding="async">
+					</div>
+					<div class="property-card__body">
+						<span class="property-card__region">Alexander Valley</span>
+						<h3>Cellar Cottages</h3>
+						<p>Four stone outbuildings, re-roofed and left otherwise alone.</p>
+						<a href="property.html" class="button button--gold mt-md">Discover</a>
+					</div>
+				</article>
+
+				<article class="card property-card scroll-fade">
+					<div class="image-parallax">
+						<img src="assets/img/coastline.svg" alt="Coastal Retreat" loading="lazy" decoding="async">
+					</div>
+					<div class="property-card__body">
+						<span class="property-card__region">Sonoma Coast</span>
+						<h3>Coastal Retreat</h3>
+						<p>Forty minutes west, for when the valley heat becomes a bad idea.</p>
+						<a href="property.html" class="button button--gold mt-md">Discover</a>
+					</div>
+				</article>
+
+			</div>
+
+			<div class="text-center mt-xl">
+				<a href="properties.html" class="button">All properties</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- EXPERIENCES — horizontal rail, driven by main.js [data-horizontal-scroll] -->
+	<section class="section-experiences py-2xl band-nature rail" data-horizontal-scroll>
+		<div class="container">
+			<p class="eyebrow eyebrow--onDark">While you are here</p>
+			<h2>Experiences</h2>
+		</div>
+		<div class="rail__track mt-xl" data-horizontal-track>
+
+			<article class="rail__item">
+				<img src="assets/img/table.svg" alt="The long table" loading="lazy" decoding="async">
+				<div class="rail__item-body">
+					<h4>The Long Table</h4>
+					<p>Thursday supper, one seating, whatever came out of the garden that morning.</p>
+				</div>
+			</article>
+
+			<article class="rail__item">
+				<img src="assets/img/cellar.svg" alt="Cellar tasting" loading="lazy" decoding="async">
+				<div class="rail__item-body">
+					<h4>Barrel Room Tasting</h4>
+					<p>Six wines, none of them finished, poured by whoever is working that day.</p>
+				</div>
+			</article>
+
+			<article class="rail__item">
+				<img src="assets/img/orchard.svg" alt="Orchard walk" loading="lazy" decoding="async">
+				<div class="rail__item-body">
+					<h4>Orchard Walk</h4>
+					<p>An hour at dawn through the old plantings, ending at the coffee pot.</p>
+				</div>
+			</article>
+
+			<article class="rail__item">
+				<img src="assets/img/coastline.svg" alt="Coast drive" loading="lazy" decoding="async">
+				<div class="rail__item-body">
+					<h4>The Coast Road</h4>
+					<p>A guided drive west with a packed lunch and no fixed turnaround.</p>
+				</div>
+			</article>
+
+		</div>
+	</section>
+
+	<!-- STATS -->
+	<section class="section-stats py-2xl">
+		<div class="container">
+			<div class="stat-row scroll-fade">
+				<div class="stat text-center">
+					<div class="stat__figure">62</div>
+					<p class="stat__label">Harvests</p>
+				</div>
+				<div class="stat text-center">
+					<div class="stat__figure">14</div>
+					<p class="stat__label">Rooms</p>
+				</div>
+				<div class="stat text-center">
+					<div class="stat__figure">180</div>
+					<p class="stat__label">Acres farmed</p>
+				</div>
+				<div class="stat text-center">
+					<div class="stat__figure">1</div>
+					<p class="stat__label">Seating per night</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- PULL QUOTE -->
+	<section class="section-quote py-2xl band-surface">
+		<div class="container">
+			<div class="pullquote scroll-fade">
+				<blockquote>We kept the parts that worked and stopped apologising for the rest.</blockquote>
+				<cite>Marguerite Ozanne, third generation</cite>
+			</div>
+		</div>
+	</section>
+
+	<!-- CTA + NEWSLETTER -->
+	<section class="section-cta py-2xl" id="contact">
+		<div class="container text-center">
+			<h2>Plan your visit</h2>
+			<p class="mt-md">Dates, rooms, and whether the table has a seat left.</p>
+			<form class="signup" onsubmit="return false;">
+				<label class="sr-only" for="email">Email address</label>
+				<input id="email" type="email" name="email" placeholder="you@example.com" required>
+				<button type="submit" class="button button--gold">Enquire</button>
+			</form>
+		</div>
+	</section>
+	</main><!-- #main -->
+
+	<!-- ===== footer.php ===== -->
+	<footer class="site-footer" role="contentinfo">
+		<div class="container">
+			<div class="footer-content">
+
+				<!-- WP: dynamic_sidebar( 'footer-1' | 'footer-2' | 'footer-3' ) -->
+				<div class="footer-widgets">
+					<div class="footer-col">
+						<h4>Visit</h4>
+						<p>1847 Ridge Road<br>Healdsburg, California</p>
+						<p>Daily, 10am – 6pm</p>
+					</div>
+					<div class="footer-col">
+						<h4>Stay</h4>
+						<ul>
+							<li><a href="properties.html">The Estate House</a></li>
+							<li><a href="properties.html">Cellar Cottages</a></li>
+							<li><a href="properties.html">Coastal Retreat</a></li>
+						</ul>
+					</div>
+					<div class="footer-col">
+						<h4>Reach us</h4>
+						<ul>
+							<li><a href="#contact">reservations@luxe.example</a></li>
+							<li><a href="#contact">+1 707 555 0134</a></li>
+							<li><a href="journal.html">Journal</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<!-- WP: wp_nav_menu( 'footer' ) -->
+				<div class="footer-menu">
+					<a href="properties.html">Properties</a>
+					<a href="experiences.html">Experiences</a>
+					<a href="journal.html">Journal</a>
+					<a href="#contact">Contact</a>
+				</div>
+
+				<div class="footer-bottom">
+					<p class="site-copyright">
+						&copy; 2026 <a href="index.html">Luxe Hospitality</a> All Rights Reserved
+					</p>
+				</div>
+
+			</div>
+		</div>
+	</footer>
+
+	<!-- WP: enqueued in functions.php via luxe_enqueue_assets() -->
+	<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+	<!-- NOTE: main.js calls gsap.to(window, { scrollTo: ... }) — that needs ScrollToPlugin,
+	     which the theme does not currently enqueue. Added here; see MAPPING.md. -->
+	<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js"></script>
+	<script src="assets/js/main.js"></script>
+</body>
+</html>

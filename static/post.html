@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Picking in the dark — Luxe Hospitality</title>
+	<meta name="description" content="A single post.">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap">
+	<!-- tokens.css must load first: everything below reads its custom properties -->
+	<link rel="stylesheet" href="assets/css/tokens.css">
+	<link rel="stylesheet" href="assets/css/style.css">
+	<link rel="stylesheet" href="assets/css/layout.css">
+	<link rel="stylesheet" href="assets/css/components.css">
+</head>
+<body>
+	<a class="skip-link" href="#main">Skip to content</a>
+
+	<!-- STATIC PROTOTYPE ONLY — delete this bar when porting back to WordPress -->
+	<div class="proto-bar">
+		<strong>Static prototype</strong>
+		<span>edit layout &amp; design here, then hand back for the WP port</span>
+		<a href="styleguide.html">Style guide</a>
+	</div>
+
+	<!-- ===== header.php ===== -->
+	<header class="site-header" role="banner">
+		<nav class="site-nav" role="navigation" aria-label="Main Navigation">
+			<div class="container">
+				<div class="nav-flex">
+
+					<!-- Logo — WP: the_custom_logo() / bloginfo('name') -->
+					<div class="nav-brand">
+						<a href="index.html" class="site-title">Luxe Hospitality</a>
+					</div>
+
+					<!-- Primary Menu — WP: wp_nav_menu( 'primary' ) -->
+					<div class="nav-menu-wrapper">
+						<ul class="nav-menu">
+							<li><a href="index.html">Home</a></li>
+							<li><a href="properties.html">Properties</a></li>
+							<li><a href="experiences.html">Experiences</a></li>
+							<li><a href="journal.html" class="is-active">Journal</a></li>
+							<li><a href="styleguide.html">Style Guide</a></li>
+						</ul>
+					</div>
+
+					<!-- Mobile Menu Toggle -->
+					<button class="nav-toggle" data-mobile-menu-toggle aria-label="Toggle Menu" aria-expanded="false">
+						<span class="nav-toggle-line"></span>
+						<span class="nav-toggle-line"></span>
+						<span class="nav-toggle-line"></span>
+					</button>
+
+				</div>
+			</div>
+		</nav>
+
+		<!-- Mobile Menu -->
+		<div class="nav-mobile" data-mobile-menu>
+			<ul class="nav-mobile-menu">
+				<li><a href="index.html">Home</a></li>
+				<li><a href="properties.html">Properties</a></li>
+				<li><a href="experiences.html">Experiences</a></li>
+				<li><a href="journal.html">Journal</a></li>
+				<li><a href="styleguide.html">Style Guide</a></li>
+			</ul>
+		</div>
+	</header>
+
+	<main id="main" class="site-main" role="main">
+
+	<!-- ===== single.php ===== -->
+	<article class="single-post">
+
+		<section class="hero hero--dark">
+			<img class="hero__background" src="assets/img/vineyard.svg" alt="">
+			<div class="hero__scrim"></div>
+			<div class="hero__content text-center">
+				<p class="text-meta">12 September 2026</p>
+				<h1>Picking in the dark</h1>
+			</div>
+		</section>
+
+		<section class="section-content py-2xl">
+			<div class="container container-narrow">
+				<div class="content-body scroll-fade">
+					<p>The crush pad lights go on at half past three in the morning and the first bins are in by five. It looks like theatre and it is entirely practical: fruit picked cold arrives cold, and fruit that arrives cold does not start fermenting in the bin on the way down the hill.</p>
+					<h2>Why the hurry</h2>
+					<p>Sugar climbs through the afternoon and acid falls with it. A row picked at two in the afternoon and a row picked at four in the morning are, for our purposes, two different vineyards. So we pick at four.</p>
+					<p>The side effect is that anyone staying in the Vintner's Quarters in September is awake at four too. We tell people. Some of them book it deliberately.</p>
+					<figure class="image-break image-break--overflow my-xl">
+						<img src="assets/img/cellar.svg" alt="The barrel cellar before dawn" loading="lazy" decoding="async">
+						<figcaption class="text-meta text-center mt-sm">The cellar, 4.40am, second week of harvest</figcaption>
+					</figure>
+					<h2>What it costs</h2>
+					<p>Night picking needs lights, a generator, and a crew willing to work a shift that ends when most people start theirs. It is more expensive per ton than any other decision we make, and it is the one we argue about least.</p>
+					<blockquote>You cannot un-warm fruit. Everything after the pick is damage control.</blockquote>
+					<p>By nine in the morning the pad is hosed down and quiet, and the only evidence is the smell, which stays until roughly November.</p>
+				</div>
+			</div>
+		</section>
+
+	</article>
+	</main><!-- #main -->
+
+	<!-- ===== footer.php ===== -->
+	<footer class="site-footer" role="contentinfo">
+		<div class="container">
+			<div class="footer-content">
+
+				<!-- WP: dynamic_sidebar( 'footer-1' | 'footer-2' | 'footer-3' ) -->
+				<div class="footer-widgets">
+					<div class="footer-col">
+						<h4>Visit</h4>
+						<p>1847 Ridge Road<br>Healdsburg, California</p>
+						<p>Daily, 10am – 6pm</p>
+					</div>
+					<div class="footer-col">
+						<h4>Stay</h4>
+						<ul>
+							<li><a href="properties.html">The Estate House</a></li>
+							<li><a href="properties.html">Cellar Cottages</a></li>
+							<li><a href="properties.html">Coastal Retreat</a></li>
+						</ul>
+					</div>
+					<div class="footer-col">
+						<h4>Reach us</h4>
+						<ul>
+							<li><a href="#contact">reservations@luxe.example</a></li>
+							<li><a href="#contact">+1 707 555 0134</a></li>
+							<li><a href="journal.html">Journal</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<!-- WP: wp_nav_menu( 'footer' ) -->
+				<div class="footer-menu">
+					<a href="properties.html">Properties</a>
+					<a href="experiences.html">Experiences</a>
+					<a href="journal.html">Journal</a>
+					<a href="#contact">Contact</a>
+				</div>
+
+				<div class="footer-bottom">
+					<p class="site-copyright">
+						&copy; 2026 <a href="index.html">Luxe Hospitality</a> All Rights Reserved
+					</p>
+				</div>
+
+			</div>
+		</div>
+	</footer>
+
+	<!-- WP: enqueued in functions.php via luxe_enqueue_assets() -->
+	<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+	<!-- NOTE: main.js calls gsap.to(window, { scrollTo: ... }) — that needs ScrollToPlugin,
+	     which the theme does not currently enqueue. Added here; see MAPPING.md. -->
+	<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js"></script>
+	<script src="assets/js/main.js"></script>
+</body>
+</html>

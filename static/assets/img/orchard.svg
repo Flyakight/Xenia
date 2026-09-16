@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900" role="img" aria-label="orchard placeholder">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#568259"/>
+      <stop offset="100%" stop-color="#9B6A6C"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#g)"/>
+  <g fill="none" stroke="#EBEBD3" stroke-opacity="0.28" stroke-width="2">
+    <path d="M0 495 Q 420 378 1200 432"/>
+    <path d="M0 612 Q 744 495 1200 558"/>
+    <path d="M0 738 Q 420 612 1200 702"/>
+  </g>
+  <circle cx="888" cy="252" r="117" fill="#EBEBD3" fill-opacity="0.16"/>
+  <text x="600" y="837" font-family="Georgia, serif" font-size="28" fill="#EBEBD3" fill-opacity="0.55"
+        letter-spacing="4" text-anchor="middle">ORCHARD</text>
+</svg>

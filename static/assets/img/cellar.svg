@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080" role="img" aria-label="cellar placeholder">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0D1F22"/>
+      <stop offset="100%" stop-color="#16333A"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#g)"/>
+  <g fill="none" stroke="#AD5D4E" stroke-opacity="0.28" stroke-width="3">
+    <path d="M0 594 Q 672 453 1920 518"/>
+    <path d="M0 734 Q 1190 594 1920 669"/>
+    <path d="M0 885 Q 672 734 1920 842"/>
+  </g>
+  <circle cx="1420" cy="302" r="140" fill="#AD5D4E" fill-opacity="0.16"/>
+  <text x="960" y="1004" font-family="Georgia, serif" font-size="45" fill="#AD5D4E" fill-opacity="0.55"
+        letter-spacing="6" text-anchor="middle">CELLAR</text>
+</svg>
