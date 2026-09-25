@@ -1,0 +1,1151 @@
+<title>Palimpsest Brand Board</title>
+<meta name="description" content="Brand board for Palimpsest, the home of Wren Ashby: palette, type, voice, Ogham navigation, ink plates and the Almanac.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Cutive+Mono&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IM+Fell+English+SC&family=IM+Fell+English:ital@0;1&family=Noto+Sans+Ogham&display=swap">
+<style>
+:root {
+  color-scheme: dark;
+  --obsidian: #0B0A0F;
+  --raven: #15121B;
+  --grimoire: #221D2B;
+  --vellum: #D8D0C4;
+  --vellum-dim: #A49CAE;
+  --brass: #B8924F;
+  --gilt: #E2C27F;
+  --nightshade: #6B5A8E;
+  --nightshade-text: #A897CC;
+  --absinthe: #4E7D6B;
+  --absinthe-text: #8DB8A5;
+  --bottle: #1C332B;
+  --moonlit: #E8E0CF;
+  --rule: rgba(184, 146, 79, .26);
+  --rule-soft: rgba(216, 208, 196, .10);
+
+  --f-display: "IM Fell English SC", "IM Fell English", Georgia, serif;
+  --f-fell: "IM Fell English", Georgia, serif;
+  --f-body: "EB Garamond", Garamond, "Times New Roman", serif;
+  --f-hand: "Caveat", "Segoe Print", "Bradley Hand", cursive;
+  --f-mono: "Cutive Mono", "Courier New", monospace;
+  --f-ogham: "Noto Sans Ogham", sans-serif;
+
+  --step--1: .875rem;
+  --step-0: 1.125rem;
+  --step-1: 1.375rem;
+  --step-2: 1.75rem;
+  --step-3: clamp(2rem, 4vw, 2.75rem);
+  --step-5: clamp(2.6rem, 8vw, 5.6rem);
+
+  --rail: 0px;
+  --mx: 50vw;
+  --my: 30vh;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--obsidian);
+  color: var(--vellum);
+  font-family: var(--f-body);
+  font-size: var(--step-0);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+::selection { background: rgba(107, 90, 142, .55); color: var(--moonlit); }
+a { color: inherit; }
+:focus-visible { outline: 1px solid var(--gilt); outline-offset: 4px; border-radius: 2px; }
+h1, h2, h3 { font-weight: 400; text-wrap: balance; margin: 0; }
+p { margin: 0; }
+
+/* ---------- paper, mica, candle ---------- */
+.grain {
+  position: fixed; inset: 0; pointer-events: none; z-index: 60;
+  opacity: .09; mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+.mica {
+  position: fixed; inset: 0; pointer-events: none; z-index: 61;
+  mix-blend-mode: screen;
+  -webkit-mask-image: radial-gradient(circle 240px at var(--mx) var(--my), #000 0%, transparent 75%);
+  mask-image: radial-gradient(circle 240px at var(--mx) var(--my), #000 0%, transparent 75%);
+}
+.candle {
+  position: fixed; inset: 0; pointer-events: none; z-index: 59;
+  background: radial-gradient(circle 340px at var(--mx) var(--my), rgba(226, 194, 127, .075), transparent 70%);
+}
+
+/* ---------- gilt sheen: wakes on hover / focus, then rests ---------- */
+.gilt {
+  background-image: linear-gradient(100deg, var(--brass) 0%, var(--brass) 38%, #F4DDA6 48%, var(--gilt) 52%, var(--brass) 62%, var(--brass) 100%);
+  background-size: 260% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent;
+  transition: background-position 1.4s cubic-bezier(.3, .6, .3, 1);
+}
+.gilt:hover, .gilt:focus-visible, a:hover .gilt, a:focus-visible .gilt,
+button:hover .gilt, button:focus-visible .gilt { background-position: 0 0; }
+
+/* ---------- Ogham stone navigation ---------- */
+.stone {
+  position: fixed; z-index: 40;
+  left: 0; top: 0; bottom: 0; width: 72px;
+  display: flex; flex-direction: column-reverse; align-items: center; justify-content: center;
+  gap: 6px;
+  padding-block: 24px;
+}
+.stone::before {
+  content: ""; position: absolute; left: 50%; top: 14%; bottom: 14%; width: 1px;
+  background: linear-gradient(to top, transparent, var(--rule) 12%, var(--rule) 88%, transparent);
+}
+.stone-caption {
+  position: absolute; bottom: 5%; left: 50%; transform: translateX(-50%);
+  font-family: var(--f-mono); font-size: 10px; letter-spacing: .14em; color: var(--vellum-dim);
+  text-transform: uppercase; writing-mode: vertical-rl; rotate: 180deg; white-space: nowrap;
+}
+.notch {
+  position: relative; width: 56px; height: 46px; padding: 0; border: 0; background: none;
+  color: var(--brass); cursor: pointer; display: grid; place-items: center;
+}
+.notch svg { width: 44px; height: 44px; overflow: visible; }
+.notch line { stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; opacity: .55; transition: opacity .4s, stroke .4s; }
+.notch.active { color: var(--gilt); }
+.notch.active line, .notch:hover line, .notch:focus-visible line { opacity: 1; }
+.notch.active svg { filter: drop-shadow(0 0 5px rgba(226, 194, 127, .55)); }
+.notch:hover, .notch:focus-visible { color: var(--gilt); }
+.tree-card {
+  position: absolute; left: 62px; top: 50%; transform: translate(-6px, -50%);
+  width: 260px; padding: 14px 16px 15px;
+  background: rgba(21, 18, 27, .96); border: 1px solid var(--rule);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, .55), 0 0 30px rgba(107, 90, 142, .12);
+  text-align: left; pointer-events: none;
+  opacity: 0; clip-path: inset(0 100% 0 0);
+  transition: opacity .35s, clip-path .6s cubic-bezier(.3, .7, .2, 1), transform .6s;
+}
+.notch:hover .tree-card, .notch:focus-visible .tree-card { opacity: 1; clip-path: inset(0 0 0 0); transform: translate(0, -50%); }
+.tree-card .oglyph { font-family: var(--f-ogham); font-size: 22px; color: var(--gilt); line-height: 1; }
+.tree-card .tname { font-family: var(--f-display); font-size: 1.15rem; color: var(--vellum); margin-top: 4px; }
+.tree-card .tmeta { font-family: var(--f-mono); font-size: 11px; letter-spacing: .08em; color: var(--absinthe-text); text-transform: uppercase; }
+.tree-card .tlore { font-family: var(--f-body); font-size: .95rem; line-height: 1.45; color: var(--vellum-dim); margin-top: 8px; }
+.tree-card .tgo { font-family: var(--f-mono); font-size: 11px; color: var(--brass); margin-top: 10px; letter-spacing: .06em; }
+
+@media (min-width: 900px) {
+  :root { --rail: 72px; }
+}
+@media (max-width: 899px) {
+  .stone {
+    top: auto; right: 0; width: auto; height: auto;
+    flex-direction: row; gap: 0; justify-content: space-evenly;
+    padding: 4px 8px calc(4px + env(safe-area-inset-bottom, 0px));
+    background: rgba(11, 10, 15, .92); backdrop-filter: blur(6px);
+    border-top: 1px solid var(--rule);
+  }
+  .stone::before { left: 6%; right: 6%; top: calc(50% - env(safe-area-inset-bottom, 0px) / 2); bottom: auto; width: auto; height: 1px;
+    background: linear-gradient(to right, transparent, var(--rule) 10%, var(--rule) 90%, transparent); }
+  .stone-caption { display: none; }
+  .notch { width: 44px; }
+  .notch svg { rotate: 90deg; }
+  .tree-card { left: 50%; top: auto; bottom: 54px; transform: translate(-50%, 6px); width: min(300px, calc(100vw - 32px)); clip-path: inset(100% 0 0 0); }
+  .notch:hover .tree-card, .notch:focus-visible .tree-card { transform: translate(-50%, 0); }
+  .notch:first-child .tree-card { left: 0; transform: translate(0, 6px); }
+  .notch:first-child:hover .tree-card, .notch:first-child:focus-visible .tree-card { transform: translate(0, 0); }
+  .notch:last-child .tree-card { left: auto; right: 0; transform: translate(0, 6px); }
+  .notch:last-child:hover .tree-card, .notch:last-child:focus-visible .tree-card { transform: translate(0, 0); }
+  body { padding-bottom: 64px; }
+}
+
+/* ---------- threshold (hero) ---------- */
+.threshold {
+  position: relative; overflow: hidden;
+  height: clamp(460px, 74svh, 720px);
+  margin-left: var(--rail);
+  isolation: isolate;
+  background: radial-gradient(120% 90% at 72% 18%, #1d1828 0%, #110e16 45%, var(--obsidian) 100%);
+}
+.layer { position: absolute; inset: -3% -3% -6% -3%; will-change: transform; pointer-events: none; }
+.layer svg, .layer canvas { position: absolute; left: 0; bottom: 0; width: 100%; height: 100%; display: block; }
+.moon-layer { inset: 0; }
+.layer svg.hero-moon {
+  left: auto; bottom: auto; right: 13%; top: 12%;
+  width: clamp(64px, 9vw, 112px); height: auto; aspect-ratio: 1; overflow: visible;
+}
+.undertext {
+  inset: 6% -3% auto -3%; padding-inline: clamp(24px, 8vw, 120px);
+  font-family: var(--f-fell); font-style: italic; font-size: clamp(1.6rem, 4.2vw, 3.4rem); line-height: 1.25;
+  color: #A897CC; opacity: .07; transform-origin: left top; rotate: -3deg;
+  -webkit-mask-image: linear-gradient(100deg, #000 20%, transparent 45%, #000 60%, rgba(0,0,0,.3) 85%);
+  mask-image: linear-gradient(100deg, #000 20%, transparent 45%, #000 60%, rgba(0,0,0,.3) 85%);
+}
+.undertext p { white-space: nowrap; }
+.threshold::after {
+  content: ""; position: absolute; inset: auto 0 0 0; height: 30%; z-index: 8; pointer-events: none;
+  background: linear-gradient(to bottom, transparent, var(--obsidian));
+}
+.hero-copy {
+  position: absolute; z-index: 9; left: 0; right: 0; bottom: 11%;
+  padding-inline: clamp(16px, 6vw, 88px);
+  will-change: transform;
+}
+.eyebrow {
+  font-family: var(--f-mono); font-size: 12px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--vellum-dim);
+}
+.wordmark {
+  font-family: var(--f-display); font-size: var(--step-5); line-height: .95; letter-spacing: .02em;
+  margin-top: 10px; display: inline-block; cursor: default;
+  filter: drop-shadow(0 2px 18px rgba(0, 0, 0, .8));
+}
+.hero-sub { font-family: var(--f-fell); font-style: italic; font-size: var(--step-1); color: var(--vellum); margin-top: 10px; max-width: 34ch; }
+.hero-sub .who { font-style: normal; font-family: var(--f-display); letter-spacing: .03em; }
+
+/* ---------- layout ---------- */
+main { margin-left: var(--rail); position: relative; z-index: 2; }
+.wrap { max-width: 1120px; margin-inline: auto; padding-inline: clamp(16px, 5vw, 64px); }
+.chamber { padding-block: clamp(64px, 10vw, 120px); border-top: 1px solid var(--rule-soft); scroll-margin-top: 16px; }
+.chamber:first-child { border-top: 0; padding-top: 32px; }
+.chamber-head { display: grid; grid-template-columns: auto 1fr; column-gap: 20px; align-items: end; margin-bottom: clamp(32px, 5vw, 56px); }
+.chamber-head .og { grid-row: span 2; font-family: var(--f-ogham); font-size: 44px; line-height: 1; color: var(--brass); padding-bottom: 4px; }
+.chamber-head .meta { font-family: var(--f-mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--absinthe-text); }
+.chamber-head h2 { font-family: var(--f-display); font-size: var(--step-3); line-height: 1.05; color: var(--vellum); }
+.lede { font-size: var(--step-1); line-height: 1.5; max-width: 60ch; color: var(--vellum); }
+.muted { color: var(--vellum-dim); }
+.mono { font-family: var(--f-mono); font-size: var(--step--1); letter-spacing: .02em; }
+.label { font-family: var(--f-mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--vellum-dim); }
+
+/* ---------- principle ---------- */
+.principle { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 80px); align-items: start; }
+.vow { font-family: var(--f-fell); font-size: clamp(1.8rem, 3.6vw, 2.6rem); line-height: 1.18; color: var(--moonlit); }
+.vow em { font-style: italic; color: var(--gilt); }
+.test { margin-top: 28px; padding: 18px 20px; border-left: 1px solid var(--brass); background: linear-gradient(90deg, rgba(184, 146, 79, .07), transparent); max-width: 44ch; }
+.test .label { color: var(--brass); }
+.test p { font-family: var(--f-fell); font-style: italic; font-size: var(--step-1); margin-top: 6px; }
+.rules { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; counter-reset: r; }
+.rules li { counter-increment: r; display: grid; grid-template-columns: 2.4rem 1fr; gap: 4px 12px; padding-block: 16px; border-bottom: 1px solid var(--rule-soft); }
+.rules li:first-child { border-top: 1px solid var(--rule-soft); }
+.rules li::before { content: counter(r, upper-roman); font-family: var(--f-display); color: var(--brass); font-size: 1.1rem; grid-row: span 2; padding-top: 2px; }
+.rules strong { font-family: var(--f-display); font-weight: 400; font-size: 1.15rem; letter-spacing: .02em; color: var(--vellum); }
+.rules span { color: var(--vellum-dim); font-size: 1.02rem; line-height: 1.5; }
+
+/* ---------- palette ---------- */
+.inks { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.ink {
+  position: relative; text-align: left; font: inherit; color: inherit; cursor: pointer;
+  background: var(--raven); border: 1px solid var(--rule-soft); padding: 18px 18px 16px;
+  display: grid; grid-template-columns: 64px 1fr; gap: 4px 16px; align-items: center;
+  transition: border-color .4s, background .4s;
+}
+.ink:hover, .ink:focus-visible { border-color: var(--rule); background: #18141f; }
+.ink svg { grid-row: span 3; width: 64px; height: 64px; overflow: visible; }
+.ink .nm { font-family: var(--f-display); font-size: 1.2rem; line-height: 1.1; }
+.ink .hx { font-family: var(--f-mono); font-size: 13px; color: var(--vellum-dim); letter-spacing: .04em; }
+.ink .rl { grid-column: 1 / -1; margin-top: 12px; font-size: .98rem; line-height: 1.45; color: var(--vellum-dim); }
+.ink .copied { position: absolute; top: 10px; right: 12px; font-family: var(--f-mono); font-size: 11px; color: var(--absinthe-text); opacity: 0; transition: opacity .3s; }
+.ink.did .copied { opacity: 1; }
+.proportion { margin-top: 36px; }
+.bar { display: flex; height: 44px; margin-top: 10px; border: 1px solid var(--rule-soft); }
+.bar div { position: relative; }
+.bar .b-black { flex: 80; background: linear-gradient(90deg, #0B0A0F, #15121B 55%, #221D2B); }
+.bar .b-brass { flex: 10; background: linear-gradient(100deg, #8f6f36, var(--brass) 45%, var(--gilt) 55%, var(--brass)); }
+.bar .b-green { flex: 6; background: var(--absinthe); }
+.bar .b-purple { flex: 4; background: var(--nightshade); }
+.bar-key { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 10px; }
+.bar-key span { font-family: var(--f-mono); font-size: 12px; color: var(--vellum-dim); }
+.bar-key b { font-weight: 400; color: var(--vellum); }
+.note-hand { font-family: var(--f-hand); font-size: 1.35rem; line-height: 1.25; color: var(--absinthe-text); }
+
+/* ---------- type ---------- */
+.specimens { display: grid; gap: 0; }
+.spec { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 12px 40px; padding-block: 28px; border-bottom: 1px solid var(--rule-soft); align-items: baseline; }
+.spec:first-child { border-top: 1px solid var(--rule-soft); }
+.spec .who { display: grid; gap: 4px; }
+.spec .who b { font-weight: 400; color: var(--vellum); font-size: 1.05rem; }
+.spec .who small { font-size: .92rem; color: var(--vellum-dim); line-height: 1.4; }
+.s-display { font-family: var(--f-display); font-size: clamp(2.2rem, 5.4vw, 3.8rem); line-height: 1; }
+.s-body { font-family: var(--f-body); font-size: 1.2rem; line-height: 1.6; max-width: 58ch; }
+.s-body i { color: var(--moonlit); }
+.s-hand { font-family: var(--f-hand); font-size: 2rem; color: var(--absinthe-text); line-height: 1.2; }
+.s-mono { font-family: var(--f-mono); font-size: 1.05rem; color: var(--vellum-dim); }
+.s-ogham { font-family: var(--f-ogham); font-size: 2rem; color: var(--brass); letter-spacing: .05em; }
+
+/* ---------- voice + marginalia ---------- */
+.voice-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px 48px; margin-bottom: clamp(48px, 7vw, 80px); }
+.voice-col h3 { font-family: var(--f-mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--absinthe-text); margin-bottom: 12px; }
+.voice-col.avoid h3 { color: #C98A8A; }
+.voice-col ul { list-style: none; margin: 0; padding: 0; }
+.voice-col li { font-family: var(--f-fell); font-style: italic; font-size: 1.3rem; padding-block: 12px; border-bottom: 1px solid var(--rule-soft); }
+.voice-col.avoid li { color: var(--vellum-dim); text-decoration: line-through; text-decoration-color: rgba(201, 138, 138, .6); text-decoration-thickness: 1px; }
+
+.folio { display: grid; grid-template-columns: minmax(0, 62ch) minmax(220px, 280px); gap: 48px; align-items: start; }
+.folio-text { position: relative; }
+.folio-text .dropcap { float: left; font-family: var(--f-display); font-size: 4.2rem; line-height: .8; padding: 8px 10px 0 0; color: var(--brass); }
+.folio-text p { font-size: 1.24rem; line-height: 1.75; }
+.folio-text p + p { margin-top: 1em; }
+.folio-sign { margin-top: 18px; font-family: var(--f-hand); font-size: 1.5rem; color: var(--vellum-dim); }
+.term {
+  font: inherit; color: var(--moonlit); background: none; border: 0; padding: 0; cursor: pointer;
+  border-bottom: 1px dotted rgba(184, 146, 79, .7);
+  transition: color .3s, border-color .3s;
+}
+.term sup { font-family: var(--f-ogham); font-size: .7em; color: var(--brass); margin-left: 2px; }
+.term:hover, .term[aria-expanded="true"] { color: var(--gilt); border-bottom-color: var(--gilt); }
+.margin { position: relative; min-height: 100%; }
+.margin-hint { font-family: var(--f-hand); font-size: 1.3rem; color: var(--vellum-dim); line-height: 1.3; transition: opacity .4s; }
+.mnote {
+  position: absolute; left: 0; right: 0;
+  padding-left: 16px; border-left: 1px solid var(--brass);
+  clip-path: inset(0 100% 0 0); opacity: 0;
+  transition: clip-path 1.1s cubic-bezier(.35, .6, .2, 1), opacity .5s, top .4s;
+}
+.mnote.open { clip-path: inset(-4px -4px -4px -4px); opacity: 1; }
+.mnote .hw { font-family: var(--f-hand); font-size: 1.7rem; line-height: 1; color: var(--gilt); }
+.mnote .say { font-family: var(--f-mono); font-size: 12px; color: var(--absinthe-text); letter-spacing: .06em; margin-top: 4px; }
+.mnote p { font-size: 1rem; line-height: 1.5; color: var(--vellum); margin-top: 6px; }
+.mnote .src { font-style: italic; color: var(--vellum-dim); font-size: .92rem; margin-top: 6px; }
+@media (max-width: 820px) {
+  .folio { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .mnote { position: static; display: none; margin-top: 18px; }
+  .mnote.open { display: block; }
+}
+
+/* ---------- hedgerow plate ---------- */
+.plate { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: clamp(24px, 5vw, 64px); align-items: center; }
+.plate-card {
+  position: relative; margin: 0; background: #d9cfbd08; border: 1px solid var(--rule-soft); padding: 18px 18px 12px;
+  background-image: radial-gradient(90% 70% at 50% 45%, rgba(107, 90, 142, .09), transparent 70%);
+}
+.plate-card::before { content: ""; position: absolute; inset: 8px; border: 1px solid rgba(184, 146, 79, .14); pointer-events: none; }
+.plate-art { width: 100%; height: auto; display: block; color: var(--vellum); outline: none; }
+.plate-art .lines path, .plate-art .lines circle { fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.plate-art .soak path, .plate-art .soak circle { fill: none; stroke: var(--nightshade); stroke-width: 5; stroke-linecap: round; opacity: .55; }
+.plate-art .leader { stroke: var(--brass); stroke-width: .8; fill: none; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset .9s cubic-bezier(.3, .6, .2, 1); }
+.plate-art .pin { fill: var(--gilt); opacity: 0; transition: opacity .4s .5s; }
+.plate-art .key { font-family: var(--f-hand); font-size: 17px; fill: var(--gilt); opacity: 0; transition: opacity .4s .6s; }
+.plate-art .show .leader { stroke-dashoffset: 0; }
+.plate-art .show .pin, .plate-art .show .key { opacity: 1; }
+.plate-cap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 8px; padding-inline: 6px; font-family: var(--f-mono); font-size: 12px; color: var(--vellum-dim); letter-spacing: .06em; }
+.plate-side h3 { font-family: var(--f-display); font-size: var(--step-2); line-height: 1.1; }
+.plate-side .latin { font-family: var(--f-fell); font-style: italic; color: var(--vellum-dim); font-size: 1.15rem; margin-top: 2px; }
+.legend { list-style: none; margin: 20px 0 0; padding: 0; }
+.legend li { display: grid; grid-template-columns: 1.6rem 1fr; gap: 10px; padding-block: 12px; border-top: 1px solid var(--rule-soft); cursor: default; transition: background .3s; }
+.legend li:last-child { border-bottom: 1px solid var(--rule-soft); }
+.legend li:hover, .legend li:focus-visible, .legend li.lit { background: linear-gradient(90deg, rgba(184, 146, 79, .08), transparent); }
+.legend .k { font-family: var(--f-hand); font-size: 1.4rem; color: var(--gilt); line-height: 1.1; text-align: center; }
+.legend p { font-size: 1.02rem; line-height: 1.5; }
+.legend b { font-weight: 500; color: var(--moonlit); }
+.redraw { margin-top: 18px; font-family: var(--f-mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; background: none; color: var(--brass); border: 1px solid var(--rule); padding: 10px 14px; cursor: pointer; }
+.redraw:hover { border-color: var(--brass); }
+.placeholder-note { margin-top: 14px; }
+
+/* ---------- almanac ---------- */
+.almanac { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(32px, 5vw, 64px); align-items: start; }
+.moon-card { display: grid; justify-items: center; text-align: center; gap: 10px; }
+.moon-card svg { width: min(240px, 70vw); height: auto; overflow: visible; }
+.phase { font-family: var(--f-display); font-size: var(--step-2); line-height: 1.1; margin-top: 4px; }
+.moon-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; width: 100%; max-width: 360px; margin-top: 10px; text-align: left; }
+.moon-facts div { padding: 10px 0; border-top: 1px solid var(--rule-soft); }
+.moon-facts dt { font-family: var(--f-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--vellum-dim); }
+.moon-facts dd { margin: 2px 0 0; font-size: 1.1rem; font-variant-numeric: tabular-nums; }
+.where { font-family: var(--f-fell); font-style: italic; font-size: var(--step-1); color: var(--moonlit); text-align: center; margin-bottom: 8px; }
+.wheel-wrap { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; }
+.wheel { width: 100%; max-width: 520px; height: auto; margin-inline: auto; display: block; overflow: visible; }
+.wheel .ring { fill: none; stroke: var(--rule); stroke-width: 1; }
+.wheel .ring-in { fill: none; stroke: var(--rule-soft); stroke-width: 1; }
+.wheel .dark-half { fill: none; stroke: rgba(107, 90, 142, .35); stroke-width: 10; }
+.wheel .light-half { fill: none; stroke: rgba(78, 125, 107, .28); stroke-width: 10; }
+.wheel .tick { stroke: var(--rule); stroke-width: 1; }
+.wheel .mlabel { font-family: var(--f-mono); font-size: 10px; fill: var(--vellum-dim); letter-spacing: .08em; }
+.wheel .fest { cursor: pointer; outline: none; }
+.wheel .fest circle.dot { fill: var(--obsidian); stroke: var(--brass); stroke-width: 1.4; transition: fill .3s, r .3s; }
+.wheel .fest.fire circle.dot { stroke: var(--gilt); }
+.wheel .fest text { font-family: var(--f-display); font-size: 14px; fill: var(--vellum); transition: fill .3s; }
+.wheel .fest:hover text, .wheel .fest:focus-visible text, .wheel .fest.sel text { fill: var(--gilt); }
+.wheel .fest:hover circle.dot, .wheel .fest:focus-visible circle.dot, .wheel .fest.sel circle.dot { fill: var(--gilt); }
+.wheel .fest:focus-visible circle.halo { stroke: var(--gilt); }
+.wheel .halo { fill: none; stroke: transparent; stroke-width: 1; }
+.wheel .hand { stroke: var(--gilt); stroke-width: 1.2; }
+.wheel .today-dot { fill: var(--gilt); filter: drop-shadow(0 0 6px rgba(226, 194, 127, .8)); }
+.wheel .center-t { font-family: var(--f-mono); font-size: 10px; fill: var(--vellum-dim); letter-spacing: .12em; }
+.wheel .center-d { font-family: var(--f-display); font-size: 18px; fill: var(--vellum); }
+.wheel .half-t { font-family: var(--f-hand); font-size: 17px; }
+.lore {
+  border: 1px solid var(--rule-soft); background: var(--raven); padding: 22px 24px;
+  display: grid; gap: 8px;
+}
+.lore .top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.lore h3 { font-family: var(--f-display); font-size: var(--step-2); line-height: 1; }
+.lore .say { font-family: var(--f-mono); font-size: 12px; color: var(--absinthe-text); letter-spacing: .06em; }
+.lore .when { font-family: var(--f-mono); font-size: 12px; color: var(--vellum-dim); font-variant-numeric: tabular-nums; }
+.lore p { font-size: 1.08rem; line-height: 1.6; }
+.lore .hedge { border-top: 1px solid var(--rule-soft); padding-top: 10px; margin-top: 4px; }
+.lore .hedge .label { color: var(--absinthe-text); }
+.lore-body { transition: opacity .35s; }
+.fest-list { display: flex; flex-wrap: wrap; gap: 6px; }
+.fest-list button {
+  font-family: var(--f-mono); font-size: 12px; letter-spacing: .04em; color: var(--vellum-dim);
+  background: none; border: 1px solid var(--rule-soft); padding: 7px 10px; cursor: pointer;
+}
+.fest-list button:hover, .fest-list button[aria-pressed="true"] { color: var(--gilt); border-color: var(--rule); }
+
+/* ---------- motion table ---------- */
+.table-wrap { overflow-x: auto; }
+table.motion { width: 100%; border-collapse: collapse; min-width: 620px; }
+.motion th { font-family: var(--f-mono); font-weight: 400; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--vellum-dim); text-align: left; padding: 0 16px 12px 0; border-bottom: 1px solid var(--rule); }
+.motion td { padding: 16px 16px 16px 0; border-bottom: 1px solid var(--rule-soft); vertical-align: top; font-size: 1.05rem; line-height: 1.5; }
+.motion td:first-child { font-family: var(--f-display); font-size: 1.15rem; color: var(--vellum); white-space: nowrap; }
+.motion td:nth-child(2) { color: var(--absinthe-text); font-style: italic; }
+.motion td:nth-child(3) { color: var(--vellum-dim); }
+.still { margin-top: 28px; max-width: 62ch; color: var(--vellum-dim); }
+.still b { color: var(--vellum); font-weight: 500; }
+
+/* ---------- colophon ---------- */
+footer { margin-left: var(--rail); border-top: 1px solid var(--rule-soft); padding-block: 56px 72px; }
+.colophon { display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: center; }
+.seal { width: 76px; height: 76px; }
+.colophon p { color: var(--vellum-dim); font-size: 1rem; max-width: 70ch; }
+.colophon .label { margin-bottom: 6px; }
+
+@media (max-width: 760px) {
+  .principle, .plate, .almanac, .voice-grid { grid-template-columns: minmax(0, 1fr); }
+  .spec { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .colophon { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .gilt, .mnote, .tree-card, .plate-art .leader { transition: none !important; }
+}
+</style>
+
+<div class="candle" aria-hidden="true"></div>
+<canvas class="mica" id="mica" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+
+<nav class="stone" id="stone" aria-label="Board sections, in Ogham">
+  <span class="stone-caption">read upward, as on the stones</span>
+</nav>
+
+<header class="threshold" id="threshold">
+  <div class="layer" data-depth=".04" data-drift=".25"><canvas id="stars"></canvas></div>
+  <div class="layer moon-layer" data-depth=".08" data-drift=".35">
+    <svg class="hero-moon" id="heroMoon" viewBox="0 0 100 100" aria-hidden="true"></svg>
+  </div>
+  <div class="layer undertext" data-depth=".12" data-drift=".3" aria-hidden="true">
+    <p>Messe ocus Pangur Bán,</p><p>cechtar nathar fria saindán:</p><p>bíth a menmasam fri seilgg,</p><p>mu menma céin im saincheirdd.</p>
+  </div>
+  <div class="layer" data-depth=".18" data-drift=".45"><svg id="farHills" viewBox="0 0 1600 600" preserveAspectRatio="xMidYMax slice" aria-hidden="true"></svg></div>
+  <div class="layer" data-depth=".34" data-drift=".65"><svg id="midHills" viewBox="0 0 1600 600" preserveAspectRatio="xMidYMax slice" aria-hidden="true"></svg></div>
+  <div class="layer" data-depth=".4" data-drift=".7"><canvas id="fogBack"></canvas></div>
+  <div class="layer" data-depth=".62" data-drift="1"><svg id="nearHill" viewBox="0 0 1600 600" preserveAspectRatio="xMidYMax slice" aria-hidden="true"></svg></div>
+  <div class="layer" data-depth=".7" data-drift="1.2"><canvas id="fogFront"></canvas></div>
+
+  <div class="hero-copy" id="heroCopy">
+    <p class="eyebrow">Brand board · v1 · Autumn 2026</p>
+    <h1 class="wordmark gilt" tabindex="0">Palimpsest</h1>
+    <p class="hero-sub">The home of <span class="who">Wren Ashby</span>: author, tarot reader, keeper of old stories.</p>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <!-- I. Beith -->
+    <section class="chamber" id="principle" data-og="1">
+      <div class="chamber-head">
+        <span class="og" aria-hidden="true">ᚁ</span>
+        <span class="meta">Beith · birch · the principle</span>
+        <h2>The magic happens when you ask for it</h2>
+      </div>
+      <div class="principle">
+        <div>
+          <p class="vow">Every glimmer answers something the visitor did, and rewards it with <em>knowledge</em>. The atmosphere waits quietly. The site never performs for its own sake.</p>
+          <div class="test">
+            <span class="label">The test for every effect</span>
+            <p>What does the visitor learn from this? If nothing, it goes.</p>
+          </div>
+        </div>
+        <ol class="rules">
+          <li><strong>The atmosphere stays quiet</strong><span>Fog, grain and slow parallax set the mood in the background and never ask for attention.</span></li>
+          <li><strong>Glimmers answer an action</strong><span>Hover, tap, focus, or scrolling to something. Nothing sparkles on its own.</span></li>
+          <li><strong>Every glimmer reveals something</strong><span>A meaning, a source, a story, or a way forward.</span></li>
+          <li><strong>Nothing is locked behind magic</strong><span>Everything can be read without interacting. It all works by keyboard, touch and reduced motion.</span></li>
+          <li><strong>Once, then rest</strong><span>An effect plays, settles and stays settled. Nothing loops.</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- II. Luis -->
+    <section class="chamber" id="palette" data-og="2">
+      <div class="chamber-head">
+        <span class="og" aria-hidden="true">ᚂ</span>
+        <span class="meta">Luis · rowan · palette</span>
+        <h2>Glimmer in the dark</h2>
+      </div>
+      <p class="lede" style="margin-bottom:36px">Deep blacks with a violet undertone. Brass is the metal, green is the living world, and purple is the Otherworld, felt more than seen. Tap an ink to copy its hex.</p>
+      <div class="inks" id="inks"></div>
+      <div class="proportion">
+        <span class="label">Proportion on the page</span>
+        <div class="bar" role="img" aria-label="Blacks 80 percent, brass 10 percent, green 6 percent, purple 4 percent">
+          <div class="b-black"></div><div class="b-brass"></div><div class="b-green"></div><div class="b-purple"></div>
+        </div>
+        <div class="bar-key">
+          <span><b>80%</b> Obsidian, Raven, Grimoire</span>
+          <span><b>10%</b> Brass &amp; Gilt</span>
+          <span><b>6%</b> Absinthe &amp; Bottle Glass</span>
+          <span><b>4%</b> Nightshade</span>
+        </div>
+        <p class="note-hand" style="margin-top:18px">Metal only on type and hairlines. Never a big gold fill.</p>
+      </div>
+    </section>
+
+    <!-- III. Fearn -->
+    <section class="chamber" id="type" data-og="3">
+      <div class="chamber-head">
+        <span class="og" aria-hidden="true">ᚃ</span>
+        <span class="meta">Fearn · alder · typography</span>
+        <h2>Four hands and an alphabet</h2>
+      </div>
+      <div class="specimens">
+        <div class="spec">
+          <div class="who"><span class="label">Display</span><b>IM Fell English SC</b><small>The Fell Types, gathered for Oxford by Bishop John Fell in the 1670s, revived by Igino Marini.</small></div>
+          <div class="s-display"><span class="gilt" tabindex="0">The Hedgerow &amp; the Hollow Hill</span></div>
+        </div>
+        <div class="spec">
+          <div class="who"><span class="label">Body</span><b>EB Garamond</b><small>Georg Duffner's revival of Claude Garamond. Scholarly, warm, easy to read at length.</small></div>
+          <p class="s-body">My grandmother kept a rowan sprig over the back door and a hare's tooth in her apron pocket. She never called either one <i>magic</i>. She called them sense, the kind you learn by paying attention for seventy years.</p>
+        </div>
+        <div class="spec">
+          <div class="who"><span class="label">Marginalia</span><b>Caveat</b><small>Wren's hand. Short notes, headwords and annotations only, never paragraphs.</small></div>
+          <p class="s-hand">pick before Samhain, never after</p>
+        </div>
+        <div class="spec">
+          <div class="who"><span class="label">Catalogue</span><b>Cutive Mono</b><small>Index cards, dates, measurements, Latin names and hex codes.</small></div>
+          <p class="s-mono">Plate IV · Lepus europaeus · 37 nights to Samhain</p>
+        </div>
+        <div class="spec">
+          <div class="who"><span class="label">Markers</span><b>Noto Sans Ogham</b><small>The early Irish tree alphabet, used for section marks and navigation.</small></div>
+          <p class="s-ogham" aria-label="Ogham: beith, luis, fearn, sail, nion, uath, dair, tinne, coll">᚛ᚁᚂᚃᚄᚅ ᚆᚇᚈᚉ᚜</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- IV. Sail -->
+    <section class="chamber" id="voice" data-og="4">
+      <div class="chamber-head">
+        <span class="og" aria-hidden="true">ᚄ</span>
+        <span class="meta">Sail · willow · voice &amp; marginalia</span>
+        <h2>A librarian who knows which book you need</h2>
+      </div>
+      <div class="voice-grid">
+        <div class="voice-col">
+          <h3>Wren writes</h3>
+          <ul>
+            <li>Come in from the cold.</li>
+            <li>This one is older than it looks.</li>
+            <li>Set an extra cup for the stranger.</li>
+          </ul>
+        </div>
+        <div class="voice-col avoid">
+          <h3>Wren never writes</h3>
+          <ul>
+            <li>Unlock your inner magic!</li>
+            <li>Manifest your best self</li>
+            <li>Witchy vibes for the modern mystic</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="folio">
+        <div class="folio-text" id="folioText">
+          <p><span class="dropcap" aria-hidden="true">E</span>very autumn my grandmother warned us off the brambles after <button class="term" data-note="samhain" aria-expanded="false" aria-controls="n-samhain">Samhain<sup aria-hidden="true">ᚁ</sup></button>. The <button class="term" data-note="puca" aria-expanded="false" aria-controls="n-puca">púca<sup aria-hidden="true">ᚂ</sup></button> spits on them, she said, and the fruit turns.</p>
+          <p>I thought it was a story to get children home before dark. It was also sound botany: by November the last berries are wet, mouldy and sour. Folklore is often the oldest field guide we have. Stand at a <button class="term" data-note="thin" aria-expanded="false" aria-controls="n-thin">thin place<sup aria-hidden="true">ᚃ</sup></button>, a holy well or a gap in the hedge, and you can read both at once.</p>
+          <p class="folio-sign">W. A.</p>
+        </div>
+        <aside class="margin" id="margin" aria-label="Margin notes">
+          <p class="margin-hint" id="marginHint">Tap an underlined word. Its meaning will be written here.</p>
+          <div class="mnote" id="n-samhain" role="note">
+            <div class="hw">Samhain</div>
+            <div class="say">say "SOW-in" · 31 Oct – 1 Nov</div>
+            <p>The Gaelic festival at summer's end, when the dark half of the year begins. The boundary between this world and the Otherworld was said to be thinnest.</p>
+            <p class="src">From Old Irish <i>samain</i>. It appears in the earliest Irish sagas.</p>
+          </div>
+          <div class="mnote" id="n-puca" role="note">
+            <div class="hw">púca</div>
+            <div class="say">say "POO-ka"</div>
+            <p>A shape-shifting spirit of Irish folklore. It often appears as a dark horse, a goat or a hare. Sometimes mischievous, sometimes helpful, always best treated politely.</p>
+            <p class="src">The late blackberries are its share of the harvest.</p>
+          </div>
+          <div class="mnote" id="n-thin" role="note">
+            <div class="hw">thin place</div>
+            <div class="say">Irish &amp; Scottish tradition</div>
+            <p>A place where this world and the other feel close: wells, crossroads, burial mounds, the shoreline. The phrase is modern. The idea is very old.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- V. Nion -->
+    <section class="chamber" id="hedgerow" data-og="5">
+      <div class="chamber-head">
+        <span class="og" aria-hidden="true">ᚅ</span>
+        <span class="meta">Nion · ash · the hedgerow plate</span>
+        <h2>Ink that draws itself, then teaches</h2>
+      </div>
+      <div class="plate">
+        <figure class="plate-card">
+          <svg class="plate-art" id="hare" viewBox="0 0 400 300" tabindex="0" role="img" aria-label="Ink sketch of a sitting hare, with labelled ears, eye and hind leg">
+            <defs>
+              <filter id="bleed" x="-5%" y="-5%" width="110%" height="110%">
+                <feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="7" result="n"/>
+                <feDisplacementMap id="bleedDisp" in="SourceGraphic" in2="n" scale="1.6" xChannelSelector="R" yChannelSelector="G" result="d"/>
+                <feGaussianBlur id="bleedBlur" in="d" stdDeviation=".25"/>
+              </filter>
+              <filter id="soakF" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="3"/></filter>
+            </defs>
+            <g class="soak" id="hareSoak" filter="url(#soakF)"></g>
+            <g class="lines" id="hareLines" filter="url(#bleed)">
+              <path d="M100 118 C104 104 116 94 132 90 C148 86 158 89 168 96"/>
+              <path d="M150 90 C170 60 205 38 240 28 C236 42 212 66 176 98"/>
+              <path d="M163 86 C185 66 206 51 226 40"/>
+              <path d="M166 95 C190 72 222 58 256 52 C248 66 224 86 190 104"/>
+              <circle cx="126" cy="108" r="3.4"/>
+              <path d="M100 118 L95 122"/>
+              <path d="M190 104 C232 102 280 110 310 140 C334 164 340 200 328 230 C322 244 306 250 290 250"/>
+              <path d="M332 176 C344 170 351 178 345 186 C341 191 334 191 330 188"/>
+              <path d="M246 168 C286 170 312 200 300 236"/>
+              <path d="M290 250 L230 252 C219 252 217 244 228 240 L262 236"/>
+              <path d="M100 118 C96 127 98 135 108 141 C119 148 127 160 132 180 C136 200 134 226 132 246 C130 252 116 254 108 252 C104 250 108 246 116 246 L122 246"/>
+              <path d="M150 190 C156 210 158 232 156 250 C150 253 140 253 138 250"/>
+              <path d="M160 196 C180 220 205 232 228 240"/>
+              <path d="M270 190 l10 6 M276 204 l10 5 M281 218 l9 4 M214 120 l12 -3 M236 118 l12 -1"/>
+              <path d="M101 122 L70 115 M101 124 L72 128 M103 126 L80 139"/>
+              <path d="M50 257 C140 250 260 259 382 254 M200 256 l-4 -12 M206 256 l2 -14 M348 255 l-3 -10 M354 255 l3 -12 M76 256 l-2 -9 M82 256 l3 -11"/>
+            </g>
+            <g id="hareLabels">
+              <g data-k="a"><path class="leader" pathLength="1" d="M226 40 C250 22 280 18 318 26"/><circle class="pin" cx="226" cy="40" r="2.4"/><text class="key" x="324" y="31">a</text></g>
+              <g data-k="b"><path class="leader" pathLength="1" d="M126 108 C110 80 80 66 52 64"/><circle class="pin" cx="126" cy="108" r="2.4"/><text class="key" x="36" y="69">b</text></g>
+              <g data-k="c"><path class="leader" pathLength="1" d="M300 236 C330 262 352 272 372 276"/><circle class="pin" cx="300" cy="236" r="2.4"/><text class="key" x="376" y="283">c</text></g>
+            </g>
+          </svg>
+          <figcaption class="plate-cap"><span>Plate IV · the brown hare</span><span>ink on laid paper · placeholder</span></figcaption>
+        </figure>
+        <div class="plate-side">
+          <span class="label">From The Hedgerow</span>
+          <h3>The Hare</h3>
+          <p class="latin">Lepus europaeus · <span lang="ga">giorria</span></p>
+          <ul class="legend" id="legend">
+            <li tabindex="0" data-k="a"><span class="k">a</span><p><b>Ears laid back along the body.</b> In Irish and Scottish tales, a hare wounded in the night is found by morning as an old woman with the same wound.</p></li>
+            <li tabindex="0" data-k="b"><span class="k">b</span><p><b>Eyes set high and wide.</b> A hare sees almost all the way around itself without turning its head.</p></li>
+            <li tabindex="0" data-k="c"><span class="k">c</span><p><b>The long hind leg.</b> The "boxing" of March hares is usually a female fending off a male who is too keen.</p></li>
+          </ul>
+          <button class="redraw" id="redraw" type="button">Ink it again</button>
+          <p class="note-hand placeholder-note">placeholder sketch: your scanned ink replaces these strokes</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- VI. Uath -->
+    <section class="chamber" id="almanac" data-og="6">
+      <div class="chamber-head">
+        <span class="og" aria-hidden="true">ᚆ</span>
+        <span class="meta">Uath · hawthorn · the almanac</span>
+        <h2>Tonight, and where we stand in the year</h2>
+      </div>
+      <p class="where" id="whereLine">&nbsp;</p>
+      <div class="almanac">
+        <div class="moon-card">
+          <svg id="bigMoon" viewBox="0 0 100 100" role="img" aria-label="Tonight's moon"></svg>
+          <div class="phase" id="phaseName">&nbsp;</div>
+          <dl class="moon-facts">
+            <div><dt>Moon's age</dt><dd id="mAge">–</dd></div>
+            <div><dt>Lit</dt><dd id="mLit">–</dd></div>
+            <div><dt>Next full</dt><dd id="mFull">–</dd></div>
+            <div><dt>Next new</dt><dd id="mNew">–</dd></div>
+          </dl>
+          <p class="mono muted" style="margin-top:6px">Calculated live from the 29.53-day synodic month</p>
+        </div>
+        <div class="wheel-wrap">
+          <svg class="wheel" id="wheel" viewBox="-110 -30 620 560" role="group" aria-label="The Wheel of the Year"></svg>
+          <div class="fest-list" id="festList" aria-label="Festivals"></div>
+          <div class="lore" aria-live="polite"><div class="lore-body" id="lore"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VII. Dair -->
+    <section class="chamber" id="motion" data-og="7">
+      <div class="chamber-head">
+        <span class="og" aria-hidden="true">ᚇ</span>
+        <span class="meta">Dair · oak · atmosphere &amp; motion</span>
+        <h2>What wakes, and what it gives</h2>
+      </div>
+      <div class="table-wrap">
+        <table class="motion">
+          <thead><tr><th>Effect</th><th>Wakes when</th><th>What the visitor gets</th></tr></thead>
+          <tbody>
+            <tr><td>Fog</td><td>Always, very slowly</td><td>Depth and weather. It stays behind the words and thins as you go deeper.</td></tr>
+            <tr><td>Parallax</td><td>You scroll or move the pointer</td><td>Distance: far hills, the stone row, the lone hawthorn.</td></tr>
+            <tr><td>Ink drawing</td><td>You scroll to a plate</td><td>The illustration, drawn in the order the pen moved. Once.</td></tr>
+            <tr><td>Plate labels</td><td>You hover, tap or focus</td><td>Names and folklore for each part of the drawing.</td></tr>
+            <tr><td>Margin notes</td><td>You tap a marked word</td><td>Meaning, pronunciation and source, in Wren's hand.</td></tr>
+            <tr><td>Ogham notches</td><td>You hover or focus</td><td>The tree, its lore, and the chamber it leads to.</td></tr>
+            <tr><td>Gilt sheen</td><td>You hover or focus a title</td><td>A sign that this can be touched.</td></tr>
+            <tr><td>Candle glow</td><td>Follows your pointer</td><td>Specks of mica in the paper catch the light.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="still"><b>With reduced motion on,</b> the fog holds still, the parallax rests, drawings arrive fully inked and notes appear without the pen stroke. The site stays whole and beautiful; only the movement is gone.</p>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap colophon">
+    <svg class="seal" viewBox="0 0 80 80" aria-hidden="true">
+      <defs><radialGradient id="wax" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#5a4a78"/><stop offset=".7" stop-color="#3a2e52"/><stop offset="1" stop-color="#241c34"/></radialGradient></defs>
+      <path d="M40 4 C52 3 60 10 68 14 C76 22 77 32 76 42 C77 54 70 62 62 70 C52 77 42 77 32 76 C20 75 12 68 7 58 C2 48 3 36 7 26 C12 14 26 5 40 4 Z" fill="url(#wax)"/>
+      <circle cx="40" cy="40" r="24" fill="none" stroke="#8b78ad" stroke-width="1" opacity=".7"/>
+      <path d="M40 20 L40 60 M40 52 L51 52 M40 47 L51 47 M40 42 L51 42 M33 30 L47 30" stroke="#E2C27F" stroke-width="1.6" stroke-linecap="round" opacity=".9"/>
+    </svg>
+    <div>
+      <p class="label">Colophon</p>
+      <p>Palimpsest, a site and theme for authors and practitioners. Demo author: Wren Ashby. Set in IM Fell English, EB Garamond, Caveat and Cutive Mono. The ghost writing under the title is the opening of <i>Pangur Bán</i>, a poem about a scholar and his white cat, written by an Irish monk in the 9th century. The seal reads W and A in Ogham, upward: in the earliest inscriptions Fearn stood for a W sound, and the single cross-stroke is Ailm.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const NS = 'http://www.w3.org/2000/svg';
+  const DAY = 864e5;
+  const fmt = new Intl.DateTimeFormat('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
+
+  function mulberry32(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+
+  /* ---------------- candle + mica ---------------- */
+  const root = document.documentElement;
+  addEventListener('pointermove', e => {
+    root.style.setProperty('--mx', e.clientX + 'px');
+    root.style.setProperty('--my', e.clientY + 'px');
+  }, { passive: true });
+  (function mica() {
+    const c = $('#mica'), ctx = c.getContext('2d');
+    function draw() {
+      c.width = innerWidth; c.height = innerHeight;
+      const r = mulberry32(11), n = Math.round(c.width * c.height / 2600);
+      for (let i = 0; i < n; i++) {
+        const x = r() * c.width, y = r() * c.height, s = r() * 1.1 + .3;
+        ctx.fillStyle = r() < .7 ? `rgba(226,194,127,${.25 + r() * .5})` : `rgba(168,151,204,${.2 + r() * .4})`;
+        ctx.fillRect(x, y, s, s);
+      }
+    }
+    draw(); addEventListener('resize', draw);
+  })();
+
+  /* ---------------- moon ---------------- */
+  const SYN = 29.530588853, REF = Date.UTC(2000, 0, 6, 18, 14);
+  const now = new Date();
+  const age = (((now - REF) / DAY) % SYN + SYN) % SYN;
+  const p = age / SYN;
+  const lit = (1 - Math.cos(2 * Math.PI * p)) / 2;
+  const phaseName =
+    p < .0339 || p > .9661 ? 'New Moon' : p < .216 ? 'Waxing Crescent' : p < .284 ? 'First Quarter' :
+    p < .466 ? 'Waxing Gibbous' : p < .534 ? 'Full Moon' : p < .716 ? 'Waning Gibbous' :
+    p < .784 ? 'Last Quarter' : 'Waning Crescent';
+
+  function litPath(cx, cy, r, ph) {
+    const c = Math.cos(2 * Math.PI * ph), rx = Math.abs(c) * r, gib = c < 0;
+    return ph <= .5
+      ? `M${cx} ${cy - r}A${r} ${r} 0 0 1 ${cx} ${cy + r}A${rx} ${r} 0 0 ${gib ? 1 : 0} ${cx} ${cy - r}Z`
+      : `M${cx} ${cy - r}A${r} ${r} 0 0 0 ${cx} ${cy + r}A${rx} ${r} 0 0 ${gib ? 0 : 1} ${cx} ${cy - r}Z`;
+  }
+  function drawMoon(svg, id) {
+    const craters = [[40, 36, 6], [60, 58, 8], [36, 64, 4], [58, 32, 3.5], [48, 48, 3]];
+    svg.innerHTML = `
+      <defs>
+        <radialGradient id="${id}g" cx="50%" cy="50%" r="50%"><stop offset=".45" stop-color="#6B5A8E" stop-opacity=".45"/><stop offset="1" stop-color="#6B5A8E" stop-opacity="0"/></radialGradient>
+        <radialGradient id="${id}l" cx="42%" cy="38%" r="70%"><stop offset="0" stop-color="#F3ECDD"/><stop offset="1" stop-color="#CFC4B0"/></radialGradient>
+        <clipPath id="${id}c"><path d="${litPath(50, 50, 30, p)}"/></clipPath>
+        <filter id="${id}r"><feTurbulence type="fractalNoise" baseFrequency=".6" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="1.4"/></filter>
+      </defs>
+      <circle cx="50" cy="50" r="50" fill="url(#${id}g)"/>
+      <circle cx="50" cy="50" r="30" fill="#1B1822"/>
+      <path d="${litPath(50, 50, 30, p)}" fill="url(#${id}l)"/>
+      <g clip-path="url(#${id}c)" fill="#B7AB96" opacity=".45">${craters.map(([x, y, r]) => `<circle cx="${x}" cy="${y}" r="${r}"/>`).join('')}</g>
+      <circle cx="50" cy="50" r="30" fill="none" stroke="#B8924F" stroke-width=".6" opacity=".7" filter="url(#${id}r)"/>`;
+  }
+  drawMoon($('#heroMoon'), 'hm');
+  drawMoon($('#bigMoon'), 'bm');
+  $('#bigMoon').setAttribute('aria-label', `Tonight's moon: ${phaseName}, ${Math.round(lit * 100)} percent lit`);
+  $('#phaseName').textContent = phaseName;
+  $('#mAge').textContent = `Day ${Math.floor(age) + 1} of 29.5`;
+  $('#mLit').textContent = Math.round(lit * 100) + '%';
+  const toFull = ((.5 - p + 1) % 1) * SYN, toNew = ((1 - p) % 1) * SYN;
+  $('#mFull').textContent = fmt.format(new Date(+now + toFull * DAY));
+  $('#mNew').textContent = fmt.format(new Date(+now + toNew * DAY));
+
+  /* ---------------- threshold scene ---------------- */
+  function ridge(seed, base, amp, w = 1600, h = 600, step = 16) {
+    const r = mulberry32(seed), waves = [0, 1, 2, 3].map(i => ({ f: (i + 1) * (.0022 + r() * .003), a: amp / (i + 1.3), ph: r() * 6.28 }));
+    const y = x => base - waves.reduce((s, v) => s + Math.sin(x * v.f + v.ph) * v.a, 0);
+    let d = `M0 ${h}L0 ${y(0).toFixed(1)}`;
+    for (let x = step; x <= w; x += step) d += `L${x} ${y(x).toFixed(1)}`;
+    return { d: d + `L${w} ${h}Z`, y };
+  }
+  (function scene() {
+    const far = ridge(3, 360, 46), mid = ridge(8, 430, 34), near = ridge(21, 520, 26);
+    $('#farHills').innerHTML = `<path d="${far.d}" fill="#1A1622"/>`;
+    // stone row on the mid ridge
+    const r = mulberry32(5);
+    let stones = '';
+    [1010, 1044, 1070, 1102, 1131, 1168].forEach(x => {
+      const h = 22 + r() * 34, w = 10 + r() * 10, b = mid.y(x) + 4;
+      stones += `<path d="M${x - w / 2} ${b}L${x - w / 2 + 2} ${b - h + 5}L${x - w / 5} ${b - h}L${x + w / 2 - 1} ${b - h + 7}L${x + w / 2} ${b}Z"/>`;
+    });
+    $('#midHills').innerHTML = `<g fill="#141119"><path d="${mid.d}"/>${stones}</g>`;
+    // lone hawthorn on the near hill, bent by the wind
+    const tr = mulberry32(42), segs = [];
+    function branch(x, y, a, len, w, depth) {
+      const x2 = x + Math.cos(a) * len, y2 = y + Math.sin(a) * len;
+      const bend = (tr() - .5) * len * .5;
+      const mx = (x + x2) / 2 + Math.cos(a + Math.PI / 2) * bend, my = (y + y2) / 2 + Math.sin(a + Math.PI / 2) * bend;
+      segs.push(`<path d="M${x.toFixed(1)} ${y.toFixed(1)}Q${mx.toFixed(1)} ${my.toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}" stroke-width="${w.toFixed(2)}"/>`);
+      if (depth <= 0) return;
+      const n = tr() < .3 ? 3 : 2;
+      for (let i = 0; i < n; i++) {
+        const spread = (i - (n - 1) / 2) * (.55 + tr() * .35);
+        branch(x2, y2, a + spread + .14 + (tr() - .5) * .3, len * (.66 + tr() * .14), w * .66, depth - 1);
+      }
+    }
+    const tx = 360, ty = near.y(360) + 6;
+    branch(tx, ty, -Math.PI / 2 + .28, 88, 16, 7);
+    $('#nearHill').innerHTML = `<g fill="#0D0B11"><path d="${near.d}"/></g><g fill="none" stroke="#0D0B11" stroke-linecap="round">${segs.join('')}</g>`;
+  })();
+
+  // stars
+  const starC = $('#stars'), sctx = starC.getContext('2d');
+  const starR = mulberry32(99), stars = Array.from({ length: 170 }, () => ({ x: starR(), y: starR() * .62, s: starR() * 1.2 + .25, a: starR() * .6 + .15, t: starR() * 6.28 }));
+  function sizeCanvas(c, dprCap) {
+    const d = Math.min(devicePixelRatio || 1, dprCap), b = c.getBoundingClientRect();
+    c.width = Math.max(1, Math.round(b.width * d)); c.height = Math.max(1, Math.round(b.height * d));
+  }
+  function drawStars(t) {
+    const w = starC.width, h = starC.height;
+    sctx.clearRect(0, 0, w, h);
+    for (const s of stars) {
+      const tw = reduce ? 1 : .75 + .25 * Math.sin(t * .0006 + s.t);
+      sctx.fillStyle = `rgba(232,224,207,${(s.a * tw).toFixed(3)})`;
+      sctx.beginPath(); sctx.arc(s.x * w, s.y * h, s.s * (w / 1400 + .6), 0, 6.283); sctx.fill();
+    }
+  }
+
+  // fog: tileable fractal value noise, drifting in layers
+  function fogTexture(w, h, seed, tint) {
+    const r = mulberry32(seed), acc = new Float32Array(w * h);
+    let amp = 1, tot = 0;
+    for (let o = 0; o < 5; o++) {
+      const gx = 4 << o, gy = 2 << o, lat = Float32Array.from({ length: gx * gy }, r);
+      for (let y = 0; y < h; y++) {
+        const fy = y / h * gy, y0 = fy | 0, ty = (fy - y0) * (fy - y0) * (3 - 2 * (fy - y0)), y1 = (y0 + 1) % gy;
+        for (let x = 0; x < w; x++) {
+          const fx = x / w * gx, x0 = fx | 0, t = fx - x0, tx = t * t * (3 - 2 * t), x1 = (x0 + 1) % gx;
+          const a = lat[y0 * gx + x0] + (lat[y0 * gx + x1] - lat[y0 * gx + x0]) * tx;
+          const b = lat[y1 * gx + x0] + (lat[y1 * gx + x1] - lat[y1 * gx + x0]) * tx;
+          acc[y * w + x] += (a + (b - a) * ty) * amp;
+        }
+      }
+      tot += amp; amp *= .5;
+    }
+    const c = document.createElement('canvas'); c.width = w; c.height = h;
+    const ctx = c.getContext('2d'), img = ctx.createImageData(w, h);
+    for (let y = 0; y < h; y++) {
+      const fall = Math.pow(Math.sin(Math.PI * y / h), 1.4);
+      for (let x = 0; x < w; x++) {
+        const v = acc[y * w + x] / tot, a = Math.min(1, Math.max(0, (v - .4) * 2.3)) * fall, i = (y * w + x) * 4;
+        img.data[i] = tint[0]; img.data[i + 1] = tint[1]; img.data[i + 2] = tint[2]; img.data[i + 3] = a * 255;
+      }
+    }
+    ctx.putImageData(img, 0, 0);
+    return c;
+  }
+  const fogs = [
+    { c: $('#fogBack'), layers: [
+      { img: fogTexture(256, 96, 1, [150, 138, 176]), speed: .006, scale: 1.7, y: .42, h: .42, a: .5 },
+      { img: fogTexture(256, 96, 2, [120, 108, 150]), speed: -.004, scale: 2.2, y: .55, h: .38, a: .4 } ] },
+    { c: $('#fogFront'), layers: [
+      { img: fogTexture(256, 80, 3, [176, 166, 194]), speed: .011, scale: 1.5, y: .7, h: .34, a: .42 } ] }
+  ];
+  function drawFog(t) {
+    for (const f of fogs) {
+      const ctx = f.c.getContext('2d'), w = f.c.width, h = f.c.height;
+      ctx.clearRect(0, 0, w, h);
+      for (const L of f.layers) {
+        const sw = w * L.scale, off = ((t * L.speed * (w / 1000)) % sw + sw) % sw;
+        ctx.globalAlpha = L.a;
+        ctx.drawImage(L.img, -off, L.y * h, sw, L.h * h);
+        ctx.drawImage(L.img, -off + sw, L.y * h, sw, L.h * h);
+        if (-off + 2 * sw < w) ctx.drawImage(L.img, -off + 2 * sw, L.y * h, sw, L.h * h);
+      }
+      ctx.globalAlpha = 1;
+    }
+  }
+  function sizeHero() { sizeCanvas(starC, 2); fogs.forEach(f => sizeCanvas(f.c, 1)); drawStars(0); drawFog(performance.now()); }
+  sizeHero(); addEventListener('resize', sizeHero);
+
+  // parallax: answers scroll and pointer
+  const hero = $('#threshold'), layers = $$('.layer', hero), heroCopy = $('#heroCopy');
+  let px = 0, py = 0, tpx = 0, tpy = 0, heroOn = true;
+  hero.addEventListener('pointermove', e => {
+    const b = hero.getBoundingClientRect();
+    tpx = (e.clientX - b.left) / b.width - .5; tpy = (e.clientY - b.top) / b.height - .5;
+  });
+  hero.addEventListener('pointerleave', () => { tpx = 0; tpy = 0; });
+  new IntersectionObserver(([e]) => { heroOn = e.isIntersecting; }).observe(hero);
+  function frame(t) {
+    if (heroOn) {
+      px += (tpx - px) * .05; py += (tpy - py) * .05;
+      const sy = scrollY;
+      for (const L of layers) {
+        const d = +L.dataset.depth, dr = +L.dataset.drift;
+        L.style.transform = `translate3d(${(-px * dr * 26).toFixed(2)}px, ${(sy * (.55 - d * .6) - py * dr * 12).toFixed(2)}px, 0)`;
+      }
+      heroCopy.style.transform = `translate3d(0, ${(sy * -.12).toFixed(1)}px, 0)`;
+      drawStars(t); drawFog(t);
+    }
+    requestAnimationFrame(frame);
+  }
+  if (!reduce) requestAnimationFrame(frame);
+
+  /* ---------------- Ogham stone ---------------- */
+  const trees = [
+    { id: 'principle', ch: 'ᚁ', name: 'Beith', tree: 'birch', side: 1, n: 1, go: 'The principle', lore: 'The first letter. Birch is the pioneer tree, first to grow back on cleared ground.' },
+    { id: 'palette', ch: 'ᚂ', name: 'Luis', tree: 'rowan', side: 1, n: 2, go: 'Palette', lore: 'Rowan sprigs were hung over doors and byres to keep enchantment out.' },
+    { id: 'type', ch: 'ᚃ', name: 'Fearn', tree: 'alder', side: 1, n: 3, go: 'Typography', lore: 'Alder grows with its roots in water. Cut its wood and it turns red, as if it bleeds.' },
+    { id: 'voice', ch: 'ᚄ', name: 'Sail', tree: 'willow', side: 1, n: 4, go: 'Voice & marginalia', lore: 'Willow bends to water. The oldest surviving Irish harps were carved from it.' },
+    { id: 'hedgerow', ch: 'ᚅ', name: 'Nion', tree: 'ash', side: 1, n: 5, go: 'The hedgerow plate', lore: 'Several of the great sacred trees of early Ireland were ash. Hurleys are still made from it.' },
+    { id: 'almanac', ch: 'ᚆ', name: 'Uath', tree: 'hawthorn', side: -1, n: 1, go: 'The almanac', lore: 'The fairy tree. A lone hawthorn in a field is left uncut, even now.' },
+    { id: 'motion', ch: 'ᚇ', name: 'Dair', tree: 'oak', side: -1, n: 2, go: 'Atmosphere & motion', lore: 'Dair gives Ireland many place names: Derry is an oak grove, Kildare the church of the oak.' }
+  ];
+  const stone = $('#stone');
+  trees.forEach(t => {
+    const b = document.createElement('button');
+    b.className = 'notch'; b.type = 'button'; b.dataset.id = t.id;
+    b.setAttribute('aria-label', `${t.name}, ${t.tree}: ${t.go}`);
+    let lines = '';
+    for (let i = 0; i < t.n; i++) {
+      const y = 22 + (i - (t.n - 1) / 2) * 6;
+      lines += t.side > 0 ? `<line x1="22" y1="${y}" x2="36" y2="${y}"/>` : `<line x1="8" y1="${y}" x2="22" y2="${y}"/>`;
+    }
+    b.innerHTML = `<svg viewBox="0 0 44 44" aria-hidden="true">${lines}</svg>
+      <span class="tree-card" aria-hidden="true"><span class="oglyph">${t.ch}</span><span class="tname" style="display:block">${t.name} · ${t.tree}</span>
+      <span class="tlore" style="display:block">${t.lore}</span><span class="tgo" style="display:block">→ ${t.go}</span></span>`;
+    b.addEventListener('click', () => document.getElementById(t.id).scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' }));
+    stone.appendChild(b);
+  });
+  const seen = new Map();
+  const chamberIO = new IntersectionObserver(es => {
+    es.forEach(e => seen.set(e.target.id, e.intersectionRatio));
+    let best = null, bv = 0;
+    seen.forEach((v, k) => { if (v > bv) { bv = v; best = k; } });
+    $$('.notch').forEach(n => n.classList.toggle('active', n.dataset.id === best));
+  }, { threshold: [0, .15, .3, .5, .75, 1] });
+  $$('.chamber').forEach(c => chamberIO.observe(c));
+
+  /* ---------------- palette ---------------- */
+  const inks = [
+    ['Obsidian', '#0B0A0F', 'The page itself. Deepest black, with violet in it.'],
+    ['Raven', '#15121B', 'Cards and quiet surfaces.'],
+    ['Grimoire', '#221D2B', 'Raised surfaces and hover states.'],
+    ['Vellum', '#D8D0C4', 'Body text, like old calfskin by lamplight.'],
+    ['Brass', '#B8924F', 'The metal: rules, links, the wordmark.'],
+    ['Gilt', '#E2C27F', 'Brass catching light. The glimmer only.'],
+    ['Absinthe', '#4E7D6B', 'The living world: botanicals, the almanac.'],
+    ['Bottle Glass', '#1C332B', 'Deep green grounds for green moments.'],
+    ['Nightshade', '#6B5A8E', 'The Otherworld: fog tint, glows, focus.']
+  ];
+  const inkWrap = $('#inks');
+  inks.forEach(([nm, hx, rl], i) => {
+    const b = document.createElement('button');
+    b.className = 'ink'; b.type = 'button';
+    b.setAttribute('aria-label', `${nm}, ${hx}. Copy hex`);
+    const edge = parseInt(hx.slice(1), 16) < 0x303030 ? 'stroke="#B8924F" stroke-opacity=".35" stroke-width=".8"' : '';
+    b.innerHTML = `<svg viewBox="0 0 64 64" aria-hidden="true"><defs><filter id="blot${i}" x="-20%" y="-20%" width="140%" height="140%"><feTurbulence type="fractalNoise" baseFrequency=".07" numOctaves="3" seed="${i + 2}"/><feDisplacementMap in="SourceGraphic" scale="9"/></filter></defs>
+      <circle cx="32" cy="32" r="24" fill="${hx}" ${edge} filter="url(#blot${i})"/><circle cx="46" cy="48" r="3" fill="${hx}" filter="url(#blot${i})" ${edge}/></svg>
+      <span class="nm ${nm === 'Brass' || nm === 'Gilt' ? 'gilt' : ''}">${nm}</span><span class="hx">${hx}</span><span class="rl">${rl}</span><span class="copied" aria-hidden="true">copied</span>`;
+    b.addEventListener('click', () => {
+      const done = () => { b.classList.add('did'); setTimeout(() => b.classList.remove('did'), 1600); };
+      try { navigator.clipboard.writeText(hx).then(done, () => sel(b)); } catch (e) { sel(b); }
+    });
+    inkWrap.appendChild(b);
+  });
+  function sel(b) { const r = document.createRange(); r.selectNodeContents(b.querySelector('.hx')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+
+  /* ---------------- marginalia ---------------- */
+  const margin = $('#margin'), hint = $('#marginHint');
+  function layoutNotes() {
+    if (matchMedia('(max-width: 820px)').matches) return;
+    const mb = margin.getBoundingClientRect();
+    let floor = 0;
+    $$('.term').forEach(t => {
+      const n = document.getElementById(t.getAttribute('aria-controls'));
+      if (!n.classList.contains('open')) return;
+      const want = t.getBoundingClientRect().top - mb.top - 6;
+      const top = Math.max(want, floor);
+      n.style.top = top + 'px';
+      floor = top + n.offsetHeight + 18;
+    });
+    margin.style.minHeight = floor + 'px';
+  }
+  $$('.term').forEach(t => t.addEventListener('click', () => {
+    const n = document.getElementById(t.getAttribute('aria-controls'));
+    const open = t.getAttribute('aria-expanded') !== 'true';
+    t.setAttribute('aria-expanded', open);
+    n.classList.toggle('open', open);
+    if (open && matchMedia('(max-width: 820px)').matches) t.closest('p').after(n);
+    else if (!open && n.parentElement !== margin) margin.appendChild(n);
+    hint.style.opacity = $$('.mnote.open').length ? 0 : 1;
+    layoutNotes();
+  }));
+  addEventListener('resize', layoutNotes);
+
+  /* ---------------- hedgerow plate: ink with bleed ---------------- */
+  const hare = $('#hare'), lines = $$('#hareLines > *'), soakG = $('#hareSoak');
+  const disp = $('#bleedDisp'), blur = $('#bleedBlur');
+  const soaks = lines.map(l => { const c = l.cloneNode(); soakG.appendChild(c); return c; });
+  const lens = lines.map(l => l.getTotalLength());
+  const total = lens.reduce((a, b) => a + b, 0);
+  const starts = lens.reduce((acc, l, i) => (acc.push(i ? acc[i - 1] + lens[i - 1] : 0), acc), []);
+  [...lines, ...soaks].forEach(el => { el.setAttribute('pathLength', '1'); el.style.strokeDasharray = '1'; });
+  function setInk(drawn, settle) {
+    lines.forEach((l, i) => {
+      const k = Math.min(1, Math.max(0, (drawn - starts[i]) / lens[i]));
+      l.style.strokeDashoffset = 1 - k; soaks[i].style.strokeDashoffset = 1 - k;
+    });
+    disp.setAttribute('scale', (1.6 + 5.5 * (1 - settle)).toFixed(2));
+    blur.setAttribute('stdDeviation', (.25 + .9 * (1 - settle)).toFixed(2));
+    soakG.style.opacity = (.12 + .5 * (1 - settle)).toFixed(3);
+  }
+  let inking = false;
+  function inkPlate() {
+    if (reduce) { setInk(total, 1); return; }
+    if (inking) return; inking = true;
+    const speed = total / 5200, t0 = performance.now();
+    (function step(t) {
+      const drawn = (t - t0) * speed;
+      const settle = Math.max(0, Math.min(1, (drawn - total * .15) / (total * 1.05)));
+      setInk(drawn, settle);
+      if (drawn < total * 1.25) requestAnimationFrame(step); else { setInk(total, 1); inking = false; }
+    })(t0);
+  }
+  const plateBelowFold = hare.getBoundingClientRect().top > innerHeight;
+  if (reduce || !plateBelowFold) inkPlate();
+  else {
+    setInk(0, 0);
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { inkPlate(); io.disconnect(); } }, { threshold: .35 });
+    io.observe(hare);
+  }
+  $('#redraw').addEventListener('click', () => { if (!inking) { setInk(0, 0); requestAnimationFrame(inkPlate); } });
+
+  const labelG = $$('#hareLabels > g'), legendLis = $$('#legend li');
+  function showLabel(k, on) {
+    labelG.forEach(g => { if (k === '*' || g.dataset.k === k) g.classList.toggle('show', on); });
+    legendLis.forEach(li => { if (k === '*' || li.dataset.k === k) li.classList.toggle('lit', on); });
+  }
+  hare.addEventListener('pointerenter', () => showLabel('*', true));
+  hare.addEventListener('pointerleave', () => showLabel('*', false));
+  hare.addEventListener('focus', () => showLabel('*', true));
+  hare.addEventListener('blur', () => showLabel('*', false));
+  hare.addEventListener('click', () => { const any = labelG.some(g => g.classList.contains('show')); showLabel('*', !any); });
+  legendLis.forEach(li => {
+    ['pointerenter', 'focus'].forEach(ev => li.addEventListener(ev, () => showLabel(li.dataset.k, true)));
+    ['pointerleave', 'blur'].forEach(ev => li.addEventListener(ev, () => showLabel(li.dataset.k, false)));
+  });
+
+  /* ---------------- almanac: wheel of the year ---------------- */
+  const Y = now.getFullYear();
+  const fests = [
+    { name: 'Samhain', say: 'SOW-in', m: 10, d: 31, fire: true, lore: "Summer's end, and the start of the dark half of the year. Cattle came down from the summer pastures, and the dead were said to walk abroad.", hedge: 'Sloes after the first frost, hazelnuts, the last rowan berries. Leave the blackberries to the púca.' },
+    { name: 'Winter Solstice', say: 'about 21 December', m: 12, d: 21, lore: 'The longest night. At Newgrange in the Boyne Valley, built around 3200 BCE, the rising sun reaches down a passage into the inner chamber for a few mornings around the solstice.', hedge: 'Holly and ivy, bare hawthorn, rosehips holding on.' },
+    { name: 'Imbolc', say: 'IM-bolk', m: 2, d: 1, fire: true, lore: "Brigid's day. The ewes come into milk, and Brigid's crosses are woven from rushes and hung over the door for the year.", hedge: 'Snowdrops, hazel catkins, the first nettles under the hedge.' },
+    { name: 'Spring Equinox', say: 'about 20 March', m: 3, d: 20, lore: "Day and night in balance. No great Gaelic festival falls here. The name Ostara comes from 20th-century Wicca, borrowing Bede's brief mention of a goddess Eostre.", hedge: 'Blackthorn blossom before its leaves, wild garlic, primroses.' },
+    { name: 'Beltaine', say: 'BELL-tane', m: 5, d: 1, fire: true, lore: 'Bright fire. Cattle were driven between two bonfires for protection before going up to summer pasture. The hawthorn, "the May", blossoms now.', hedge: 'Hawthorn flower, bluebells, nettle tops for soup.' },
+    { name: 'Summer Solstice', say: 'about 21 June', m: 6, d: 21, lore: "The longest day. In Ireland the midsummer fires are lit on St John's Eve, 23 June, a custom still kept in many places.", hedge: 'Elderflower, meadowsweet, dog roses.' },
+    { name: 'Lughnasadh', say: 'LOO-na-sa', m: 8, d: 1, fire: true, lore: 'The festival of the god Lugh and the first harvest. People climbed hills and holy mountains to gather bilberries and celebrate.', hedge: 'The first blackberries, bilberries (fraughans), meadowsweet going to seed.' },
+    { name: 'Autumn Equinox', say: 'about 22 September', m: 9, d: 22, lore: 'Balance again, now tipping toward the dark. The name "Mabon" was coined in the 1970s; the older Irish year marks no festival here.', hedge: 'Blackberries, elderberries, rosehips, rowan and haws.' }
+  ];
+  const doy = dt => (Date.UTC(dt.getFullYear(), dt.getMonth(), dt.getDate()) - Date.UTC(dt.getFullYear(), 0, 1)) / DAY;
+  const yearLen = (Y % 4 === 0 && Y % 100 !== 0) || Y % 400 === 0 ? 366 : 365;
+  const samhainDoy = doy(new Date(Y, 9, 31));
+  const ang = dayOfYear => ((dayOfYear - samhainDoy) / yearLen) * 2 * Math.PI - Math.PI / 2;
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  fests.forEach(f => {
+    let next = new Date(Y, f.m - 1, f.d), prev = new Date(Y, f.m - 1, f.d);
+    if (next < today) next = new Date(Y + 1, f.m - 1, f.d);
+    if (prev > today) prev = new Date(Y - 1, f.m - 1, f.d);
+    f.until = Math.round((next - today) / DAY);
+    f.since = Math.round((today - prev) / DAY);
+    f.a = ang(doy(new Date(Y, f.m - 1, f.d)));
+  });
+  const nextF = [...fests].sort((a, b) => a.until - b.until)[0];
+  const lastF = [...fests].sort((a, b) => a.since - b.since)[0];
+  const words = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+  const num = n => n <= 10 ? words[n] : String(n);
+  const cap = s => s[0].toUpperCase() + s.slice(1);
+  const sinceTxt = lastF.since === 0 ? `Today is ${lastF.name}` : `${cap(num(lastF.since))} day${lastF.since === 1 ? '' : 's'} past ${lastF.name.includes('Equinox') || lastF.name.includes('Solstice') ? 'the ' + lastF.name.toLowerCase() : lastF.name}`;
+  $('#whereLine').textContent = `${sinceTxt} · ${nextF.until} nights to ${nextF.name}`;
+
+  const W = $('#wheel'), R = 190, C = 200;
+  const pt = (a, r) => [C + Math.cos(a) * r, C + Math.sin(a) * r];
+  const arc = (a1, a2, r) => { const [x1, y1] = pt(a1, r), [x2, y2] = pt(a2, r); return `M${x1} ${y1}A${r} ${r} 0 ${a2 - a1 > Math.PI ? 1 : 0} 1 ${x2} ${y2}`; };
+  const beltA = fests[4].a;
+  let s = `<path class="dark-half" d="${arc(-Math.PI / 2, beltA, R)}"/><path class="light-half" d="${arc(beltA, 1.5 * Math.PI, R)}"/>`;
+  s += `<circle class="ring" cx="${C}" cy="${C}" r="${R}"/><circle class="ring-in" cx="${C}" cy="${C}" r="${R - 44}"/>`;
+  const months = 'JFMAMJJASOND';
+  for (let m = 0; m < 12; m++) {
+    const a = ang(doy(new Date(Y, m, 1))), am = ang(doy(new Date(Y, m, 15)));
+    const [x1, y1] = pt(a, R - 44), [x2, y2] = pt(a, R - 34), [lx, ly] = pt(am, R - 24);
+    s += `<line class="tick" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/><text class="mlabel" x="${lx}" y="${ly + 3.5}" text-anchor="middle">${months[m]}</text>`;
+  }
+  s += `<text class="half-t" x="${C - 64}" y="${C - 58}" text-anchor="middle" fill="#A897CC">dark half</text><text class="half-t" x="${C + 64}" y="${C + 76}" text-anchor="middle" fill="#8DB8A5">light half</text>`;
+  const ta = ang(doy(today)), [hx, hy] = pt(ta, R);
+  s += `<line class="hand" x1="${C}" y1="${C}" x2="${hx}" y2="${hy}"/><circle class="today-dot" cx="${hx}" cy="${hy}" r="4.5"/>`;
+  s += `<text class="center-t" x="${C}" y="${C - 8}" text-anchor="middle">TODAY</text><text class="center-d" x="${C}" y="${C + 16}" text-anchor="middle">${new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long' }).format(today)}</text>`;
+  fests.forEach((f, i) => {
+    const [x, y] = pt(f.a, R), [lx, ly] = pt(f.a, R + 20), cx = Math.cos(f.a);
+    const anchor = cx > .25 ? 'start' : cx < -.25 ? 'end' : 'middle';
+    const dy = Math.sin(f.a) > .5 ? 12 : Math.sin(f.a) < -.5 ? -4 : 5;
+    s += `<g class="fest${f.fire ? ' fire' : ''}" data-i="${i}" tabindex="0" role="button" aria-label="${f.name}">
+      <circle class="halo" cx="${x}" cy="${y}" r="11"/><circle class="dot" cx="${x}" cy="${y}" r="${f.fire ? 6 : 4.5}"/>
+      <text x="${lx}" y="${ly + dy}" text-anchor="${anchor}">${f.name}</text></g>`;
+  });
+  W.innerHTML = s;
+
+  const festList = $('#festList'), lore = $('#lore');
+  fests.forEach((f, i) => {
+    const b = document.createElement('button'); b.type = 'button'; b.textContent = f.name; b.dataset.i = i;
+    b.addEventListener('click', () => pick(i)); festList.appendChild(b);
+  });
+  function pick(i) {
+    const f = fests[i];
+    $$('.fest', W).forEach(g => g.classList.toggle('sel', +g.dataset.i === i));
+    $$('button', festList).forEach(b => b.setAttribute('aria-pressed', +b.dataset.i === i));
+    const when = f.until === 0 ? 'today' : f.since < f.until ? `${f.since} days ago` : `in ${f.until} days`;
+    lore.style.opacity = 0;
+    setTimeout(() => {
+      lore.innerHTML = `<div class="top"><h3 class="gilt" tabindex="-1">${f.name}</h3><span class="when">${when}</span></div>
+        <span class="say">${/about/.test(f.say) ? f.say : 'say "' + f.say + '" · ' + f.d + ' ' + ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][f.m - 1]}${f.fire ? ' · fire festival' : ''}</span>
+        <p>${f.lore}</p><div class="hedge"><span class="label">In the hedgerow</span><p>${f.hedge}</p></div>`;
+      lore.style.opacity = 1;
+    }, reduce ? 0 : 200);
+  }
+  $$('.fest', W).forEach(g => {
+    g.addEventListener('click', () => pick(+g.dataset.i));
+    g.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(+g.dataset.i); } });
+  });
+  pick(fests.indexOf(nextF));
+})();
+</script>
