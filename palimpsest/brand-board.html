@@ -331,7 +331,6 @@ main { margin-left: var(--rail); position: relative; z-index: 2; }
 .vol .rose-fill { fill: rgba(184, 146, 79, .32); stroke: none; }
 .vol .glow { filter: url(#vhalo); }
 .vol .grip { fill: transparent; stroke: none; touch-action: none; cursor: grab; }
-.vol .moon-hint { font-family: var(--f-fell); font-style: italic; fill: var(--vellum-dim); opacity: .75; }
 .vol-help { text-align: center; font-style: italic; color: var(--vellum-dim); font-size: 1rem; margin-top: 10px; }
 
 .reading { display: grid; gap: 22px; }
@@ -1062,7 +1061,9 @@ footer { margin-left: var(--rail); padding-block: 56px 72px; position: relative;
   [0, 45].forEach(rot => { const pts = [0, 90, 180, 270].map(a => P(R.sq, a + rot + 45)); sq += `<path class="hl-f" d="M${pts.map(p => p.join(' ')).join('L')}Z"/>`; });
   for (let i = 0; i < 8; i++) { const [x, y] = P(R.sq - 36, i * 45 + 22.5); sq += `<circle class="tick-m" cx="${x}" cy="${y}" r="1.4" style="fill:var(--gilt);stroke:none"/>`; }
   s += sq + `<circle cx="${C}" cy="${C}" r="${R.win + 12}" fill="url(#winGlow)"/>` + circ(R.win, 'hl glow') + circ(R.win - 6, 'hl-f');
-  s += `<text class="moon-hint" font-size="19" x="${C}" y="${C + 62}" text-anchor="middle">Wren's moon, drawn by hand,</text><text class="moon-hint" font-size="19" x="${C}" y="${C + 86}" text-anchor="middle">is set in this window</text>`;
+  // Wren's moon, painted by hand, set whole in the window
+  s += `<clipPath id="winClip"><circle cx="${C}" cy="${C}" r="${R.win - 7}"/></clipPath>
+    <image href="art/moon-window.webp" x="${C - R.win + 7}" y="${C - R.win + 7}" width="${2 * (R.win - 7)}" height="${2 * (R.win - 7)}" clip-path="url(#winClip)" preserveAspectRatio="xMidYMid slice"><title>The moon, painted by Wren Ashby</title></image>`;
   // the pointer (alidade), drawn upright and turned
   let ptr = `<path class="hl" style="fill:rgba(184,146,79,.18)" d="M${C - 4} ${C}L${C - 1.2} ${C - 400}L${C} ${C - 432}L${C + 1.2} ${C - 400}L${C + 4} ${C}Z"/>`;
   ptr += `<path class="hl" style="fill:var(--obsidian)" d="M${C} ${C - 232}L${C + 11} ${C - 200}L${C} ${C - 168}L${C - 11} ${C - 200}Z"/><circle class="hl" cx="${C}" cy="${C - 200}" r="4"/>`;
