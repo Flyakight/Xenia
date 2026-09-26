@@ -1,0 +1,351 @@
+<meta charset="utf-8">
+<title>Wren Ashby</title>
+<meta name="description" content="Wren Ashby, author of The Farsee Chronicles: dark fantasy, old lore, letters by moonlight and consultations for writers.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IM+Fell+English+SC&family=IM+Fell+English:ital@0;1&family=Noto+Sans+Ogham&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Symbols+2&text=%E2%98%9E%E2%9D%A7&display=swap">
+<link rel="stylesheet" href="assets/css/palimpsest.css">
+
+<div class="candle" aria-hidden="true"></div>
+<canvas class="mica" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+
+<nav class="stone" aria-label="Sections, marked in Ogham">
+  <span class="stone-caption">read upward, as on the stones</span>
+</nav>
+
+<!-- Threshold -->
+<header class="threshold">
+  <div class="layer" data-depth=".04" data-drift=".25"><canvas id="stars"></canvas></div>
+  <div class="layer moon-layer" data-depth=".08" data-drift=".35"><div class="hero-moon"><img src="assets/art/moon.webp" alt=""></div></div>
+  <div class="layer undertext" data-depth=".12" data-drift=".3" aria-hidden="true">
+    <p>Messe ocus Pangur Bán,</p><p>cechtar nathar fria saindán:</p><p>bíth a menmasam fri seilgg,</p><p>mu menma céin im saincheirdd.</p>
+  </div>
+  <div class="layer" data-depth=".18" data-drift=".45"><svg id="farHills" viewBox="0 0 1600 600" preserveAspectRatio="xMidYMax slice" aria-hidden="true"></svg></div>
+  <div class="layer" data-depth=".34" data-drift=".65"><svg id="midHills" viewBox="0 0 1600 600" preserveAspectRatio="xMidYMax slice" aria-hidden="true"></svg></div>
+  <div class="layer" data-depth=".4" data-drift=".7"><canvas id="fogBack"></canvas></div>
+  <div class="layer" data-depth=".62" data-drift="1"><svg id="nearHill" viewBox="0 0 1600 600" preserveAspectRatio="xMidYMax slice" aria-hidden="true"></svg></div>
+  <div class="layer" data-depth=".7" data-drift="1.2"><canvas id="fogFront"></canvas></div>
+
+  <div class="masthead">
+    <a class="name" href="#author">Wren Ashby</a>
+    <nav aria-label="Main">
+      <a href="#shelf">The Books</a><a href="#letters">Letters</a><a href="#consultations">Consultations</a><a href="#grimoire">Journal</a><a href="#gatherings">Gatherings</a>
+    </nav>
+  </div>
+  <div class="hero-copy">
+    <p class="eyebrow">Author of The Farsee Chronicles</p>
+    <h1 class="wordmark gilt" tabindex="0">Wren Ashby</h1>
+    <p class="hero-sub">Dark fantasy, old lore, and a future that can be bent.</p>
+    <div class="hero-links">
+      <a class="textbtn major" href="#shelf">Begin with Book I</a>
+      <a class="textbtn major" href="#letters">Letters by Moonlight</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <!-- ᚁ The Author -->
+    <section class="chamber" id="author" data-title="The Author" data-og="ᚁ" data-ogname="Beith" data-tree="birch" data-strokes="1"
+      data-lore="The first letter. Birch is the pioneer tree, first to grow back on cleared ground.">
+      <header class="chamber-head">
+        <h2>The Author</h2>
+        <p class="tree"><span class="og" aria-hidden="true">ᚁ</span>Beith, the birch</p>
+      </header>
+      <div class="folio">
+        <figure class="portrait">
+          <div class="frame">
+            <svg viewBox="0 0 120 160" aria-hidden="true">
+              <ellipse cx="60" cy="80" rx="54" ry="74" fill="none" stroke="#B8924F" stroke-width=".6" opacity=".7"/>
+              <ellipse cx="60" cy="80" rx="48" ry="68" fill="none" stroke="#B8924F" stroke-width=".4" opacity=".4"/>
+              <circle cx="60" cy="6" r="1.4" fill="#E2C27F"/><circle cx="60" cy="154" r="1.4" fill="#E2C27F"/>
+            </svg>
+          </div>
+          <figcaption>Portrait of Wren, drawing to come</figcaption>
+        </figure>
+        <div class="folio-text">
+          <p><span class="dropcap" aria-hidden="true">I</span> write dark fantasy for readers who suspect the old stories were never really about the past. I grew up between a village library and a hedgerow, and I still can't tell you which taught me more.</p>
+          <p>My grandmother was a <button class="term" aria-expanded="false" aria-controls="n-hedgewitch">hedgewitch<sup>†</sup></button> in all but name. She read the cards at her kitchen table and called it paying attention. I read them the same way, as mirrors and never as verdicts, the way the <button class="term" aria-expanded="false" aria-controls="n-cunning">cunning folk<sup>‡</sup></button> once read a neighbour's trouble.</p>
+          <p>The Farsee Chronicles began there, with a question I couldn't shake: what if the future were not a promise but a weapon, and the people who could see it were the ones everyone feared?</p>
+          <p class="folio-sign">W. A.</p>
+        </div>
+        <aside class="margin" aria-label="Side-notes">
+          <p class="margin-hint">Touch a marked word and its note is set here in the margin.</p>
+          <p class="margin-hint">Each part of this house is marked with a letter of Ogham, the early Irish tree alphabet. Hover the marks along the edge to read them.</p>
+          <div class="mnote" id="n-hedgewitch" role="note">
+            <div class="hw"><sup>†</sup>hedgewitch</div>
+            <div class="say">a modern word for an old figure</div>
+            <p>A solitary practitioner of folk magic, working with plants, weather and the household. The hedge is the boundary between the village and the wild, and she walks it.</p>
+          </div>
+          <div class="mnote" id="n-cunning" role="note">
+            <div class="hw"><sup>‡</sup>cunning folk</div>
+            <div class="say">Britain, roughly 1500 to 1900</div>
+            <p>Village healers and charmers who were paid to find lost things, cure cattle and break curses. Their neighbours trusted them to undo witchcraft, not to do it.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ᚂ The Shelf -->
+    <section class="chamber" id="shelf" data-title="The Books" data-og="ᚂ" data-ogname="Luis" data-tree="rowan" data-strokes="2"
+      data-lore="Rowan sprigs were hung over doors and byres to keep enchantment out.">
+      <header class="chamber-head">
+        <h2>The Shelf</h2>
+        <p class="tree"><span class="og" aria-hidden="true">ᚂ</span>Luis, the rowan</p>
+      </header>
+      <div class="shelf-wrap">
+        <div>
+          <div class="shelf">
+            <a class="book" href="#shelf" style="--c:#1C332B">
+              <div class="cover">
+                <span class="series">The Farsee Chronicles</span>
+                <svg viewBox="0 0 60 60" aria-hidden="true"><g fill="none" stroke="#E2C27F" stroke-width=".8"><circle cx="30" cy="30" r="22"/><path d="M30 44 C22 38 25 28 30 16 C35 28 38 38 30 44 Z"/><path d="M30 44 L30 50"/></g></svg>
+                <span class="t gilt">A Light in the Dark</span>
+                <span class="num">Book I</span>
+              </div>
+            </a>
+            <a class="book" href="#shelf" style="--c:#261E38">
+              <div class="cover">
+                <span class="series">The Farsee Chronicles</span>
+                <svg viewBox="0 0 60 60" aria-hidden="true"><g fill="none" stroke="#E2C27F" stroke-width=".8"><circle cx="30" cy="30" r="22"/><path d="M12 40 C20 38 22 30 28 28"/><path d="M33 26 C38 24 42 18 48 16"/><path d="M29 25 L32 29" opacity=".6"/></g></svg>
+                <span class="t gilt">The Broken Path</span>
+                <span class="num">Book II</span>
+              </div>
+            </a>
+            <a class="book" href="#shelf" style="--c:#141118">
+              <div class="cover">
+                <span class="series">The Farsee Chronicles</span>
+                <svg viewBox="0 0 60 60" aria-hidden="true"><g fill="none" stroke="#E2C27F" stroke-width=".8"><circle cx="30" cy="30" r="22"/><path d="M36 18 A13 13 0 1 0 36 42 A10 10 0 1 1 36 18 Z"/><path d="M42 24 l0 5 M39.5 26.5 l5 0"/></g></svg>
+                <span class="t gilt">A Herald of Night</span>
+                <span class="num">Book III</span>
+              </div>
+            </a>
+          </div>
+          <p class="demo-note" style="margin-top:22px">Placeholder covers, set in type. Cover art to come.</p>
+        </div>
+        <div class="blurb">
+          <h3 class="series-name">The Farsee Chronicles</h3>
+          <p>Blythe is Lord of the Tower Guard, first in all his exams and on track to be Lord Protector of the City within the decade. The only thing that can stop his ascent is an uncomfortable truth, unearthed when a hedgewitch reads far more than his fortune in the firelight.</p>
+          <p>Explore the world of Farsee, where the future is a malleable weapon in the hands of witches and Timetellers, and truth is what you make of it.</p>
+          <p class="for">For lovers of dark fantasy and justice served sideways.</p>
+          <div class="actions">
+            <a class="textbtn major" href="#shelf">Begin with Book I</a>
+            <a class="textbtn major" href="#shelf">Read the opening pages</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ᚃ Letters by Moonlight -->
+    <section class="chamber" id="letters" data-title="Letters by Moonlight" data-og="ᚃ" data-ogname="Fearn" data-tree="alder" data-strokes="3"
+      data-lore="Alder grows with its roots in water. Cut its wood and it turns red, as if it bleeds.">
+      <header class="chamber-head">
+        <h2>Letters by Moonlight</h2>
+        <p class="tree"><span class="og" aria-hidden="true">ᚃ</span>Fearn, the alder</p>
+      </header>
+      <div class="letters">
+        <div>
+          <p class="lede">A letter comes with each full moon: a page of writing, a cantrip and a piece of lore, sent from my desk to yours.</p>
+          <ul class="contents">
+            <li><b>Writing</b><span>Pages from the work in progress, and the scenes that didn't survive the edit.</span></li>
+            <li><b>Cantrips</b><span>Small, practical charms: for a stuck chapter, a sleepless night, a hard conversation.</span></li>
+            <li><b>Lore</b><span>The folklore behind the books, with its sources, so you can follow the thread yourself.</span></li>
+          </ul>
+          <p class="sidenote" style="margin-top:18px"><span class="orn" aria-hidden="true">❧</span>A cantrip is a small, everyday spell. The word is Scots, where it meant a charm or a trick, and it has been written down since the 1700s.</p>
+        </div>
+        <form class="ledger" novalidate>
+          <label for="ledger-email">Your email</label>
+          <div class="line">
+            <input id="ledger-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+            <button class="textbtn major" type="submit">Write my name in the ledger</button>
+          </div>
+          <p class="err" hidden>That doesn't look like an email address. Check for a missing @ or dot.</p>
+          <p class="done" hidden aria-live="polite"></p>
+          <p class="sidenote when">The next letter comes with the full moon<span class="when-moon"></span>.</p>
+          <p class="demo-note" style="margin-top:8px">In this prototype, nothing is sent.</p>
+        </form>
+      </div>
+    </section>
+
+    <!-- ᚄ Consultations -->
+    <section class="chamber" id="consultations" data-title="Consultations" data-og="ᚄ" data-ogname="Sail" data-tree="willow" data-strokes="4"
+      data-lore="Willow bends to water. The oldest surviving Irish harps were carved from it.">
+      <header class="chamber-head">
+        <h2>Consultations for Writers</h2>
+        <p class="tree"><span class="og" aria-hidden="true">ᚄ</span>Sail, the willow</p>
+      </header>
+      <p class="lede">I work with a few writers each season whose worlds need folklore and magic that feel older than the page, whether modern or historic.</p>
+      <div class="offers">
+        <div class="offer">
+          <h3>A Single Sitting</h3>
+          <span class="shape">An hour, by video call</span>
+          <p>Bring your world and your questions. We talk through its magic, where it borrows from, and where it could go deeper. Notes follow within the week.</p>
+        </div>
+        <div class="offer">
+          <h3>A Folklore Read</h3>
+          <span class="shape">Your manuscript, read for its lore</span>
+          <p>I read for the folklore and the magic: what rings true, what's borrowed and from where, and where one real detail would carry more weight.</p>
+        </div>
+        <div class="offer">
+          <h3>A Research Companion</h3>
+          <span class="shape">A month of correspondence</span>
+          <p>While you draft, send questions as they come. I answer with sources, reading lists and the odd charm from the archive.</p>
+        </div>
+      </div>
+      <ol class="steps-way">
+        <li><div><b>Write to me</b><span>Tell me about your book and where it's stuck.</span></div></li>
+        <li><div><b>We agree a shape</b><span>Which of the three suits you, and when.</span></div></li>
+        <li><div><b>Notes follow</b><span>Written up with sources, yours to keep.</span></div></li>
+      </ol>
+      <div class="enquire"><a class="textbtn major" href="#correspondence">Write to Wren</a></div>
+    </section>
+
+    <!-- ᚅ The Hedgerow -->
+    <section class="chamber" id="hedgerow" data-title="The Hedgerow" data-og="ᚅ" data-ogname="Nion" data-tree="ash" data-strokes="5"
+      data-lore="Several of the great sacred trees of early Ireland were ash. Hurleys are still made from it.">
+      <header class="chamber-head">
+        <h2>The Hedgerow</h2>
+        <p class="tree"><span class="og" aria-hidden="true">ᚅ</span>Nion, the ash</p>
+      </header>
+      <p class="lede" style="margin-bottom:44px">A field guide to the plants and creatures in the books, drawn from life and from lore.</p>
+      <div class="plates">
+        <div>
+          <figure class="plate on-dark" data-ink="assets/art/hawthorn-ink.webp" data-color="216,208,196" data-origin=".02,.52">
+            <div class="art">
+              <div class="ink-wrap">
+                <canvas role="img" aria-label="Hawthorn sprig in blossom, drawn by hand"></canvas>
+                <svg class="labels" viewBox="0 0 812 788" aria-hidden="true">
+                  <g data-k="a"><path class="leader" pathLength="1" d="M206 86 C170 60 130 48 98 46"/><circle class="pin" cx="218" cy="94" r="9"/><text class="key" x="70" y="54">a</text></g>
+                  <g data-k="b"><path class="leader" pathLength="1" d="M335 228 C420 236 510 240 586 240"/><circle class="pin" cx="323" cy="226" r="9"/><text class="key" x="600" y="250">b</text></g>
+                  <g data-k="c"><path class="leader" pathLength="1" d="M282 329 C380 340 500 352 586 356"/><circle class="pin" cx="272" cy="327" r="9"/><text class="key" x="600" y="366">c</text></g>
+                </svg>
+              </div>
+            </div>
+            <figcaption><span class="pl">Plate i. Hawthorn</span><span class="latin">Crataegus monogyna · <span lang="ga">sceach gheal</span>, the May</span></figcaption>
+          </figure>
+          <ul class="legend">
+            <li tabindex="0" data-k="a"><span class="k">a</span><p><b>The young leaves.</b> Country children called them "bread and cheese" and ate them straight from the hedge in spring.</p></li>
+            <li tabindex="0" data-k="b"><span class="k">b</span><p><b>The blossom.</b> Never brought indoors, or death follows it in. Its scent shares a chemical with decay, which may be where the warning began.</p></li>
+            <li tabindex="0" data-k="c"><span class="k">c</span><p><b>The thorn.</b> A lone hawthorn is a fairy tree. In 1999 a new road in County Clare was bent around one at Latoon rather than cut it down.</p></li>
+          </ul>
+        </div>
+        <div>
+          <figure class="plate on-vellum" data-ink="assets/art/bird-ink.webp" data-color="34,28,40" data-origin=".5,.1">
+            <div class="art"><div class="ink-wrap"><canvas role="img" aria-label="A bird in flight, seen from below, drawn by hand"></canvas></div></div>
+            <figcaption><span class="pl">Plate ii. A Bird in Flight</span><span class="latin">Study, work in progress</span></figcaption>
+          </figure>
+          <p class="sidenote plate-note"><span class="orn" aria-hidden="true">❧</span>Tonal studies sit on vellum plates; line drawings can float on the dark. Each one washes in from where the brush began.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ᚆ The Almanac -->
+    <section class="chamber" id="almanac" data-title="The Almanac" data-og="ᚆ" data-ogname="Uath" data-tree="hawthorn" data-strokes="1" data-side="left"
+      data-lore="The fairy tree. A lone hawthorn in a field is left uncut, even now.">
+      <header class="chamber-head">
+        <h2>The Almanac</h2>
+        <p class="tree"><span class="og" aria-hidden="true">ᚆ</span>Uath, the hawthorn</p>
+      </header>
+      <div class="almanac">
+        <div>
+          <svg class="vol" id="vol" viewBox="0 0 1000 1000" tabindex="0" role="slider" aria-label="Volvelle. Turn it to choose a date." data-moon="assets/art/moon.webp"></svg>
+          <p class="vol-help">Turn the pointer, or use the arrow keys. It winds itself to today when you arrive.</p>
+        </div>
+        <div class="reading" aria-live="polite">
+          <div><div class="date" id="rDate">&nbsp;</div><div class="rel" id="rRel">&nbsp;</div></div>
+          <div class="row"><span class="sc">The moon</span><p id="rMoon">&nbsp;</p></div>
+          <div class="row"><span class="sc">The year</span><p id="rYear">&nbsp;</p></div>
+          <div class="row"><span class="sc">The coming feast</span><div><span class="fest-h" id="rFest">&nbsp;</span> <span class="say" id="rSay"></span></div><p id="rLore">&nbsp;</p></div>
+          <div class="row"><span class="sc">In the hedgerow now</span><p id="rHedge">&nbsp;</p></div>
+          <div class="winders" id="winders"><span class="lead">Wind to</span></div>
+          <div class="steps">
+            <button class="textbtn" type="button" id="wBack">‹ a week back</button>
+            <button class="textbtn" type="button" id="wToday">Today</button>
+            <button class="textbtn" type="button" id="wFwd">a week on ›</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ᚇ The Grimoire -->
+    <section class="chamber" id="grimoire" data-title="The Grimoire" data-og="ᚇ" data-ogname="Dair" data-tree="oak" data-strokes="2" data-side="left"
+      data-lore="Dair gives Ireland many place names: Derry is an oak grove, Kildare the church of the oak.">
+      <header class="chamber-head">
+        <h2>The Grimoire</h2>
+        <p class="tree"><span class="og" aria-hidden="true">ᚇ</span>Dair, the oak</p>
+      </header>
+      <ul class="entries">
+        <li class="entry"><a href="#grimoire">
+          <span class="when">18 September 2026<span class="kind">Lore</span></span>
+          <div><h3><span class="gilt">Why the púca spits on the blackberries</span></h3><p>Every autumn my grandmother warned us off the brambles after Samhain. It turns out the story was also good botany.</p></div>
+        </a></li>
+        <li class="entry"><a href="#grimoire">
+          <span class="when">4 September 2026<span class="kind">Writing</span></span>
+          <div><h3><span class="gilt">Writing prophecy that doesn't spoil the plot</span></h3><p>How I keep the Timetellers of Farsee honest: every vision true, none of them complete.</p></div>
+        </a></li>
+        <li class="entry"><a href="#grimoire">
+          <span class="when">21 August 2026<span class="kind">Cantrips</span></span>
+          <div><h3><span class="gilt">A cantrip for the stuck chapter</span></h3><p>Salt, a candle stub and a change of chair. Small charms work because they make you stop and look.</p></div>
+        </a></li>
+      </ul>
+    </section>
+
+    <!-- ᚈ Gatherings -->
+    <section class="chamber" id="gatherings" data-title="Gatherings" data-og="ᚈ" data-ogname="Tinne" data-tree="holly" data-strokes="3" data-side="left"
+      data-lore="Holly keeps its green through the dark half of the year, and its berries feed the birds when little else does.">
+      <header class="chamber-head">
+        <h2>Gatherings</h2>
+        <p class="tree"><span class="og" aria-hidden="true">ᚈ</span>Tinne, the holly</p>
+      </header>
+      <ul class="gatherings">
+        <li class="gathering" data-date="2026-10-31">
+          <span class="d">31 October</span><span class="away"></span>
+          <h3>A Samhain Reading by Firelight</h3>
+          <p>Wren reads from The Farsee Chronicles and answers questions about the folklore behind them.</p>
+          <p class="where">Online, 8 pm GMT</p>
+        </li>
+        <li class="gathering" data-date="2026-11-14">
+          <span class="d">14 November</span><span class="away"></span>
+          <h3>Folklore for Fantasy Writers</h3>
+          <p>A two-hour workshop on borrowing from real belief without flattening it.</p>
+          <p class="where">Online, 6 pm GMT</p>
+        </li>
+        <li class="gathering" data-date="2026-12-21">
+          <span class="d">21 December</span><span class="away"></span>
+          <h3>The Longest Night</h3>
+          <p>A midwinter evening of stories and signed books, with mulled cider.</p>
+          <p class="where">In person, details in the letters</p>
+        </li>
+      </ul>
+    </section>
+
+  </div>
+</main>
+
+<footer class="colophon" id="correspondence">
+  <div class="wrap colo">
+    <svg class="seal" viewBox="0 0 80 80" aria-hidden="true">
+      <defs><radialGradient id="wax" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#5a4a78"/><stop offset=".7" stop-color="#3a2e52"/><stop offset="1" stop-color="#241c34"/></radialGradient></defs>
+      <path d="M40 4 C52 3 60 10 68 14 C76 22 77 32 76 42 C77 54 70 62 62 70 C52 77 42 77 32 76 C20 75 12 68 7 58 C2 48 3 36 7 26 C12 14 26 5 40 4 Z" fill="url(#wax)"/>
+      <circle cx="40" cy="40" r="24" fill="none" stroke="#8b78ad" stroke-width="1" opacity=".7"/>
+      <path d="M40 20 L40 60 M40 52 L51 52 M40 47 L51 47 M40 42 L51 42 M33 30 L47 30" stroke="#E2C27F" stroke-width="1.6" stroke-linecap="round" opacity=".9"/>
+    </svg>
+    <div>
+      <h2>Correspondence</h2>
+      <p>Letters, enquiries and invitations reach me at</p>
+      <p class="addr">wren@wrenashby.example</p>
+      <p class="fine">Wren Ashby is a demonstration author. Drawings by Kate Kight. This site is built on Palimpsest, a theme for authors and practitioners. The faint writing under the name is the opening of <i>Pangur Bán</i>, a poem about a scholar and his white cat, written by an Irish monk in the 9th century. The seal reads W and A in Ogham.</p>
+    </div>
+    <nav aria-label="Footer">
+      <a class="textbtn" href="#shelf">The Books</a>
+      <a class="textbtn" href="#letters">Letters by Moonlight</a>
+      <a class="textbtn" href="#consultations">Consultations</a>
+      <a class="textbtn" href="#grimoire">Journal</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="assets/js/palimpsest.js"></script>
