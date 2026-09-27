@@ -120,8 +120,45 @@ function tannic_enqueue_assets() {
             array( 'in_footer' => true, 'strategy' => 'defer' )
         );
     }
+
+    // Who Held the Glass — interactive wine timeline page only
+    if ( is_page_template( 'page-who-held-the-glass.php' ) ) {
+        wp_enqueue_style(
+            'tannic-glass-css',
+            get_template_directory_uri() . '/css/who-held-the-glass.css',
+            array( 'tannic-style' ),
+            tannic_asset_version( 'css/who-held-the-glass.css' )
+        );
+
+        wp_enqueue_script(
+            'tannic-glass-js',
+            get_template_directory_uri() . '/js/who-held-the-glass.js',
+            array(),
+            tannic_asset_version( 'js/who-held-the-glass.js' ),
+            array( 'in_footer' => true, 'strategy' => 'defer' )
+        );
+
+        $glass_data = file_get_contents( get_theme_file_path( 'data/who-held-the-glass.json' ) );
+        if ( $glass_data ) {
+            wp_add_inline_script( 'tannic-glass-js', 'window.tannicGlassData = ' . $glass_data . ';', 'before' );
+        }
+    }
 }
 add_action( 'wp_enqueue_scripts', 'tannic_enqueue_assets' );
+
+/**
+ * URL of an optional Who Held the Glass illustration in assets/glass/,
+ * or an empty string when the file hasn't been uploaded.
+ */
+function tannic_glass_art( $name ) {
+    foreach ( array( 'png', 'webp', 'jpg', 'svg' ) as $ext ) {
+        $relative = 'assets/glass/' . $name . '.' . $ext;
+        if ( file_exists( get_theme_file_path( $relative ) ) ) {
+            return get_theme_file_uri( $relative ) . '?v=' . tannic_asset_version( $relative );
+        }
+    }
+    return '';
+}
 
 /**
  * Fallback favicon for local/dev and pre-launch states.

@@ -1,0 +1,77 @@
+# Deploys the Tannic Studio theme to Bluehost whenever tannic-studio/ changes on main.
+#
+# Needs three repository secrets (Settings → Secrets and variables → Actions):
+#   BLUEHOST_HOST     e.g. csa.ewi.mybluehost.me
+#   BLUEHOST_USER     the cPanel / SSH username
+#   BLUEHOST_SSH_KEY  private key whose public half is authorized on Bluehost
+#
+# Every run first copies the live theme into ~/theme-backups/ on the server
+# (keeping the newest 10), then uploads the new files. It never deletes files
+# on the server, so anything uploaded there by hand is left alone.
+
+name: Deploy theme to Bluehost
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tannic-studio/**'
+      - '.github/workflows/deploy-theme.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-bluehost
+  cancel-in-progress: false
+
+env:
+  THEME_DIR: public_html/wp-content/themes/tannic-studio
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # A PHP syntax error in functions.php takes the whole site down, so
+      # refuse to deploy anything that doesn't lint.
+      - name: Lint PHP
+        run: |
+          find tannic-studio -name '*.php' -print0 | xargs -0 -n1 php -l
+
+      - name: Set up SSH
+        env:
+          SSH_KEY: ${{ secrets.BLUEHOST_SSH_KEY }}
+          SSH_HOST: ${{ secrets.BLUEHOST_HOST }}
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/bluehost
+          chmod 600 ~/.ssh/bluehost
+          ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts
+
+      - name: Back up the live theme
+        env:
+          SSH_TARGET: ${{ secrets.BLUEHOST_USER }}@${{ secrets.BLUEHOST_HOST }}
+        run: |
+          ssh -i ~/.ssh/bluehost "$SSH_TARGET" "
+            set -e
+            mkdir -p ~/theme-backups
+            if [ -d ~/$THEME_DIR ]; then
+              cp -a ~/$THEME_DIR ~/theme-backups/tannic-studio-\$(date +%Y%m%d-%H%M%S)
+            fi
+            ls -1dt ~/theme-backups/tannic-studio-* 2>/dev/null | tail -n +11 | xargs -r rm -rf
+          "
+
+      - name: Upload theme
+        env:
+          SSH_TARGET: ${{ secrets.BLUEHOST_USER }}@${{ secrets.BLUEHOST_HOST }}
+        run: |
+          rsync -rltvz \
+            --exclude 'docs/' \
+            --exclude 'rtb-calendar/' \
+            --exclude '.DS_Store' \
+            -e "ssh -i $HOME/.ssh/bluehost" \
+            tannic-studio/ "$SSH_TARGET:$THEME_DIR/"
+
+      - name: Clean up key
+        if: always()
+        run: rm -f ~/.ssh/bluehost
