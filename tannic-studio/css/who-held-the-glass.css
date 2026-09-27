@@ -913,10 +913,11 @@ p.whg-detail-text { margin-top: 0; }
     opacity: 0.85;
 }
 
+/* Fills the open space under the shorter Southern column. */
 .whg-specimen--morel {
-    width: clamp(150px, 20vw, 300px);
-    bottom: -2rem;
-    left: max(-2rem, calc((100vw - 1120px) / 2 - 10rem));
+    width: clamp(220px, 30vw, 460px);
+    bottom: 3rem;
+    right: max(0rem, calc((100vw - 1120px) / 2 - 6rem));
     transform: rotate(-6deg);
     animation: whg-bob 11s ease-in-out 1s infinite alternate-reverse;
     opacity: 0.8;
@@ -998,6 +999,7 @@ p.whg-detail-text { margin-top: 0; }
 }
 
 .whg-entry-year {
+    white-space: nowrap;
     font-family: var(--font-heading);
     font-size: 1.3rem;
     color: var(--col-accent);
@@ -1129,7 +1131,12 @@ p.whg-detail-text { margin-top: 0; }
     }
 
     .whg-entry {
-        grid-template-columns: 3.6rem 1fr;
+        grid-template-columns: 4.4rem 1fr;
+        gap: 0.25rem 0.75rem;
+    }
+
+    .whg-entry-year {
+        font-size: 1.1rem;
     }
 
     .whg-specimen--mushroom {
@@ -1139,6 +1146,9 @@ p.whg-detail-text { margin-top: 0; }
 
     .whg-specimen--morel {
         opacity: 0.35;
+        width: 200px;
+        right: -4rem;
+        bottom: 1rem;
     }
 }
 
