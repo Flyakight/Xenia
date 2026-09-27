@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "index": "The influence index, from 0 to 100, is an editorial estimate of each country's share of global wine prestige and trade value at the time. There's no consistent market data reaching back to Rome, so treat the lines as a story told in shape, not a measurement.",
+    "axis": "The time axis is compressed before 1500 so the busy modern centuries have room to breathe. The Southern Hemisphere begins with the first colonial plantings in the 1540s.",
+    "indexSources": [
+      { "pub": "OIV", "title": "International Organisation of Vine and Wine: statistics and state-of-the-sector reports", "url": "https://www.oiv.int/" }
+    ],
+    "dash": ["", "7 4", "2 4", "10 4 2 4", "1 5"]
+  },
+  "hemispheres": {
+    "N": {
+      "label": "Northern",
+      "breakpoints": [-600, 0, 500, 1000, 1500, 1700, 1800, 1900, 1950, 2026],
+      "series": [
+        { "name": "France", "points": [[-600,5],[0,20],[200,40],[500,35],[1000,40],[1200,60],[1453,55],[1600,65],[1700,70],[1800,80],[1855,95],[1870,100],[1885,70],[1914,60],[1935,72],[1944,45],[1960,85],[1976,78],[2000,95],[2026,100]] },
+        { "name": "Italy", "points": [[-600,20],[-200,60],[0,95],[100,100],[300,70],[500,30],[1000,25],[1300,38],[1500,35],[1700,25],[1800,20],[1900,30],[1945,25],[1970,40],[1986,32],[2000,70],[2026,85]] },
+        { "name": "Spain", "points": [[-600,10],[0,40],[200,50],[500,20],[800,10],[1100,15],[1500,35],[1600,55],[1700,45],[1800,40],[1885,65],[1900,40],[1939,20],[1975,30],[2000,50],[2026,55]] },
+        { "name": "Portugal", "points": [[-600,5],[0,15],[1000,10],[1400,20],[1600,25],[1703,50],[1756,70],[1800,75],[1850,60],[1900,45],[1950,35],[1970,45],[2000,40],[2026,45]] },
+        { "name": "United States", "points": [[1769,0],[1800,3],[1850,10],[1880,20],[1919,25],[1920,4],[1933,8],[1960,15],[1976,40],[1990,55],[2010,70],[2026,65]] }
+      ],
+      "events": [
+        { "year": -600, "title": "Greeks found Massalia", "text": "Greek traders plant vines at what is now Marseille, seeding wine culture in Gaul.",
+          "sources": [
+            { "pub": "EBSCO Research Starters", "title": "Massalia", "url": "https://www.ebsco.com/research-starters/history/massalia/" },
+            { "pub": "wein.plus", "title": "Greek settlers brought wine to France: archaeologists find evidence in Marseille", "url": "https://magazine.wein.plus/news/greek-settlers-brought-wine-to-france-archaeologists-find-evidence-in-marseille" } ] },
+        { "year": -146, "title": "Rome rules the Mediterranean", "text": "With Carthage and Greece conquered, Roman amphora trade makes Italian wine the ancient world's premium export.",
+          "sources": [
+            { "pub": "Ancient Rome Live", "title": "Destruction of Carthage and Corinth", "url": "https://ancientromelive.org/destruction-of-carthage-and-corinth/" },
+            { "pub": "French Ministry of Culture", "title": "Amphorae for the wine trade", "url": "https://archeologie.culture.gouv.fr/villa/en/amphorae-wine-trade" } ] },
+        { "year": 79, "title": "Vesuvius erupts", "text": "Pompeii, a major wine hub, is buried. The shortage spurs planting across the provinces.",
+          "sources": [
+            { "pub": "Wine Law on Reserve", "title": "Domitian's Vine Edict: the story of the first wine law", "url": "https://www.winelawonreserve.com/domitians-vine-edict-story-wine-law/" },
+            { "pub": "Wikipedia", "title": "Ancient Rome and wine", "url": "https://en.wikipedia.org/wiki/Ancient_Rome_and_wine" } ] },
+        { "year": 476, "title": "Fall of Western Rome", "text": "Trade networks collapse, and monasteries become the keepers of viticulture for centuries.",
+          "sources": [
+            { "pub": "This Day in Wine History", "title": "The Benedictines and their role in European wine production during the Middle Ages", "url": "https://thisdayinwinehistory.com/the-benedictines-and-their-role-in-european-wine-production-during-the-middle-ages/" },
+            { "pub": "Guado al Melo", "title": "Wine in the Early Middle Ages: between pleasure and sacredness", "url": "https://www.guadoalmelo.it/en/il-vino-nellalto-medievo-fra-vita-mondana-e-sacralita/" } ] },
+        { "year": 1152, "title": "Eleanor of Aquitaine marries Henry II", "text": "Bordeaux becomes English territory, launching the claret trade to London.",
+          "sources": [
+            { "pub": "Wikipedia", "title": "Bordeaux wine: history", "url": "https://en.wikipedia.org/wiki/Bordeaux_wine" },
+            { "pub": "Corney & Barrow", "title": "The origins of Bordeaux wine", "url": "https://www.corneyandbarrow.com/blog/the-origins-of-bordeaux-wine" } ] },
+        { "year": 1348, "title": "The Black Death", "text": "Labor collapses across Europe and many vineyards are abandoned.",
+          "sources": [
+            { "pub": "EH.net", "title": "The economic impact of the Black Death", "url": "https://eh.net/encyclopedia/the-economic-impact-of-the-black-death/" },
+            { "pub": "World History Encyclopedia", "title": "Effects of the Black Death on Europe", "url": "https://www.worldhistory.org/article/1543/effects-of-the-black-death-on-europe/" } ] },
+        { "year": 1453, "title": "Hundred Years' War ends", "text": "England loses Bordeaux. Over the next century its merchants lean on Iberian wine, especially sherry, then called sack.",
+          "sources": [
+            { "pub": "Britannica", "title": "Battle of Castillon", "url": "https://www.britannica.com/event/Battle-of-Castillon" },
+            { "pub": "The Drinks Business", "title": "On this day 1453: England loses Bordeaux", "url": "https://www.thedrinksbusiness.com/2014/07/on-this-day-1453england-loses-bordeaux/" },
+            { "pub": "Wikipedia", "title": "History of sherry", "url": "https://en.wikipedia.org/wiki/History_of_Sherry" } ] },
+        { "year": 1703, "title": "Methuen Treaty", "text": "Low English tariffs on Portuguese wine turn Port into a sensation.",
+          "sources": [
+            { "pub": "Britannica", "title": "Methuen Treaty", "url": "https://www.britannica.com/topic/Methuen-Treaty" },
+            { "pub": "History Today", "title": "The Methuen Treaty", "url": "https://www.historytoday.com/archive/methuen-treaty" } ] },
+        { "year": 1756, "title": "The Douro is demarcated", "text": "Portugal creates one of the world's first legally defined wine regions.",
+          "sources": [
+            { "pub": "Taylor's Port", "title": "History of Port: the Marquis of Pombal", "url": "https://www.taylor.pt/en/what-is-port-wine/history-of-port/the-marquis-of-pombal" },
+            { "pub": "Wikipedia", "title": "Douro Wine Company", "url": "https://en.wikipedia.org/wiki/Douro_Wine_Company" } ] },
+        { "year": 1855, "title": "Bordeaux classification", "text": "Ahead of the Paris Exposition, the great châteaux are ranked in a hierarchy still used today.",
+          "sources": [
+            { "pub": "Berry Bros. & Rudd", "title": "The 1855 Médoc classification", "url": "https://www.bbr.com/articles/collecting/1855-medoc-classification" },
+            { "pub": "Wikipedia", "title": "Bordeaux Wine Official Classification of 1855", "url": "https://en.wikipedia.org/wiki/Bordeaux_Wine_Official_Classification_of_1855" } ] },
+        { "year": 1863, "title": "Phylloxera arrives", "text": "An American root aphid destroys most of Europe's vineyards over thirty years. Spain briefly booms supplying France.",
+          "sources": [
+            { "pub": "WSET", "title": "What is phylloxera and why was it so significant?", "url": "https://www.wsetglobal.com/knowledge-centre/blog/2023/february/09/what-is-phylloxera-and-why-was-it-so-significant" },
+            { "pub": "Wine Enthusiast", "title": "How some noblemen, a train and a louse helped Rioja become a global superstar", "url": "https://www.wineenthusiast.com/culture/wine/history-rioja-wine-spain/" } ] },
+        { "year": 1885, "title": "Bordeaux mixture", "text": "Millardet's spray of copper sulfate and lime tames downy mildew and helps save European viticulture.",
+          "sources": [
+            { "pub": "Britannica", "title": "Bordeaux mixture", "url": "https://www.britannica.com/science/Bordeaux-mixture" },
+            { "pub": "IVES Technical Reviews", "title": "Bordeaux mixture and copper: changing practices and future challenges", "url": "https://ives-technicalreviews.eu/article/view/10215" } ] },
+        { "year": 1920, "title": "US Prohibition", "text": "America's young wine industry is nearly wiped out until repeal in 1933.",
+          "sources": [
+            { "pub": "Smithsonian National Museum of American History", "title": "Grape gluts and Mother Clones: Prohibition and American wine", "url": "https://americanhistory.si.edu/explore/stories/grape-gluts-and-mother-clones-prohibition-and-american-wine" },
+            { "pub": "UC Davis Library", "title": "A short history of wine making in California", "url": "https://library.ucdavis.edu/news/short-history-wine-making-california/" } ] },
+        { "year": 1935, "title": "France creates the AOC", "text": "Appellation law ties wine names to place and protects quality standards.",
+          "sources": [
+            { "pub": "INAO", "title": "1935–1970: the advent of INAO and the creation of AOCs", "url": "https://www.inao.gouv.fr/en/history-1935-1970" } ] },
+        { "year": 1942, "title": "World War II", "text": "Occupation, requisitions, and lost export markets devastate European production.",
+          "sources": [
+            { "pub": "Jane Anson, Inside Bordeaux", "title": "World War II Bordeaux: life under occupation", "url": "https://janeanson.com/world-war-ii-bordeaux-life-under-occupation" } ] },
+        { "year": 1976, "title": "Judgment of Paris", "text": "California wines beat top French bottles in a blind tasting and put the US on the map.",
+          "sources": [
+            { "pub": "Stag's Leap Wine Cellars", "title": "The 1976 Judgment of Paris", "url": "https://www.stagsleapwinecellars.com/estate/judgment-of-paris/" },
+            { "pub": "CNN", "title": "Judgment of Paris: the tasting that changed wine forever", "url": "https://www.cnn.com/travel/article/judgment-of-paris-wine-tasting-cmd/" } ] },
+        { "year": 1986, "title": "Italy's methanol scandal", "text": "A deadly tainted-wine crisis pushes Italy toward a quality revolution.",
+          "sources": [
+            { "pub": "wein.plus", "title": "Poison in wine and a shock for Europe: the methanol scandal in Italy", "url": "https://magazine.wein.plus/poison-in-wine-and-a-shock-for-europe-40-years-ago-the-methanol-scandal-in-italy" },
+            { "pub": "Il Sole 24 Ore", "title": "Methanol wine, 40 years after the scandal", "url": "https://en.ilsole24ore.com/art/methanol-wine-40-years-scandal-doc-and-igt-bottles-passed-10-per-cent-60-per-cent-total-AIgu5XjB" } ] },
+        { "year": 2008, "title": "Global financial crisis", "text": "Fine wine prices wobble and demand shifts toward value.",
+          "sources": [
+            { "pub": "WineCap", "title": "How does fine wine react in a recession?", "url": "https://winecap.com/editorial/learn/how-does-fine-wine-react-in-a-recession" },
+            { "pub": "Wine Review Online", "title": "Could a renaissance of deals on wine be on the horizon?", "url": "https://winereviewonline.com/could-a-renaissance-of-deals-on-wine-be-on-the-horizon/" } ] },
+        { "year": 2020, "title": "COVID-19", "text": "Restaurant sales collapse worldwide while retail and online sales surge.",
+          "sources": [
+            { "pub": "OIV", "title": "State of the world vitivinicultural sector in 2020 (press release, April 2021)", "url": "https://www.oiv.int/public/medias/7876/en-oiv-press-conference-april-2021-press-release.pdf" },
+            { "pub": "The Drinks Business", "title": "US off-premise wine sales up 27.6% during Covid-19", "url": "https://www.thedrinksbusiness.com/2020/07/us-off-premise-wine-sales-up-27-6-during-covid-19/" } ] },
+        { "year": 2025, "title": "US tariffs on EU wine", "text": "A 15 percent US tariff on most EU goods, wine included, hits French, Italian, and Spanish exports.",
+          "sources": [
+            { "pub": "Wine Spectator", "title": "Wine and spirits hang in the balance as U.S. and E.U. strike trade deal", "url": "https://www.winespectator.com/articles/wine-and-spirits-hang-in-the-balance-as-u-s-and-e-u-strike-trade-deal" },
+            { "pub": "CBS News", "title": "How new U.S. tariffs on the EU and U.K. could affect the cost of booze", "url": "https://www.cbsnews.com/news/tariffs-trump-eu-uk-wine-spirits-prices/" } ] }
+      ]
+    },
+    "S": {
+      "label": "Southern",
+      "breakpoints": [1500, 1700, 1800, 1850, 1900, 1950, 1980, 2000, 2026],
+      "series": [
+        { "name": "Australia", "points": [[1788,0],[1850,15],[1873,25],[1900,30],[1930,40],[1960,25],[1980,30],[1995,65],[2005,92],[2010,70],[2019,78],[2021,50],[2026,58]] },
+        { "name": "Chile", "points": [[1548,3],[1600,15],[1800,15],[1850,25],[1900,30],[1950,20],[1980,15],[1990,40],[2000,55],[2010,65],[2026,60]] },
+        { "name": "Argentina", "points": [[1557,3],[1600,10],[1850,15],[1885,30],[1920,35],[1970,30],[1990,25],[2000,45],[2012,60],[2026,50]] },
+        { "name": "South Africa", "points": [[1659,3],[1700,15],[1780,45],[1820,40],[1861,15],[1886,10],[1918,15],[1960,15],[1986,10],[1994,30],[2010,50],[2026,50]] },
+        { "name": "New Zealand", "points": [[1819,0],[1840,3],[1900,5],[1970,8],[1985,20],[2000,40],[2026,55]] }
+      ],
+      "events": [
+        { "year": 1548, "title": "Vines reach Chile", "text": "Spanish missionaries plant vines to make sacramental wine.",
+          "sources": [
+            { "pub": "Wikipedia", "title": "Chilean wine: history", "url": "https://en.wikipedia.org/wiki/Chilean_wine" } ] },
+        { "year": 1557, "title": "Vines reach Argentina", "text": "Cuttings from Chile take root at Santiago del Estero, and within a few years vines spread to Mendoza.",
+          "sources": [
+            { "pub": "Wikipedia", "title": "Argentine wine: history", "url": "https://en.wikipedia.org/wiki/Argentine_wine" },
+            { "pub": "Noticias Ambientales", "title": "Santiago del Estero and the origin of Argentine wine", "url": "https://noticiasambientales.com/tourism/santiago-del-estero-and-the-origin-of-argentine-wine-the-history-of-the-first-documented-root-of-our-viticulture/" } ] },
+        { "year": 1659, "title": "First wine at the Cape", "text": "Dutch settlers press South Africa's first wine.",
+          "sources": [
+            { "pub": "Winemag.co.za", "title": "SA wine history: the Cape's first winegrower", "url": "https://winemag.co.za/wine/opinion/joanne-gibson-the-capes-first-winegrower/" },
+            { "pub": "Wikipedia", "title": "South African wine", "url": "https://en.wikipedia.org/wiki/South_African_wine" } ] },
+        { "year": 1788, "title": "The First Fleet", "text": "British settlers bring vine cuttings from the Cape and Brazil and plant them at Sydney's Farm Cove.",
+          "sources": [
+            { "pub": "World of Fine Wine", "title": "Australian wine: the earliest vines", "url": "https://worldoffinewine.com/news-features/australian-wine-earliest-vines" },
+            { "pub": "Wikipedia", "title": "Australian wine: history", "url": "https://en.wikipedia.org/wiki/Australian_wine" } ] },
+        { "year": 1795, "title": "Constantia's fame", "text": "Sweet wine from the Cape is prized by European royalty, and later by Napoleon in exile.",
+          "sources": [
+            { "pub": "Fondation Napoléon", "title": "Wine of exile: the wine of Napoleon on St Helena", "url": "https://www.napoleon.org/en/magazine/whats-on/wine-of-exile-the-wine-of-napoleon-on-st-helena/" },
+            { "pub": "Wikipedia", "title": "Constantia (wine)", "url": "https://en.wikipedia.org/wiki/Constantia_(wine)" } ] },
+        { "year": 1861, "title": "Cobden–Chevalier Treaty", "text": "After the 1860 treaty, Britain slashes duties on French wine and ends the Cape's preferential tariff, collapsing its British trade.",
+          "sources": [
+            { "pub": "Britannica", "title": "Cobden-Chevalier Treaty", "url": "https://www.britannica.com/topic/Cobden-Chevalier-Treaty" },
+            { "pub": "Wikipedia", "title": "History of South African wine", "url": "https://en.wikipedia.org/wiki/History_of_South_African_wine" } ] },
+        { "year": 1885, "title": "Copper spray and the Mendoza railway", "text": "Bordeaux mixture spreads worldwide, and the railway links Mendoza to Buenos Aires, fueling an Argentine boom.",
+          "sources": [
+            { "pub": "Wikipedia", "title": "Mendoza wine", "url": "https://en.wikipedia.org/wiki/Mendoza_wine" },
+            { "pub": "Wikipedia", "title": "Andean Railway", "url": "https://en.wikipedia.org/wiki/Andean_Railway" },
+            { "pub": "Britannica", "title": "Bordeaux mixture", "url": "https://www.britannica.com/science/Bordeaux-mixture" } ] },
+        { "year": 1918, "title": "KWV is founded", "text": "A South African cooperative begins controlling production for decades.",
+          "sources": [
+            { "pub": "KWV", "title": "Our history", "url": "https://kwv.co.za/our-company/our-history/" },
+            { "pub": "Wikipedia", "title": "KWV South Africa", "url": "https://en.wikipedia.org/wiki/KWV_South_Africa" } ] },
+        { "year": 1942, "title": "World War II", "text": "Shipping to Britain, still the main market, is badly disrupted, and Southern Hemisphere exports shrink.",
+          "sources": [
+            { "pub": "ASPI The Strategist", "title": "Rethinking Australia's wartime maritime trade", "url": "https://www.aspistrategist.org.au/rethinking-australias-wartime-maritime-trade/" },
+            { "pub": "ASPI The Strategist", "title": "Wartime trade: it's not just military supply", "url": "https://www.aspistrategist.org.au/wartime-trade-its-not-just-military-supply/" } ] },
+        { "year": 1985, "title": "Cloudy Bay", "text": "New Zealand Sauvignon Blanc becomes a global phenomenon.",
+          "sources": [
+            { "pub": "Cloudy Bay", "title": "About us", "url": "https://www.cloudybay.com/en-us/about-us/" },
+            { "pub": "Wikipedia", "title": "Cloudy Bay Vineyards", "url": "https://en.wikipedia.org/wiki/Cloudy_Bay_Vineyards" } ] },
+        { "year": 1994, "title": "End of apartheid", "text": "Sanctions lift and South African wine re-enters world markets.",
+          "sources": [
+            { "pub": "Harvard Business School, Institute for Strategy and Competitiveness", "title": "The South African wine cluster", "url": "https://www.isc.hbs.edu/Documents/resources/courses/moc-course-at-harvard/pdf/student-projects/SouthAfrica_Wine_2009.pdf" },
+            { "pub": "This Day in Wine History", "title": "South Africa's wine industry before and after apartheid", "url": "https://thisdayinwinehistory.com/south-africa-wine-industry-before-and-after-apartheid/" } ] },
+        { "year": 2001, "title": "Yellow Tail launches", "text": "Casella's value brand hits the US, selling 2.2 million cases in its second year as Australia's export boom surges.",
+          "sources": [
+            { "pub": "VinePair", "title": "The Yellow Tail story", "url": "https://vinepair.com/wine-blog/how-yellow-tail-gave-america-australian-wine/" },
+            { "pub": "Blue Ocean Strategy", "title": "Yellow Tail: a blue ocean example in the wine industry", "url": "https://www.blueoceanstrategy.com/teaching-materials/yellowtail/" } ] },
+        { "year": 2008, "title": "Global financial crisis", "text": "Oversupply and a strong currency hurt Australian exports.",
+          "sources": [
+            { "pub": "USDA Foreign Agricultural Service", "title": "Australia wine annual, 2010", "url": "https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName=Wine+Annual_Canberra_Australia_2-26-2010.pdf" },
+            { "pub": "Australian Bureau of Statistics", "title": "Australian wine and grape industry, 2008", "url": "https://www.abs.gov.au/AUSSTATS/abs@.nsf/Previousproducts/1329.0Main%20Features22008%20(Re-Issue)" } ] },
+        { "year": 2020, "title": "China's tariffs on Australia", "text": "Duties of up to 218 percent wipe out Australia's biggest export market until they're lifted in 2024.",
+          "sources": [
+            { "pub": "Australian Government, ABARES", "title": "Australian wine in China: impact of China's anti-dumping duties", "url": "https://www.agriculture.gov.au/abares/research-topics/trade/australian-wine-in-china" },
+            { "pub": "Wine Australia", "title": "China updates: anti-dumping and countervailing duties", "url": "https://www.wineaustralia.com/china-anti-dumping-and-countervailing-duties" } ] }
+      ]
+    }
+  }
+}
