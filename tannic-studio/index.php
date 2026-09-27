@@ -5,9 +5,6 @@
  * @package TannicStudio
  */
 
-
-<?php
-echo "<!-- INDEX MARKER 2026-03-03 -->\n";
 get_header();
 ?>
 
