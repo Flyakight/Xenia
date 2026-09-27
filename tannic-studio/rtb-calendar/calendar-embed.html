@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Women's Sports Calendar — Raise the Bar CBUS</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Bitter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════
+   RAISE THE BAR CBUS — Women's Sports Calendar
+   Brand: #C04C49 red · #153B50 navy · #D8AD40 gold · #F6FCFF white
+   Fonts: Pacifico (display) · Bitter (body)
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  --rtb-red: #C04C49;
+  --rtb-red-dark: #A43E3B;
+  --rtb-navy: #153B50;
+  --rtb-navy-light: #1B4A66;
+  --rtb-navy-mid: #0F2C3D;
+  --rtb-gold: #D8AD40;
+  --rtb-gold-soft: rgba(216, 173, 64, 0.15);
+  --rtb-white: #F6FCFF;
+  --rtb-white-80: rgba(246, 252, 255, 0.8);
+  --rtb-white-60: rgba(246, 252, 255, 0.6);
+  --rtb-white-40: rgba(246, 252, 255, 0.4);
+  --rtb-white-20: rgba(246, 252, 255, 0.2);
+  --font-display: 'Pacifico', cursive;
+  --font-body: 'Bitter', serif;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-pill: 50px;
+  --shadow-card: 0 4px 24px rgba(0,0,0,0.2), 0 1px 4px rgba(0,0,0,0.1);
+  --shadow-hover: 0 8px 32px rgba(0,0,0,0.3), 0 2px 8px rgba(0,0,0,0.15);
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--rtb-navy-mid);
+  color: var(--rtb-white);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Noise texture overlay (retro halftone feel) ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+.cal-wrapper {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   HERO
+   ═══════════════════════════════════════════════════════════ */
+
+.cal-hero {
+  text-align: center;
+  padding: 56px 20px 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative pennant shapes */
+.cal-hero::before,
+.cal-hero::after {
+  content: '★';
+  position: absolute;
+  font-size: 120px;
+  color: var(--rtb-red);
+  opacity: 0.06;
+  font-family: serif;
+}
+.cal-hero::before { top: -20px; left: -20px; transform: rotate(-15deg); }
+.cal-hero::after { bottom: -30px; right: -10px; transform: rotate(15deg); }
+
+.cal-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--rtb-red);
+  color: var(--rtb-white);
+  padding: 6px 18px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 20px;
+  animation: badge-in 0.6s ease-out;
+}
+
+.cal-hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 6vw, 56px);
+  font-weight: 400;
+  color: var(--rtb-white);
+  line-height: 1.2;
+  margin-bottom: 12px;
+  animation: title-in 0.8s ease-out;
+}
+
+.cal-hero h1 span {
+  color: var(--rtb-gold);
+}
+
+.cal-hero p {
+  font-family: var(--font-body);
+  font-size: clamp(14px, 2vw, 18px);
+  color: var(--rtb-white-60);
+  font-weight: 300;
+  max-width: 500px;
+  margin: 0 auto;
+  animation: sub-in 1s ease-out;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CONTROL BAR
+   ═══════════════════════════════════════════════════════════ */
+
+.cal-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  padding: 20px 24px;
+  background: var(--rtb-navy);
+  border: 1px solid var(--rtb-white-20);
+  border-radius: var(--radius-lg);
+  margin-bottom: 32px;
+  animation: controls-in 0.6s ease-out 0.3s both;
+}
+
+.cal-controls-left {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Sport filter chips */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  border: 1.5px solid var(--rtb-white-20);
+  background: transparent;
+  color: var(--rtb-white-80);
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.chip:hover {
+  border-color: var(--rtb-gold);
+  color: var(--rtb-gold);
+  background: var(--rtb-gold-soft);
+}
+
+.chip.active {
+  background: var(--rtb-gold);
+  color: var(--rtb-navy);
+  border-color: var(--rtb-gold);
+  font-weight: 600;
+}
+
+.chip .chip-emoji {
+  font-size: 15px;
+  line-height: 1;
+}
+
+/* Search box */
+.cal-search-wrap {
+  position: relative;
+  width: 260px;
+  flex-shrink: 0;
+}
+
+.cal-search-wrap svg {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  color: var(--rtb-white-40);
+  pointer-events: none;
+}
+
+.cal-search {
+  width: 100%;
+  padding: 10px 14px 10px 40px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--rtb-white-20);
+  background: var(--rtb-navy-mid);
+  color: var(--rtb-white);
+  font-family: var(--font-body);
+  font-size: 13px;
+  outline: none;
+  transition: var(--transition);
+}
+
+.cal-search::placeholder { color: var(--rtb-white-40); }
+.cal-search:focus {
+  border-color: var(--rtb-gold);
+  box-shadow: 0 0 0 3px var(--rtb-gold-soft);
+}
+
+/* View toggle */
+.cal-views {
+  display: flex;
+  gap: 4px;
+  background: var(--rtb-navy-mid);
+  border-radius: var(--radius-pill);
+  padding: 4px;
+  flex-shrink: 0;
+}
+
+.view-btn {
+  padding: 8px 18px;
+  border-radius: var(--radius-pill);
+  border: none;
+  background: transparent;
+  color: var(--rtb-white-60);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.view-btn:hover { color: var(--rtb-white); }
+
+.view-btn.active {
+  background: var(--rtb-gold);
+  color: var(--rtb-navy);
+  font-weight: 600;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TODAY'S SPOTLIGHT
+   ═══════════════════════════════════════════════════════════ */
+
+.cal-today {
+  margin-bottom: 32px;
+  animation: section-in 0.6s ease-out 0.5s both;
+}
+
+.cal-today-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.cal-today-header h2 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--rtb-gold);
+}
+
+.cal-today-pulse {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--rtb-red);
+  animation: pulse 2s infinite;
+}
+
+.cal-today-strip {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--rtb-gold) transparent;
+}
+
+.today-card {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 20px;
+  background: linear-gradient(135deg, var(--rtb-gold-soft), rgba(216, 173, 64, 0.08));
+  border: 1px solid rgba(216, 173, 64, 0.25);
+  border-radius: var(--radius-md);
+  min-width: 280px;
+  transition: var(--transition);
+}
+
+.today-card:hover {
+  border-color: var(--rtb-gold);
+  transform: translateY(-2px);
+}
+
+.today-card-emoji { font-size: 28px; line-height: 1; }
+
+.today-card-info { flex: 1; min-width: 0; }
+
+.today-card-name {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--rtb-white);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.today-card-meta {
+  font-size: 12px;
+  color: var(--rtb-gold);
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RESULTS BAR
+   ═══════════════════════════════════════════════════════════ */
+
+.cal-results-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 0 4px;
+  animation: section-in 0.6s ease-out 0.6s both;
+}
+
+.cal-results-count {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--rtb-white-40);
+  font-weight: 400;
+}
+
+.cal-results-count strong {
+  color: var(--rtb-gold);
+  font-weight: 600;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DATE GROUP HEADERS
+   ═══════════════════════════════════════════════════════════ */
+
+.date-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 0 12px;
+  margin-top: 8px;
+}
+
+.date-header:first-child { margin-top: 0; padding-top: 0; }
+
+.date-header-text {
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: var(--rtb-gold);
+  white-space: nowrap;
+}
+
+.date-header-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--rtb-gold), transparent);
+  opacity: 0.3;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   EVENT CARDS
+   ═══════════════════════════════════════════════════════════ */
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  animation: section-in 0.6s ease-out 0.7s both;
+}
+
+.event-card {
+  background: var(--rtb-navy);
+  border: 1px solid var(--rtb-white-20);
+  border-radius: var(--radius-md);
+  padding: 0;
+  overflow: hidden;
+  transition: var(--transition);
+  cursor: default;
+  position: relative;
+}
+
+.event-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: transparent;
+  transition: var(--transition);
+}
+
+.event-card.featured::before {
+  background: var(--rtb-gold);
+}
+
+.event-card:hover {
+  border-color: var(--rtb-white-40);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+}
+
+.card-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 20px 20px 0;
+}
+
+.card-sport {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.card-sport-emoji {
+  font-size: 28px;
+  line-height: 1;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--rtb-navy-mid);
+  border-radius: var(--radius-sm);
+}
+
+.card-sport-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--rtb-gold);
+  font-weight: 600;
+}
+
+.card-title-area { flex: 1; min-width: 0; }
+
+.card-event-name {
+  font-family: var(--font-display);
+  font-size: 17px;
+  line-height: 1.3;
+  color: var(--rtb-white);
+  margin-bottom: 6px;
+}
+
+.card-datetime {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.card-date {
+  font-size: 13px;
+  color: var(--rtb-white-80);
+  font-weight: 400;
+}
+
+.card-time {
+  font-size: 13px;
+  color: var(--rtb-gold);
+  font-weight: 600;
+}
+
+.card-datetime-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--rtb-white-40);
+}
+
+.card-body {
+  padding: 12px 20px 0;
+}
+
+.card-divider {
+  height: 1px;
+  background: var(--rtb-white-20);
+  margin-bottom: 12px;
+}
+
+.card-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+  font-size: 12px;
+  color: var(--rtb-white-60);
+}
+
+.card-meta-row svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  opacity: 0.6;
+}
+
+.card-meta-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-additional {
+  font-size: 11px;
+  color: var(--rtb-white-40);
+  font-style: italic;
+  margin-top: 4px;
+  padding-bottom: 4px;
+}
+
+.card-footer {
+  padding: 12px 20px 16px;
+}
+
+.card-ticket-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 20px;
+  background: var(--rtb-red);
+  color: var(--rtb-white);
+  border: none;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition);
+  letter-spacing: 0.3px;
+}
+
+.card-ticket-btn:hover {
+  background: var(--rtb-red-dark);
+  transform: scale(1.03);
+}
+
+.card-ticket-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* No-ticket state: show a "Watch" tag instead */
+.card-watch-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 14px;
+  background: var(--rtb-navy-mid);
+  border: 1px solid var(--rtb-white-20);
+  border-radius: var(--radius-pill);
+  font-size: 11px;
+  color: var(--rtb-white-60);
+  font-weight: 500;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   EMPTY STATE
+   ═══════════════════════════════════════════════════════════ */
+
+.cal-empty {
+  text-align: center;
+  padding: 80px 20px;
+  display: none;
+}
+
+.cal-empty.visible { display: block; }
+
+.cal-empty-icon {
+  font-size: 64px;
+  margin-bottom: 16px;
+  opacity: 0.4;
+}
+
+.cal-empty h3 {
+  font-family: var(--font-display);
+  font-size: 24px;
+  color: var(--rtb-white-60);
+  margin-bottom: 8px;
+}
+
+.cal-empty p {
+  font-size: 14px;
+  color: var(--rtb-white-40);
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   LOAD MORE
+   ═══════════════════════════════════════════════════════════ */
+
+.cal-load-more {
+  text-align: center;
+  padding: 32px 0 48px;
+  display: none;
+}
+
+.cal-load-more.visible { display: block; }
+
+.load-more-btn {
+  padding: 12px 36px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--rtb-gold);
+  background: transparent;
+  color: var(--rtb-gold);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.load-more-btn:hover {
+  background: var(--rtb-gold);
+  color: var(--rtb-navy);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   FOOTER CTA
+   ═══════════════════════════════════════════════════════════ */
+
+.cal-footer {
+  text-align: center;
+  padding: 64px 20px;
+  border-top: 1px solid var(--rtb-white-20);
+  margin-top: 32px;
+}
+
+.cal-footer h2 {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 4vw, 40px);
+  color: var(--rtb-white);
+  margin-bottom: 8px;
+}
+
+.cal-footer p {
+  font-size: 15px;
+  color: var(--rtb-white-60);
+  margin-bottom: 24px;
+}
+
+.cal-footer-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 32px;
+  background: var(--rtb-red);
+  color: var(--rtb-white);
+  border: none;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.cal-footer-btn:hover {
+  background: var(--rtb-red-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(192, 76, 73, 0.3);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ANIMATIONS
+   ═══════════════════════════════════════════════════════════ */
+
+@keyframes badge-in {
+  from { opacity: 0; transform: translateY(-10px) scale(0.9); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes title-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes sub-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes controls-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes section-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.3); }
+}
+
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.card-animate {
+  animation: card-in 0.4s ease-out both;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 992px) {
+  .cal-grid { grid-template-columns: repeat(2, 1fr); }
+  .cal-search-wrap { width: 220px; }
+}
+
+@media (max-width: 768px) {
+  .cal-controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .cal-controls-left {
+    justify-content: center;
+  }
+  .cal-search-wrap { width: 100%; }
+  .cal-views { justify-content: center; }
+  .cal-grid { grid-template-columns: 1fr; }
+  .date-header { grid-column: 1 / -1; }
+
+  .cal-hero { padding: 40px 16px 32px; }
+  .cal-hero-badge { font-size: 11px; padding: 5px 14px; }
+}
+
+@media (max-width: 480px) {
+  .cal-wrapper { padding: 0 12px; }
+  .chip { padding: 6px 12px; font-size: 12px; }
+  .view-btn { padding: 7px 14px; font-size: 12px; }
+  .card-event-name { font-size: 15px; }
+}
+
+/* Full-width date headers spanning grid */
+.date-header { grid-column: 1 / -1; }
+</style>
+</head>
+<body>
+
+<div class="cal-wrapper">
+
+  <!-- ── HERO ── -->
+  <header class="cal-hero">
+    <div class="cal-hero-badge">📅 2025–26 Season</div>
+    <h1>Women's Sports <span>Calendar</span></h1>
+    <p>Every game. Every league. Never miss a moment in Columbus.</p>
+  </header>
+
+  <!-- ── CONTROLS ── -->
+  <div class="cal-controls">
+    <div class="cal-controls-left" id="sportChips">
+      <!-- Populated by JS -->
+    </div>
+    <div class="cal-search-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" class="cal-search" id="searchInput" placeholder="Search teams, venues, sports...">
+    </div>
+    <div class="cal-views" id="viewToggle">
+      <button class="view-btn active" data-view="week">This Week</button>
+      <button class="view-btn" data-view="month">This Month</button>
+      <button class="view-btn" data-view="all">All Upcoming</button>
+    </div>
+  </div>
+
+  <!-- ── TODAY SPOTLIGHT ── -->
+  <section class="cal-today" id="todaySection" style="display:none;">
+    <div class="cal-today-header">
+      <div class="cal-today-pulse"></div>
+      <h2>On Today</h2>
+    </div>
+    <div class="cal-today-strip" id="todayStrip">
+      <!-- Populated by JS -->
+    </div>
+  </section>
+
+  <!-- ── RESULTS BAR ── -->
+  <div class="cal-results-bar">
+    <div class="cal-results-count" id="resultsCount"></div>
+  </div>
+
+  <!-- ── EVENT FEED ── -->
+  <div class="cal-grid" id="eventGrid">
+    <!-- Populated by JS -->
+  </div>
+
+  <!-- ── EMPTY STATE ── -->
+  <div class="cal-empty" id="emptyState">
+    <div class="cal-empty-icon">🏟️</div>
+    <h3>No Games Found</h3>
+    <p>Try a different sport, date range, or search term. There's always a game around the corner!</p>
+  </div>
+
+  <!-- ── LOAD MORE ── -->
+  <div class="cal-load-more" id="loadMoreWrap">
+    <button class="load-more-btn" id="loadMoreBtn">Load More Games</button>
+  </div>
+
+  <!-- ── FOOTER CTA ── -->
+  <footer class="cal-footer">
+    <h2>Come Watch With Us</h2>
+    <p>Cold drinks. Big screens. The best fans in Columbus.</p>
+    <a href="https://www.raisethebarcbus.com" class="cal-footer-btn" target="_blank">
+      Visit Raise the Bar
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+    </a>
+  </footer>
+
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   SAMPLE DATA — Replace with your Wix CMS / Google Sheet data
+   ═══════════════════════════════════════════════════════════ */
+
+// Helper: generate dates relative to today
+function daysFromNow(d, hours = 19, min = 0) {
+  const date = new Date();
+  date.setDate(date.getDate() + d);
+  date.setHours(hours, min, 0, 0);
+  return date;
+}
+
+const SAMPLE_EVENTS = [
+  // Today
+  { sportEmoji: '🏀', sportName: 'Basketball', eventName: 'Ohio State vs Michigan', eventDate: daysFromNow(0, 18, 0), location: 'Value City Arena', usStreaming: 'ESPN+', tvStreaming: 'Big Ten Network', ticketLink: '#', additionalInfo: 'Senior Night', isFeatured: true },
+  { sportEmoji: '🏒', sportName: 'Hockey', eventDate: daysFromNow(0, 20, 30), eventName: 'PWHL Minnesota vs Boston', location: 'Nationwide Arena', usStreaming: 'ESPN+', tvStreaming: '', ticketLink: '#', additionalInfo: '', isFeatured: false },
+
+  // This week
+  { sportEmoji: '⚽', sportName: 'Soccer', eventName: 'NWSL: Racing Louisville vs Portland Thorns', eventDate: daysFromNow(1, 19, 0), location: 'Lynn Family Stadium', usStreaming: 'Paramount+', tvStreaming: 'CBS Sports', ticketLink: '#', additionalInfo: '', isFeatured: false },
+  { sportEmoji: '🏀', sportName: 'Basketball', eventName: 'Ohio State vs Penn State', eventDate: daysFromNow(2, 14, 0), location: 'Value City Arena', usStreaming: 'Peacock', tvStreaming: 'Big Ten Network', ticketLink: '#', additionalInfo: '', isFeatured: false },
+  { sportEmoji: '🏐', sportName: 'Volleyball', eventName: 'Ohio State vs Wisconsin', eventDate: daysFromNow(3, 18, 0), location: 'Covelli Center', usStreaming: 'Big Ten+', tvStreaming: '', ticketLink: '#', additionalInfo: 'Conference match', isFeatured: false },
+  { sportEmoji: '🏒', sportName: 'Hockey', eventName: 'PWHL New York vs Montreal', eventDate: daysFromNow(4, 19, 30), location: 'Prudential Center', usStreaming: 'ESPN+', tvStreaming: '', ticketLink: '', additionalInfo: '', isFeatured: false },
+  { sportEmoji: '🏀', sportName: 'Basketball', eventName: 'WNBA: Fever vs Liberty', eventDate: daysFromNow(5, 20, 0), location: 'Barclays Center', usStreaming: 'Amazon Prime', tvStreaming: '', ticketLink: '#', additionalInfo: 'Caitlin Clark matchup', isFeatured: true },
+  { sportEmoji: '⚽', sportName: 'Soccer', eventName: 'NWSL: Gotham FC vs Angel City', eventDate: daysFromNow(6, 17, 0), location: 'Red Bull Arena', usStreaming: 'Paramount+', tvStreaming: '', ticketLink: '#', additionalInfo: '', isFeatured: false },
+
+  // This month
+  { sportEmoji: '🏀', sportName: 'Basketball', eventName: 'Ohio State vs Iowa', eventDate: daysFromNow(9, 19, 0), location: 'Value City Arena', usStreaming: 'Peacock', tvStreaming: 'Big Ten Network', ticketLink: '#', additionalInfo: '', isFeatured: false },
+  { sportEmoji: '🎾', sportName: 'Tennis', eventName: 'Ohio State vs Kentucky', eventDate: daysFromNow(10, 11, 0), location: 'Ty Tucker Tennis Center', usStreaming: '', tvStreaming: '', ticketLink: '', additionalInfo: 'Free admission', isFeatured: false },
+  { sportEmoji: '⚽', sportName: 'Soccer', eventName: 'USWNT vs Canada', eventDate: daysFromNow(12, 20, 0), location: 'MAPFRE Stadium', usStreaming: 'TNT Sports', tvStreaming: 'TNT', ticketLink: '#', additionalInfo: 'International friendly', isFeatured: true },
+  { sportEmoji: '🏒', sportName: 'Hockey', eventName: 'PWHL Toronto vs Ottawa', eventDate: daysFromNow(14, 19, 0), location: 'TD Place Arena', usStreaming: 'ESPN+', tvStreaming: '', ticketLink: '#', additionalInfo: '', isFeatured: false },
+  { sportEmoji: '🏀', sportName: 'Basketball', eventName: 'WNBA: Aces vs Storm', eventDate: daysFromNow(16, 21, 0), location: 'T-Mobile Arena', usStreaming: 'Amazon Prime', tvStreaming: '', ticketLink: '#', additionalInfo: '', isFeatured: false },
+  { sportEmoji: '🥎', sportName: 'Softball', eventName: 'Ohio State vs Minnesota', eventDate: daysFromNow(18, 16, 0), location: 'Buckeye Field', usStreaming: 'Big Ten+', tvStreaming: '', ticketLink: '', additionalInfo: 'Doubleheader', isFeatured: false },
+  { sportEmoji: '🏐', sportName: 'Volleyball', eventName: 'Ohio State vs Nebraska', eventDate: daysFromNow(20, 19, 0), location: 'Covelli Center', usStreaming: 'ESPN', tvStreaming: 'ESPN', ticketLink: '#', additionalInfo: 'Rivalry night', isFeatured: true },
+  { sportEmoji: '⚽', sportName: 'Soccer', eventName: 'NWSL: Spirit vs Courage', eventDate: daysFromNow(22, 19, 30), location: 'Audi Field', usStreaming: 'Paramount+', tvStreaming: '', ticketLink: '#', additionalInfo: '', isFeatured: false },
+
+  // Further out
+  { sportEmoji: '🏀', sportName: 'Basketball', eventName: 'WNBA: Lynx vs Sun', eventDate: daysFromNow(35, 19, 0), location: 'Target Center', usStreaming: 'Amazon Prime', tvStreaming: '', ticketLink: '#', additionalInfo: '', isFeatured: false },
+  { sportEmoji: '🏒', sportName: 'Hockey', eventName: 'PWHL Boston vs Minnesota', eventDate: daysFromNow(40, 19, 30), location: 'Tsongas Center', usStreaming: 'ESPN+', tvStreaming: '', ticketLink: '', additionalInfo: '', isFeatured: false },
+  { sportEmoji: '🥍', sportName: 'Lacrosse', eventName: 'Ohio State vs Northwestern', eventDate: daysFromNow(45, 13, 0), location: 'Ohio Stadium', usStreaming: 'Big Ten+', tvStreaming: '', ticketLink: '', additionalInfo: '', isFeatured: false },
+  { sportEmoji: '🤸', sportName: 'Gymnastics', eventName: 'Ohio State vs Michigan', eventDate: daysFromNow(50, 14, 0), location: 'St. John Arena', usStreaming: 'Big Ten+', tvStreaming: '', ticketLink: '#', additionalInfo: 'Fan appreciation day', isFeatured: false },
+];
+
+/* ═══════════════════════════════════════════════════════════
+   APP STATE & ICONS
+   ═══════════════════════════════════════════════════════════ */
+
+let allEvents = SAMPLE_EVENTS.sort((a, b) => a.eventDate - b.eventDate);
+let filteredEvents = [];
+let currentSport = 'All';
+let currentView = 'week';
+let currentSearch = '';
+let displayLimit = 30;
+
+const ICONS = {
+  pin: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>',
+  tv: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="15" x="2" y="7" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>',
+  ticket: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2"/><path d="M13 17v2"/><path d="M13 11v2"/></svg>',
+};
+
+/* ═══════════════════════════════════════════════════════════
+   INITIALIZATION
+   ═══════════════════════════════════════════════════════════ */
+
+document.addEventListener('DOMContentLoaded', () => {
+  buildSportChips();
+  bindViewToggle();
+  bindSearch();
+  bindLoadMore();
+  applyFilters();
+});
+
+/* ═══════════════════════════════════════════════════════════
+   SPORT CHIPS
+   ═══════════════════════════════════════════════════════════ */
+
+function buildSportChips() {
+  const container = document.getElementById('sportChips');
+  const sports = [...new Set(allEvents.map(e => e.sportName))].sort();
+
+  // "All" chip
+  let html = `<button class="chip active" data-sport="All"><span class="chip-emoji">🏅</span> All</button>`;
+
+  sports.forEach(s => {
+    const emoji = allEvents.find(e => e.sportName === s)?.sportEmoji || '🏅';
+    html += `<button class="chip" data-sport="${s}"><span class="chip-emoji">${emoji}</span> ${s}</button>`;
+  });
+
+  container.innerHTML = html;
+
+  container.addEventListener('click', (e) => {
+    const chip = e.target.closest('.chip');
+    if (!chip) return;
+
+    container.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    currentSport = chip.dataset.sport;
+    displayLimit = 30;
+    applyFilters();
+  });
+}
+
+/* ═══════════════════════════════════════════════════════════
+   VIEW TOGGLE
+   ═══════════════════════════════════════════════════════════ */
+
+function bindViewToggle() {
+  const wrap = document.getElementById('viewToggle');
+  wrap.addEventListener('click', (e) => {
+    const btn = e.target.closest('.view-btn');
+    if (!btn) return;
+
+    wrap.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentView = btn.dataset.view;
+    displayLimit = 30;
+    applyFilters();
+  });
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SEARCH
+   ═══════════════════════════════════════════════════════════ */
+
+function bindSearch() {
+  const input = document.getElementById('searchInput');
+  let timer;
+  input.addEventListener('input', () => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      currentSearch = input.value.trim().toLowerCase();
+      displayLimit = 30;
+      applyFilters();
+    }, 250);
+  });
+}
+
+/* ═══════════════════════════════════════════════════════════
+   LOAD MORE
+   ═══════════════════════════════════════════════════════════ */
+
+function bindLoadMore() {
+  document.getElementById('loadMoreBtn').addEventListener('click', () => {
+    displayLimit += 30;
+    renderFeed(filteredEvents);
+  });
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CENTRAL FILTER LOGIC
+   ═══════════════════════════════════════════════════════════ */
+
+function applyFilters() {
+  let events = [...allEvents];
+  const now = new Date();
+
+  // Sport
+  if (currentSport !== 'All') {
+    events = events.filter(e => e.sportName === currentSport);
+  }
+
+  // Date view
+  if (currentView === 'week') {
+    const cutoff = new Date(now);
+    cutoff.setDate(cutoff.getDate() + 7);
+    events = events.filter(e => e.eventDate <= cutoff);
+  } else if (currentView === 'month') {
+    const cutoff = new Date(now);
+    cutoff.setDate(cutoff.getDate() + 30);
+    events = events.filter(e => e.eventDate <= cutoff);
+  }
+
+  // Search
+  if (currentSearch) {
+    events = events.filter(e =>
+      (e.eventName || '').toLowerCase().includes(currentSearch) ||
+      (e.location || '').toLowerCase().includes(currentSearch) ||
+      (e.sportName || '').toLowerCase().includes(currentSearch) ||
+      (e.additionalInfo || '').toLowerCase().includes(currentSearch)
+    );
+  }
+
+  filteredEvents = events;
+  renderFeed(filteredEvents);
+  renderToday(filteredEvents);
+  updateCount(filteredEvents.length);
+  toggleEmpty(filteredEvents.length === 0);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RENDER FEED
+   ═══════════════════════════════════════════════════════════ */
+
+function renderFeed(events) {
+  const grid = document.getElementById('eventGrid');
+  const visible = events.slice(0, displayLimit);
+  let html = '';
+  let lastDate = '';
+
+  visible.forEach((ev, i) => {
+    const d = ev.eventDate;
+    const dateStr = d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+
+    // Date group header
+    if (dateStr !== lastDate) {
+      lastDate = dateStr;
+      html += `<div class="date-header">
+        <span class="date-header-text">${dateStr}</span>
+        <span class="date-header-line"></span>
+      </div>`;
+    }
+
+    const stream = ev.usStreaming || ev.tvStreaming || '';
+    const delay = (i % 6) * 0.06;
+
+    html += `<div class="event-card card-animate ${ev.isFeatured ? 'featured' : ''}" style="animation-delay:${delay}s">
+      <div class="card-top">
+        <div class="card-sport">
+          <div class="card-sport-emoji">${ev.sportEmoji}</div>
+          <span class="card-sport-label">${ev.sportName}</span>
+        </div>
+        <div class="card-title-area">
+          <div class="card-event-name">${ev.eventName}</div>
+          <div class="card-datetime">
+            <span class="card-date">${d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}</span>
+            <span class="card-datetime-dot"></span>
+            <span class="card-time">${d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })} ET</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-divider"></div>
+        ${ev.location ? `<div class="card-meta-row">${ICONS.pin}<span class="card-meta-text">${ev.location}</span></div>` : ''}
+        ${stream ? `<div class="card-meta-row">${ICONS.tv}<span class="card-meta-text">${stream}</span></div>` : ''}
+        ${ev.additionalInfo ? `<div class="card-additional">${ev.additionalInfo}</div>` : ''}
+      </div>
+      <div class="card-footer">
+        ${ev.ticketLink
+          ? `<a href="${ev.ticketLink}" target="_blank" class="card-ticket-btn">${ICONS.ticket} Get Tickets</a>`
+          : stream
+            ? `<span class="card-watch-tag">${ICONS.tv} Stream it</span>`
+            : ''
+        }
+      </div>
+    </div>`;
+  });
+
+  grid.innerHTML = html;
+
+  // Load more
+  const wrap = document.getElementById('loadMoreWrap');
+  if (events.length > displayLimit) {
+    wrap.classList.add('visible');
+  } else {
+    wrap.classList.remove('visible');
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RENDER TODAY
+   ═══════════════════════════════════════════════════════════ */
+
+function renderToday(events) {
+  const section = document.getElementById('todaySection');
+  const strip = document.getElementById('todayStrip');
+  const todayStr = new Date().toDateString();
+  const todayEvents = events.filter(e => e.eventDate.toDateString() === todayStr);
+
+  if (todayEvents.length === 0) {
+    section.style.display = 'none';
+    return;
+  }
+
+  section.style.display = 'block';
+  let html = '';
+  todayEvents.forEach(ev => {
+    const stream = ev.usStreaming || ev.tvStreaming || '';
+    html += `<div class="today-card">
+      <div class="today-card-emoji">${ev.sportEmoji}</div>
+      <div class="today-card-info">
+        <div class="today-card-name">${ev.eventName}</div>
+        <div class="today-card-meta">${ev.eventDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })} ET${stream ? ' · ' + stream : ''}</div>
+      </div>
+    </div>`;
+  });
+  strip.innerHTML = html;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   HELPERS
+   ═══════════════════════════════════════════════════════════ */
+
+function updateCount(count) {
+  const el = document.getElementById('resultsCount');
+  if (count === 0) {
+    el.innerHTML = '';
+  } else {
+    const shown = Math.min(count, displayLimit);
+    el.innerHTML = `Showing <strong>${shown}</strong> of <strong>${count}</strong> upcoming game${count !== 1 ? 's' : ''}`;
+  }
+}
+
+function toggleEmpty(isEmpty) {
+  const empty = document.getElementById('emptyState');
+  const grid = document.getElementById('eventGrid');
+  if (isEmpty) {
+    empty.classList.add('visible');
+    grid.style.display = 'none';
+  } else {
+    empty.classList.remove('visible');
+    grid.style.display = 'grid';
+  }
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+<div class="cf7-two-col">
+  <p>
+    <label>Name
+      [text* your-name placeholder "Your name"]
+    </label>
+  </p>
+  <p>
+    <label>Email
+      [email* your-email placeholder "you@company.com"]
+    </label>
+  </p>
+  <p>
+    <label>Company
+      [text your-company placeholder "Company name"]
+    </label>
+  </p>
+</div>
+
+<p>
+  <label>Type of project
+    [select* project-type first_as_label "Select a project type" "Brand Website" "Ecommerce" "Web App / Product" "Ongoing Support" "Other"]
+  </label>
+</p>
+
+<p>
+  <label>Message
+    [textarea* your-message 8x40 placeholder "Tell us about your goals, timeline, and scope."]
+  </label>
+</p>
+
+<p class="contact-submit-row">[submit "Submit"]</p>

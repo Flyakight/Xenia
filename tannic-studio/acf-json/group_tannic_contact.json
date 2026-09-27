@@ -1,0 +1,90 @@
+[
+    {
+        "key": "group_tannic_contact",
+        "title": "Contact Page Settings",
+        "fields": [
+            {
+                "key": "field_contact_heading",
+                "label": "Heading",
+                "name": "contact_heading",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": { "width": "", "class": "", "id": "" },
+                "default_value": "Let's make something remarkable.",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+            },
+            {
+                "key": "field_contact_subheading",
+                "label": "Subheading",
+                "name": "contact_subheading",
+                "aria-label": "",
+                "type": "textarea",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": { "width": "", "class": "", "id": "" },
+                "default_value": "",
+                "maxlength": "",
+                "rows": 3,
+                "placeholder": "",
+                "new_lines": ""
+            },
+            {
+                "key": "field_contact_form_id",
+                "label": "CF7 Form ID",
+                "name": "contact_form_id",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Enter the Contact Form 7 form ID number.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": { "width": "50", "class": "", "id": "" },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+            },
+            {
+                "key": "field_contact_hours",
+                "label": "Office Hours",
+                "name": "contact_hours",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "e.g., \"Mon-Fri, 9am-5pm EST\"",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": { "width": "50", "class": "", "id": "" },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "page_template",
+                    "operator": "==",
+                    "value": "page-contact.php"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "Contact page settings for the Reservation Desk template.",
+        "show_in_rest": 0
+    }
+]

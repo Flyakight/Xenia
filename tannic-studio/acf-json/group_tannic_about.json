@@ -1,0 +1,138 @@
+[
+    {
+        "key": "group_tannic_about",
+        "title": "About Section",
+        "fields": [
+            {
+                "key": "field_about_desk_label",
+                "label": "Desk Label",
+                "name": "about_desk_label",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Small mono label above the headline.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": { "width": "", "class": "", "id": "" },
+                "default_value": "From the Desk of Kate Kight",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+            },
+            {
+                "key": "field_about_headline",
+                "label": "Headline",
+                "name": "about_headline",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": { "width": "", "class": "", "id": "" },
+                "default_value": "Code & Cabernet.",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+            },
+            {
+                "key": "field_about_headline_highlight",
+                "label": "Headline Highlight Word",
+                "name": "about_headline_highlight",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "The word to render in italic coral accent color.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": { "width": "", "class": "", "id": "" },
+                "default_value": "Cabernet.",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+            },
+            {
+                "key": "field_about_lead",
+                "label": "Lead Paragraph",
+                "name": "about_lead",
+                "aria-label": "",
+                "type": "textarea",
+                "instructions": "Bold intro paragraph.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": { "width": "", "class": "", "id": "" },
+                "default_value": "",
+                "maxlength": "",
+                "rows": 3,
+                "placeholder": "",
+                "new_lines": ""
+            },
+            {
+                "key": "field_about_bio",
+                "label": "Bio Content",
+                "name": "about_bio",
+                "aria-label": "",
+                "type": "wysiwyg",
+                "instructions": "Biography\/about content.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": { "width": "", "class": "", "id": "" },
+                "default_value": "",
+                "tabs": "all",
+                "toolbar": "full",
+                "media_upload": 0,
+                "delay": 0
+            },
+            {
+                "key": "field_about_sign_name",
+                "label": "Signature Name",
+                "name": "about_sign_name",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": { "width": "50", "class": "", "id": "" },
+                "default_value": "Kate Kight",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+            },
+            {
+                "key": "field_about_sign_role",
+                "label": "Signature Role",
+                "name": "about_sign_role",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": { "width": "50", "class": "", "id": "" },
+                "default_value": "Founder \/ Lead Dev",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "page_template",
+                    "operator": "==",
+                    "value": "page-philosophy.php"
+                }
+            ]
+        ],
+        "menu_order": 1,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "About \/ Code & Cabernet section fields for the philosophy page.",
+        "show_in_rest": 0
+    }
+]

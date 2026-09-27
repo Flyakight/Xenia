@@ -1,0 +1,168 @@
+[
+    {
+        "key": "group_tannic_hero",
+        "title": "Hero Section",
+        "fields": [
+            {
+                "key": "field_hero_headline",
+                "label": "Headline",
+                "name": "hero_headline",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Main headline (displayed in Fraunces serif).",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Tannic",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+            },
+            {
+                "key": "field_hero_subtitle",
+                "label": "Subtitle",
+                "name": "hero_subtitle",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Script subtitle (displayed in Mrs Saint Delafield).",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "studio",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+            },
+            {
+                "key": "field_hero_tagline",
+                "label": "Tagline",
+                "name": "hero_tagline",
+                "aria-label": "",
+                "type": "textarea",
+                "instructions": "Short paragraph below the headline.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "rows": 3,
+                "placeholder": "",
+                "new_lines": ""
+            },
+            {
+                "key": "field_hero_cta_text",
+                "label": "CTA Button Text",
+                "name": "hero_cta_text",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Work with us",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+            },
+            {
+                "key": "field_hero_cta_link",
+                "label": "CTA Button Link",
+                "name": "hero_cta_link",
+                "aria-label": "",
+                "type": "url",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "placeholder": ""
+            },
+            {
+                "key": "field_hero_image",
+                "label": "Portrait Image",
+                "name": "hero_image",
+                "aria-label": "",
+                "type": "image",
+                "instructions": "Right-side portrait (3:4 aspect ratio recommended).",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "return_format": "array",
+                "library": "all",
+                "min_width": "",
+                "min_height": "",
+                "min_size": "",
+                "max_width": "",
+                "max_height": "",
+                "max_size": "",
+                "mime_types": "",
+                "preview_size": "medium"
+            },
+            {
+                "key": "field_hero_typing_text",
+                "label": "Typing Animation Text",
+                "name": "hero_typing_text",
+                "aria-label": "",
+                "type": "textarea",
+                "instructions": "Code-style text for the typing animation in the terminal card.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "building.digital_identity(elevation: 100%);\n\n\/\/ Retaining loyal customers...\nstatus: active;\nmode: artisanal;",
+                "maxlength": "",
+                "rows": 8,
+                "placeholder": "",
+                "new_lines": ""
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "page_type",
+                    "operator": "==",
+                    "value": "front_page"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "Hero section fields for the Tannic Studio homepage.",
+        "show_in_rest": 0
+    }
+]
