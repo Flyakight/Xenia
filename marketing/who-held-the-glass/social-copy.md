@@ -146,7 +146,7 @@ Post as one shot with multiple attachments, or split into three shots: the hero 
 
 **Tags:** data visualization, timeline, interactive, glassmorphism, gooey, svg, illustration, hand drawn, wine, editorial, web design, wordpress
 
-**Colour palette** (for the shot's colour chips): `#F4F1EA` cream · `#162D27` forest · `#D97D5D` terracotta · `#8B802E` gold · `#4A7A6D` sage
+**Colour palette** (for the shot's colour chips): `#162D27` forest · `#2C4A3D` moss · `#D8C57C` lichen gold · `#C9849A` pressed rosé · `#F4EFE2` cream
 
 ---
 
