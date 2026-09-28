@@ -1,0 +1,9 @@
+<filter id="whg-goo" color-interpolation-filters="sRGB">
+  <!-- 1. Blur the blobs so their edges overlap -->
+  <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur"/>
+  <!-- 2. Crank the alpha: soft edges snap back to hard ones -->
+  <feColorMatrix in="blur" mode="matrix"
+    values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -9" result="goo"/>
+  <!-- 3. Keep the original colour inside the new shape -->
+  <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
+</filter>

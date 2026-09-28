@@ -1,0 +1,70 @@
+# Renders Studio Notes posts: taped-card images (and MP4s for posts with
+# `motion: true`) from the sketches, code, notes and post.yml in each
+# studio-notes/posts/ folder, and case-study posts from a client's live site
+# (`type: showcase`). Results are committed back into that folder's out/.
+
+name: Render Studio Notes
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'studio-notes/posts/**'
+      - 'studio-notes/render/**'
+      - '.github/workflows/studio-notes.yml'
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'Re-render every post, even unchanged ones'
+        type: boolean
+        default: false
+      recapture:
+        description: 'Re-capture client sites for showcase posts (after a site changes)'
+        type: boolean
+        default: false
+
+concurrency:
+  group: studio-notes
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install renderer
+        working-directory: studio-notes/render
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+          command -v ffmpeg || (sudo apt-get update && sudo apt-get install -y ffmpeg)
+
+      - name: Render posts
+        working-directory: studio-notes/render
+        run: node render.mjs ${{ inputs.force && '--force' || '' }} ${{ inputs.recapture && '--recapture' || '' }}
+
+      # Commits made with the workflow token don't trigger new workflow runs,
+      # so this can't loop, and it won't set off the theme deploy either.
+      # Runs even when one post failed (a client site was down, say), so the
+      # posts that did render still land. The run still shows red.
+      - name: Commit rendered images
+        if: ${{ !cancelled() }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add studio-notes/posts
+          if git diff --cached --quiet; then
+            echo "Nothing new to commit."
+          else
+            git commit -m "Render Studio Notes posts"
+            git pull --rebase --autostash
+            git push
+          fi

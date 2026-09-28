@@ -1,0 +1,20 @@
+# Studio Notes post: every line is optional except the sketches in this folder.
+title: Who held the glass
+script: sketches
+kicker: Behind the build
+note: The vine, the morel and a little field cap, drawn before a line of code for our wine history timeline.
+client: Tannic Studio journal
+layout: fan
+backdrop: moss
+motion: true
+cards:
+  - file: 01-vine.png
+    label: the vine
+    tag: Vitis
+    note: The vine that grows up the side of the page.
+  - file: 02-morel.png
+    label: the morel
+    tag: Morchella
+  - file: 03-mushroom.png
+    label: the cap
+    tag: Field find

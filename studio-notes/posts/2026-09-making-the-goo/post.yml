@@ -1,0 +1,33 @@
+title: Making the goo
+script: in progress
+kicker: Code in progress
+note: The wine drop on our timeline is two circles and one SVG filter. Here's the whole trick.
+client: Who held the glass
+layout: grid
+backdrop: kraft
+motion: true
+cards:
+  - file: 01-goo-filter.svg
+    label: the filter
+    tag: SVG
+  - file: 02-move-blob.js
+    label: the blob
+    tag: JS
+  - text: |
+      Blur the blobs,
+      then crank the alpha.
+      Soft edges snap back hard,
+      and anything close melts together.
+    style: sticky
+    label: the trick
+    tag: Note
+  - code: |
+      @keyframes whg-pour {
+        0%   { transform: translateY(105%); }
+        45%  { transform: translateY(-5%); }
+        100% { transform: translateY(-110%); }
+      }
+    lang: css
+    filename: who-held-the-glass.css
+    label: the pour
+    tag: CSS

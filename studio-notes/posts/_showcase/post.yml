@@ -1,0 +1,57 @@
+# A case study built from a client's live website. Copy this folder, rename it
+# (e.g. 2026-10-juniper-and-rye) and fill in the url. That's all it needs:
+# the renderer visits the site, captures desktop and mobile, reads the brand's
+# colours, fonts and logo, and builds the posts.
+#
+# The slides alternate between the two looks on purpose:
+#   01 cover        Tannic green, "case study" chip, title, what we did
+#   02 the brand    the client's colours: logo, palette, typefaces
+#   03 desktop      the site in a browser window
+#   04 mobile       three phones
+#   .. any sketches, code or notes you add to the folder (Tannic, taped)
+#   .. quote        if you add one
+#   last  visit     Tannic green, the address, "made with care"
+#
+# Every line except type and url is optional. Lines starting with # are notes.
+
+type: showcase
+url: https://example.com
+# path: /shop/                  # capture a page other than the homepage
+
+title: Juniper & Rye            # defaults to the folder name
+script: a toast to the neighbourhood   # optional handwritten line under the title
+kicker: Case study              # the chip on the cover
+
+services:                       # the "→" list on the cover and last slide
+  - custom web development
+  - brand illustration & development
+  - digital strategy
+
+quote: They made the booking feel like part of the night out.
+quote_by: Jo Rye, owner
+
+cta: Link in bio
+
+# Which images to make. Delete any you don't need.
+formats: [instagram, story, pinterest, linkedin]
+
+# Motion: devices rise in, then the site scrolls and returns to the top.
+#   motion: true    -> motion-instagram.mp4 (the desktop slide) and motion-story.mp4
+motion: true
+
+# Capturing: the site is only visited again when url, path, hide or wait
+# change, or when you tick "recapture" on a manual run in the Actions tab.
+# hide: ['.announcement-bar', '#popup']   # anything still in the way (CSS selectors)
+# wait: 2000                    # extra milliseconds for slow sites or intro animations
+# logo: logo.png                # use your own logo file from this folder instead
+
+# The brand is read off the site. Override any part of it:
+# brand:
+#   colors: ['#1b1b3a', '#f2c14e', '#f7f3e8', '#d1495b']   # swatches, in order
+#   background: '#1b1b3a'       # the client slides' background
+#   accent: '#f2c14e'
+#   heading_font: Playfair Display
+#   body_font: Work Sans
+
+# Sketches, code and notes work here too: drop files in the folder and they
+# get taped-card slides after the phones (or list them under cards:).
