@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Studio Notes render</title>
+<style>
+@font-face{font-family:'Fraunces';src:url('node_modules/@fontsource-variable/fraunces/files/fraunces-latin-full-normal.woff2') format('woff2');font-weight:100 900;font-display:block}
+@font-face{font-family:'Mrs Saint Delafield';src:url('node_modules/@fontsource/mrs-saint-delafield/files/mrs-saint-delafield-latin-400-normal.woff2') format('woff2');font-display:block}
+@font-face{font-family:'Inter';src:url('node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2') format('woff2');font-weight:100 900;font-display:block}
+@font-face{font-family:'Fira Code';src:url('node_modules/@fontsource/fira-code/files/fira-code-latin-500-normal.woff2') format('woff2');font-weight:400 600;font-display:block}
+
+:root{
+  --forest:#162d27;--cream:#f4efe2;--ink-rgb:244,239,226;
+  --accent:#d8c57c;--accent-rgb:216,197,124;--rose:#8a4a5c;
+  --grain:url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  --fiber:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.4' numOctaves='2' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .5 -.12'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#333;display:flex;flex-direction:column;gap:40px;padding:40px;align-items:flex-start;font-family:'Inter',sans-serif;color:var(--cream)}
+.frame{position:relative;overflow:hidden;isolation:isolate;flex:none;color:var(--cream);
+  background:radial-gradient(ellipse at 12% 8%,#27473c 0%,transparent 55%),radial-gradient(ellipse at 90% 95%,#0b1a16 0%,transparent 60%),var(--forest)}
+.frame::before{content:'';position:absolute;inset:0;z-index:-1;background-image:var(--grain);opacity:.55;mix-blend-mode:soft-light}
+.frame::after{content:'';position:absolute;inset:0;z-index:-1;background-image:var(--fiber);background-size:600px 600px;opacity:.07}
+.tex{position:absolute;inset:0;z-index:-2;pointer-events:none}
+.tex svg{position:absolute;inset:0;width:100%;height:100%}
+.tex.wall img{position:absolute;opacity:.08;filter:sepia(.2)}
+.mono{font-family:'Fira Code',monospace;text-transform:uppercase;letter-spacing:.18em;font-weight:500}
+.eyebrow{color:var(--accent)}
+.serif{font-family:'Fraunces',serif;font-variation-settings:"SOFT" 100,"WONK" 1;font-weight:400;letter-spacing:-.02em;line-height:.98;color:var(--cream)}
+.script{font-family:'Mrs Saint Delafield',cursive;color:var(--accent);font-weight:400;letter-spacing:0;line-height:.5}
+.muted{color:rgba(var(--ink-rgb),.74)}
+.brand{font-family:'Fira Code',monospace;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--cream)}
+.brand b{color:var(--accent);font-weight:500}
+.meta{position:absolute;display:flex;justify-content:space-between;align-items:center}
+
+.card{position:absolute;border-radius:6px;box-shadow:0 2px 0 rgba(0,0,0,.08),0 40px 70px -30px rgba(0,0,0,.75)}
+.card .paper{position:absolute;inset:0;border-radius:6px;overflow:hidden}
+.card.cream .paper{background:#f1ead8}
+.card.cream .paper::before{content:'';position:absolute;inset:0;background-image:var(--grain);opacity:.35;mix-blend-mode:multiply}
+.card.moss .paper{background:radial-gradient(ellipse at 30% 20%,#35574a,#1d3a31 70%)}
+.card.moss .paper::before{content:'';position:absolute;inset:0;background-image:var(--grain);opacity:.5;mix-blend-mode:soft-light}
+.card img{position:absolute;object-fit:contain}
+.card .cap{position:absolute;left:7%;right:7%;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:0 12px}
+.card .no{font-family:'Fira Code',monospace;font-weight:500;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap}
+.card.cream .no{color:rgba(22,45,39,.6)}
+.card.moss .no{color:rgba(244,239,226,.6)}
+.card .name{font-family:'Mrs Saint Delafield',cursive;line-height:1;white-space:nowrap;margin-left:auto}
+.card.cream .name{color:var(--rose)}
+.card.moss .name{color:var(--accent)}
+.tape{position:absolute;background:rgba(236,228,205,.55);box-shadow:0 1px 3px rgba(0,0,0,.15);z-index:2}
+</style>
+</head>
+<body>
+<div id="out"></div>
+<script>
+/*
+ * Studio Notes: turns a folder of sketches + post.yml into taped-card posts.
+ * render.mjs sets window.POST and screenshots every .frame.
+ */
+const POST = window.POST;
+const VINE = '../../tannic-studio/assets/glass/vine.png';
+const esc = s => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+
+/* ---------------------------------------------------------------------
+   Image prep: knock out paper, trim to the drawing, pick a card colour.
+   --------------------------------------------------------------------- */
+const smooth = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
+
+async function prepare(src, mode) {
+  const img = new Image(); img.src = src; await img.decode();
+  const k = Math.min(1, 1800 / Math.max(img.naturalWidth, img.naturalHeight));
+  const w = Math.round(img.naturalWidth * k), h = Math.round(img.naturalHeight * k);
+  const c = document.createElement('canvas'); c.width = w; c.height = h;
+  const x = c.getContext('2d', { willReadFrequently: true });
+  x.drawImage(img, 0, 0, w, h);
+  const id = x.getImageData(0, 0, w, h), d = id.data;
+
+  let transparent = 0;
+  for (let i = 3; i < d.length; i += 16) if (d[i] < 250) transparent++;
+  const hasAlpha = transparent > d.length / 16 * 0.01;
+  const knock = mode === 'remove' || (mode !== 'keep' && !hasAlpha);
+
+  if (knock) {
+    // Paper map: the bright end of each block is the paper there, which
+    // follows uneven phone lighting and vignetting.
+    const B = Math.max(12, Math.round(Math.max(w, h) / 36));
+    const gw = Math.ceil(w / B), gh = Math.ceil(h / B);
+    const small = document.createElement('canvas'); small.width = gw; small.height = gh;
+    const sx = small.getContext('2d'), sd = sx.createImageData(gw, gh);
+    for (let gy = 0; gy < gh; gy++) for (let gx = 0; gx < gw; gx++) {
+      const px = [];
+      for (let yy = gy * B; yy < Math.min(h, (gy + 1) * B); yy += 2) for (let xx = gx * B; xx < Math.min(w, (gx + 1) * B); xx += 2) {
+        const i = (yy * w + xx) * 4; px.push([d[i] * .299 + d[i + 1] * .587 + d[i + 2] * .114, d[i], d[i + 1], d[i + 2]]);
+      }
+      px.sort((a, b) => a[0] - b[0]);
+      const lo = Math.floor(px.length * .8), hi = Math.max(lo + 1, Math.floor(px.length * .95));
+      let r = 0, g = 0, b = 0; for (let j = lo; j < hi; j++) { r += px[j][1]; g += px[j][2]; b += px[j][3]; }
+      const n = hi - lo, o = (gy * gw + gx) * 4;
+      sd.data[o] = r / n; sd.data[o + 1] = g / n; sd.data[o + 2] = b / n; sd.data[o + 3] = 255;
+    }
+    sx.putImageData(sd, 0, 0);
+    const bgC = document.createElement('canvas'); bgC.width = w; bgC.height = h;
+    const bx = bgC.getContext('2d'); bx.imageSmoothingEnabled = true; bx.imageSmoothingQuality = 'high';
+    bx.drawImage(small, 0, 0, w, h);
+    const bg = bx.getImageData(0, 0, w, h).data;
+
+    for (let i = 0; i < d.length; i += 4) {
+      const br = bg[i], bgG = bg[i + 1], bb = bg[i + 2];
+      const lb = br * .299 + bgG * .587 + bb * .114 || 1;
+      const l = d[i] * .299 + d[i + 1] * .587 + d[i + 2] * .114;
+      const dark = (lb - l) / lb;
+      const col = Math.hypot(br - d[i], bgG - d[i + 1], bb - d[i + 2]) / 441;
+      const a = smooth(.05, .38, Math.max(dark, col * 1.3));
+      const inv = 1 / Math.max(a, .25);
+      d[i] = Math.max(0, Math.min(255, br + (d[i] - br) * inv));
+      d[i + 1] = Math.max(0, Math.min(255, bgG + (d[i + 1] - bgG) * inv));
+      d[i + 2] = Math.max(0, Math.min(255, bb + (d[i + 2] - bb) * inv));
+      d[i + 3] = Math.round(a * 255);
+    }
+  }
+
+  // Trim to what's drawn, and measure how light the ink is.
+  let l0 = w, t0 = h, r0 = 0, b0 = 0, lum = 0, wsum = 0;
+  for (let y = 0; y < h; y++) for (let xx = 0; xx < w; xx++) {
+    const i = (y * w + xx) * 4, a = d[i + 3];
+    if (a > 24) { if (xx < l0) l0 = xx; if (xx > r0) r0 = xx; if (y < t0) t0 = y; if (y > b0) b0 = y; }
+    if (a > 60) { lum += (d[i] * .299 + d[i + 1] * .587 + d[i + 2] * .114) * a; wsum += a; }
+  }
+  x.putImageData(id, 0, 0);
+  if (r0 <= l0 || b0 <= t0) { l0 = 0; t0 = 0; r0 = w - 1; b0 = h - 1; }
+  const pad = Math.round(Math.max(w, h) * .012);
+  l0 = Math.max(0, l0 - pad); t0 = Math.max(0, t0 - pad); r0 = Math.min(w - 1, r0 + pad); b0 = Math.min(h - 1, b0 + pad);
+  const o = document.createElement('canvas'); o.width = r0 - l0 + 1; o.height = b0 - t0 + 1;
+  o.getContext('2d').drawImage(c, l0, t0, o.width, o.height, 0, 0, o.width, o.height);
+  const light = wsum ? lum / wsum / 255 > .62 : false;
+  return { url: o.toDataURL('image/png'), aspect: o.width / o.height, light };
+}
+
+/* ---------------------------------------------------------------------
+   Texture: terroir contours + vine wallpaper, seeded per frame.
+   --------------------------------------------------------------------- */
+function rng(seed) { let x = 0; for (const ch of seed) x = (x * 31 + ch.charCodeAt(0)) >>> 0; return () => { x = (x * 1664525 + 1013904223) >>> 0; return x / 4294967296; }; }
+function contours(w, h, seed) {
+  const r = rng(seed); let p = '';
+  for (let k = 0, hills = 2 + Math.floor(r() * 2); k < hills; k++) {
+    const cx = w * (.1 + r() * .8), cy = h * (.1 + r() * .8);
+    const waves = [1, 2, 3, 5].map(f => ({ f, a: .03 + r() * .08, p: r() * 6.28 }));
+    for (let i = 1, rings = 9 + Math.floor(r() * 6); i <= rings; i++) {
+      const base = i * (34 + r() * 8); let d = '';
+      for (let t = 0; t <= 96; t++) {
+        const a = t / 96 * 6.2832, m = 1 + waves.reduce((s, v) => s + v.a * Math.sin(v.f * a + v.p + i * .18), 0);
+        d += (t ? 'L' : 'M') + (cx + Math.cos(a) * base * m * 1.25).toFixed(1) + ',' + (cy + Math.sin(a) * base * m).toFixed(1);
+      }
+      p += `<path d="${d}Z" fill="none" stroke="rgba(244,239,226,${i % 4 ? .055 : .1})" stroke-width="${i % 4 ? 1.3 : 1.8}"/>`;
+    }
+  }
+  return `<div class="tex"><svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">${p}</svg></div>`;
+}
+function wallpaper(w, h, seed) {
+  const r = rng(seed + 'wall'); let o = '';
+  for (let y = -200; y < h; y += 330) for (let x = -160 + (y / 330 % 2) * 180; x < w; x += 360)
+    o += `<img src="${VINE}" style="left:${x}px;top:${y}px;width:${300 + r() * 60}px;transform:rotate(${(r() - .5) * 40}deg)${r() > .5 ? ' scaleX(-1)' : ''}">`;
+  return `<div class="tex wall">${o}</div>`;
+}
+function frame(name, w, h, inner, wall) {
+  return `<section class="frame" data-name="${name}" style="width:${w}px;height:${h}px">${contours(w, h, POST.slug + name)}${wall ? wallpaper(w, h, POST.slug + name) : ''}${inner}</section>`;
+}
+const brand = s => `<div class="brand" style="font-size:${s}px">Tannic<b>.Studio</b></div>`;
+
+/* ---------------------------------------------------------------------
+   Cards
+   --------------------------------------------------------------------- */
+// Fit a card into a box: image area on top, caption band below.
+function fit(card, maxW, maxH) {
+  const k = .84 / card.img.aspect + .28;          // card height per unit width
+  const cw = Math.min(maxW, maxH / k);
+  return { w: cw, h: cw * k };
+}
+function cardHTML(card, cx, cy, maxW, maxH, rot, cap) {
+  const { w, h } = fit(card, maxW, maxH);
+  const x = cx - w / 2, y = cy - h / 2;
+  const imgH = w * .84 / card.img.aspect;
+  cap = cap || Math.max(15, w / 20);
+  return `<div class="card ${card.paper}" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px;transform:rotate(${rot}deg)">
+      <div class="paper"></div>
+      <img src="${card.img.url}" style="left:${w * .08}px;top:${w * .08}px;width:${w * .84}px;height:${imgH}px">
+      <div class="cap" style="bottom:${w * .055}px"><span class="no" style="font-size:${cap * .72}px">${esc(card.no)}</span><span class="name" style="font-size:${cap * 2.3}px">${esc(card.label)}</span></div>
+    </div>
+    <div class="tape" style="left:${cx - w * .17}px;top:${y - h * .03}px;width:${w * .34}px;height:${Math.max(26, w * .075)}px;transform:rotate(${rot - 3}deg)"></div>`;
+}
+
+// Loose, hand-pinned arrangements for 1–4 cards within a box.
+const LAYOUTS = {
+  1: [[.5, .5, .78, .96, -2]],
+  2: [[.26, .46, .49, .9, -3], [.75, .54, .47, .9, 3]],
+  3: [[.26, .5, .49, .94, -4], [.75, .26, .46, .5, 5], [.74, .77, .44, .45, -3]],
+  4: [[.27, .27, .48, .5, -4], [.74, .25, .46, .48, 4], [.28, .76, .46, .46, 3], [.73, .75, .46, .48, -3]],
+};
+function collage(cards, X, Y, W, H) {
+  const set = cards.slice(0, 4), L = LAYOUTS[set.length];
+  return set.map((c, i) => { const [cx, cy, mw, mh, rot] = L[i]; return cardHTML(c, X + cx * W, Y + cy * H, mw * W, mh * H, rot); }).join('');
+}
+
+// A collage that starts wherever the text above it ends, filled in after the
+// text has been laid out and measured.
+let slots = [];
+function slot(cards, x, w, bottom) {
+  slots.push(cards);
+  return `<div class="slot" data-i="${slots.length - 1}" data-x="${x}" data-w="${w}" data-bottom="${bottom}"></div>`;
+}
+function fillSlots() {
+  document.querySelectorAll('.slot').forEach(s => {
+    const frame = s.closest('.frame'), head = frame.querySelector('.head');
+    const top = head.offsetTop + head.offsetHeight + 40;
+    const bottom = frame.offsetHeight - +s.dataset.bottom;
+    s.outerHTML = collage(slots[+s.dataset.i], +s.dataset.x, top, +s.dataset.w, bottom - top);
+  });
+}
+
+function titleHTML(size) {
+  const len = (POST.title || '').length + (POST.script || '').length;
+  const s = len > 34 ? size * .72 : len > 22 ? size * .86 : size;
+  // The script word sits on its own line, tucked under the title, as on the site.
+  return `<h1 class="serif" style="font-size:${s}px;padding-bottom:${POST.script ? s * .32 : 0}px">${esc(POST.title)}${POST.script ? `<span class="script" style="display:block;font-size:${s * 1.55}px;line-height:.7;margin:-.02em 0 0 ${s * 1.1}px">${esc(POST.script)}</span>` : ''}</h1>`;
+}
+
+/* ---------------------------------------------------------------------
+   Formats
+   --------------------------------------------------------------------- */
+function instagram(cards) {
+  const multi = cards.length > 1, total = multi ? cards.length + 1 : 1, out = [];
+  const meta = i => `<div class="meta mono" style="left:84px;right:84px;top:84px;font-size:22px"><span class="eyebrow">${esc(POST.kicker)}</span><span style="color:rgba(244,239,226,.55)">${total > 1 ? String(i).padStart(2, '0') + ' / ' + String(total).padStart(2, '0') : esc(POST.client || '')}</span></div>`;
+  const foot = i => `<div class="meta" style="left:84px;right:84px;bottom:72px">${brand(22)}<span class="mono" style="font-size:20px;color:rgba(244,239,226,.55)">${i < total ? 'Swipe →' : esc(POST.cta || '')}</span></div>`;
+  out.push(frame('instagram-01', 1080, 1350, `${meta(1)}
+    <div class="head" style="position:absolute;left:84px;right:84px;top:160px">${titleHTML(96)}
+      ${POST.note ? `<p class="muted" style="font-size:30px;line-height:1.45;margin-top:30px;max-width:860px">${esc(POST.note)}</p>` : ''}</div>
+    ${slot(cards, 60, 960, 140)}${foot(1)}`, true));
+  if (multi) cards.forEach((c, k) => {
+    const i = k + 2;
+    out.push(frame('instagram-' + String(i).padStart(2, '0'), 1080, 1350, `${meta(i)}
+      ${cardHTML(c, 540, c.note ? 610 : 660, 860, c.note ? 860 : 960, k % 2 ? 2 : -2, 30)}
+      ${c.note ? `<p class="muted" style="position:absolute;left:110px;right:110px;bottom:150px;font-size:30px;line-height:1.45;text-align:center">${esc(c.note)}</p>` : ''}
+      ${foot(i)}`));
+  });
+  return out;
+}
+function pinterest(cards) {
+  return [frame('pinterest', 1000, 1500, `
+    <div class="head" style="position:absolute;left:80px;right:80px;top:100px">
+      <p class="mono eyebrow" style="font-size:22px">${esc(POST.kicker)}</p>
+      <div style="margin-top:28px">${titleHTML(100)}</div>
+      ${POST.note ? `<p class="muted" style="font-size:30px;line-height:1.4;margin-top:34px">${esc(POST.note)}</p>` : ''}
+    </div>
+    ${slot(cards, 50, 900, 130)}
+    <div class="meta" style="left:80px;right:80px;bottom:70px">${brand(22)}<span class="mono" style="font-size:18px;color:rgba(244,239,226,.55)">${esc(POST.client || 'Drawn by hand')}</span></div>`, true)];
+}
+function linkedin(cards) {
+  return [frame('linkedin', 1200, 1200, `
+    <div class="head" style="position:absolute;left:80px;right:80px;top:80px">
+      <p class="mono eyebrow" style="font-size:20px">${esc(POST.kicker)}</p>
+      <div style="margin-top:22px">${titleHTML(80)}</div>
+    </div>
+    ${slot(cards, 60, 1080, 110)}
+    <div class="meta" style="left:80px;right:80px;bottom:56px">${brand(20)}<span class="mono" style="font-size:18px;color:rgba(244,239,226,.55)">${esc(POST.client || '')}</span></div>`)];
+}
+
+/* ---------------------------------------------------------------------
+   Build
+   --------------------------------------------------------------------- */
+(async () => {
+  const cards = [];
+  for (const [i, c] of POST.cards.entries()) {
+    const img = await prepare(c.src, c.paperMode || POST.paperMode);
+    cards.push({ ...c, img, paper: c.card || (img.light ? 'moss' : 'cream'), no: `No. ${String(i + 1).padStart(2, '0')}${c.tag ? ' · ' + c.tag : ''}` });
+  }
+  const out = [];
+  if (POST.formats.includes('instagram')) out.push(...instagram(cards));
+  if (POST.formats.includes('pinterest')) out.push(...pinterest(cards));
+  if (POST.formats.includes('linkedin')) out.push(...linkedin(cards));
+  document.getElementById('out').innerHTML = out.join('');
+  await document.fonts.ready;
+  fillSlots();
+  await Promise.all([...document.images].map(i => i.decode().catch(() => {})));
+  window.READY = true;
+})().catch(e => { window.READY_ERROR = String(e && e.stack || e); });
+</script>
+</body>
+</html>

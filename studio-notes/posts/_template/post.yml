@@ -1,0 +1,33 @@
+# Copy this folder, rename it (e.g. 2026-10-juniper-homepage), add your sketches,
+# and fill in whatever you like below. Every line is optional.
+#
+# Lines starting with # are notes and are ignored.
+
+title: Homepage wireframes      # big serif title
+script: first pass              # handwritten gold line under the title
+kicker: Behind the build        # small gold label at the top
+note: Pencil layouts for the new homepage, before a single line of code.
+client: Juniper & Rye           # small text in the corner
+cta: Link in bio                # text on the last slide
+
+# Paper removal for phone photos of sketches:
+#   auto   = remove the paper unless the image already has a transparent background
+#   remove = always remove it
+#   keep   = leave the image exactly as it is
+paper: auto
+
+# Which images to make. Delete any you don't need.
+formats: [instagram, pinterest, linkedin]
+
+# The sketches, in order. Leave this whole section out to use every image in
+# the folder in filename order, with labels taken from the filenames.
+cards:
+  - file: 01-homepage.jpg
+    label: homepage             # handwritten name on the card
+    tag: Wireframe              # small typed label after the number
+    note: The first pass at the hero and menu.   # optional line under this card's slide
+  - file: 02-menu.jpg
+    label: the menu
+    tag: Wireframe
+  # card: moss                  # force a green card (light drawings) or cream (dark ones)
+  # paper: keep                 # per-image override of the paper setting above
