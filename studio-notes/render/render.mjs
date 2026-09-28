@@ -6,7 +6,11 @@
 //
 //   node render.mjs              render posts whose inputs changed
 //   node render.mjs --force      re-render everything
+//   node render.mjs --recapture  re-capture showcase sites (implies a re-render)
 //   node render.mjs my-post      render just that folder
+//
+// Showcase posts (`type: showcase` in post.yml) capture a live site first;
+// see capture.mjs.
 //
 // Environment: CHROMIUM_PATH to use an existing Chromium, FFMPEG for a
 // specific ffmpeg binary (defaults to `ffmpeg` on the PATH).
@@ -19,6 +23,7 @@ import { dirname, extname, join, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import yaml from 'js-yaml';
 import { chromium } from 'playwright';
+import { capture } from './capture.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, '../..');
@@ -33,6 +38,7 @@ const TYPES = { '.html': 'text/html', '.js': 'text/javascript', '.mjs': 'text/ja
 
 const args = process.argv.slice(2);
 const force = args.includes('--force');
+const recapture = args.includes('--recapture');
 const only = args.filter(a => !a.startsWith('--'));
 
 // Serve the repo so the page can read sketches, fonts and the vine art.
@@ -65,10 +71,12 @@ async function loadPost(slug) {
   try { cfg = yaml.load(await readFile(join(dir, 'post.yml'), 'utf8')) || {}; }
   catch (e) { if (e.code !== 'ENOENT') throw new Error(`${slug}/post.yml: ${e.message}`); }
 
+  const showcase = cfg.type === 'showcase';
+  if (showcase && !/^https?:\/\//.test(cfg.url || '')) throw new Error(`${slug}/post.yml: a showcase needs a url, like https://example.com`);
   const listed = Array.isArray(cfg.cards) && cfg.cards.length
     ? cfg.cards.map(c => (typeof c === 'string' ? { file: c } : c))
-    : files.map(file => ({ file }));
-  if (!listed.length) return null;
+    : showcase ? [] : files.map(file => ({ file }));
+  if (!listed.length && !showcase) return null;
 
   const hash = createHash('sha1').update(renderVersion).update(JSON.stringify(cfg));
   const cards = [];
@@ -107,15 +115,30 @@ async function loadPost(slug) {
   // A motion format needs its still frame too.
   for (const m of motion) if (!formats.includes(m)) formats.push(m);
 
+  let logoFile = null;
+  if (showcase && cfg.logo) {
+    if (!files.includes(cfg.logo)) throw new Error(`${slug}/post.yml: logo "${cfg.logo}" isn't in the folder.`);
+    hash.update(await readFile(join(dir, cfg.logo)));
+    logoFile = `../posts/${encodeURIComponent(slug)}/${encodeURIComponent(cfg.logo)}`;
+  }
+
   return {
     dir,
-    hash: hash.digest('hex'),
+    cfg,
+    showcase,
+    logoFile,
+    hash,
     motion,
     post: {
       slug,
+      type: showcase ? 'showcase' : 'notes',
       title: cfg.title || nameOf(slug),
       script: cfg.script || '',
-      kicker: cfg.kicker || 'From the sketchbook',
+      kicker: cfg.kicker || (showcase ? 'Case study' : 'From the sketchbook'),
+      services: (Array.isArray(cfg.services) ? cfg.services : []).map(String),
+      quote: cfg.quote || '',
+      quoteBy: cfg.quote_by || '',
+      url: cfg.url || '',
       note: cfg.note || '',
       client: cfg.client || '',
       cta: cfg.cta || 'Link in bio',
@@ -156,6 +179,28 @@ async function renderMotion(page, name, file) {
   return (frames / FPS).toFixed(1);
 }
 
+// Showcase posts: capture the live site (or reuse the last capture) and hand
+// the screenshots plus the brand read off the page to the template.
+async function prepareShowcase(job, browser) {
+  const { brand, fresh } = await capture(browser, job.cfg, job.dir, { force: recapture || job.cfg.recapture === true });
+  const cap = `../posts/${encodeURIComponent(job.post.slug)}/capture/`;
+  for (const f of ['desktop.jpg', 'desktop-full.jpg', 'mobile.jpg', 'mobile-full.jpg']) job.hash.update(await readFile(join(job.dir, 'capture', f)));
+  const o = job.cfg.brand || {};
+  job.post.showcase = {
+    desktop: cap + 'desktop.jpg', desktopFull: cap + 'desktop-full.jpg',
+    mobile: cap + 'mobile.jpg', mobileFull: cap + 'mobile-full.jpg',
+    logo: job.logoFile || (brand.hasLogo ? cap + 'logo.png' : ''),
+    heights: brand.heights,
+    host: new URL(job.cfg.url).host.replace(/^www\./, ''),
+    palette: Array.isArray(o.colors) && o.colors.length ? o.colors.map(String) : brand.palette,
+    background: o.background || brand.background,
+    accent: o.accent || brand.accent,
+    ink: o.ink || brand.ink,
+    fonts: { heading: o.heading_font || brand.fonts.heading, body: o.body_font || brand.fonts.body },
+  };
+  return fresh;
+}
+
 const slugs = (await readdir(POSTS, { withFileTypes: true }))
   .filter(d => d.isDirectory() && !/^[._]/.test(d.name))   // _template and friends are skipped
   .map(d => d.name)
@@ -169,6 +214,14 @@ for (const slug of slugs) {
   let job;
   try { job = await loadPost(slug); } catch (e) { console.error(`✗ ${e.message}`); failed++; continue; }
   if (!job) continue;
+
+  if (job.showcase) {
+    try {
+      const fresh = await prepareShowcase(job, browser);
+      console.log(`  ${slug}: ${fresh ? 'captured' : 'reusing capture of'} ${job.cfg.url}`);
+    } catch (e) { console.error(`✗ ${slug}: couldn't capture ${job.cfg.url}: ${e.message}`); failed++; continue; }
+  }
+  job.hash = job.hash.digest('hex');
 
   const out = join(job.dir, 'out');
   const stamp = join(out, '.hash');
@@ -193,8 +246,10 @@ for (const slug of slugs) {
       await f.screenshot({ path: join(out, `${name}.png`) });
     }
     const made = [`${frames.length} image${frames.length === 1 ? '' : 's'}`];
+    // The template can say which frame each motion format animates.
+    const targets = { ...MOTION_FRAMES, ...(await page.evaluate(() => window.MOTION_TARGETS || {})) };
     for (const m of job.motion) {
-      const secs = await renderMotion(page, MOTION_FRAMES[m], join(out, `motion-${m}.mp4`));
+      const secs = await renderMotion(page, targets[m], join(out, `motion-${m}.mp4`));
       made.push(`motion-${m}.mp4 (${secs}s)`);
     }
     await writeFile(stamp, job.hash + '\n');

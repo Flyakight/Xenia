@@ -86,6 +86,26 @@ body{background:#333;display:flex;flex-direction:column;gap:40px;padding:40px;al
 .t-tag{color:#8fbfae}
 .t-att{color:#c2d6c9}
 .caret{display:inline-block;width:.55em;height:1.1em;vertical-align:-.15em;background:#d8c57c}
+
+/* Showcase ------------------------------------------------------------- */
+.chip{display:inline-block;background:var(--accent);color:#162d27;border-radius:4px;padding:.45em .9em;letter-spacing:.14em}
+.kraft .chip{color:#f4efe2}
+.services{list-style:none;text-transform:lowercase;letter-spacing:.06em;font-weight:400;color:rgba(var(--ink-rgb),.9)}
+.services li{display:flex;gap:.9em;padding:.42em 0}
+.services .arrow{color:var(--accent)}
+.device{position:absolute}
+.browser{overflow:hidden;background:#efe9da;box-shadow:0 0 0 1px rgba(0,0,0,.08),0 50px 90px -40px rgba(0,0,0,.75)}
+.bbar{display:flex;align-items:center;justify-content:space-between;background:#efe9da;border-bottom:1px solid rgba(29,42,36,.1)}
+.bbar .dots{display:flex;gap:.45em}
+.bbar .dots i{display:block;width:.7em;height:.7em;border-radius:50%;background:rgba(29,42,36,.18)}
+.bbar .url{color:rgba(29,42,36,.6);background:rgba(29,42,36,.06);border-radius:99px;padding:.35em 1.6em;letter-spacing:.08em;text-transform:none}
+.screen{position:relative;overflow:hidden;background:#fff}
+.screen img{display:block;position:absolute;left:0;top:0}
+.phone{background:#0d1a16;box-shadow:0 0 0 1.5px rgba(255,255,255,.08),0 50px 90px -40px rgba(0,0,0,.8)}
+.swatches{display:flex;justify-content:center;gap:34px}
+.sw{display:flex;flex-direction:column;align-items:center;gap:14px}
+.sw span{width:118px;height:118px;border-radius:50%;box-shadow:0 0 0 2px rgba(128,128,128,.25),0 18px 30px -18px rgba(0,0,0,.6)}
+.sw em{font-style:normal;font-size:17px;letter-spacing:.1em;opacity:.75}
 </style>
 </head>
 <body>
@@ -407,6 +427,146 @@ function linkedin(cards) {
 }
 
 /* =====================================================================
+   Showcase: a client's site, framed. Tannic bookends the carousel; the
+   middle slides wear the client's own colours with a slim Tannic footer.
+   ===================================================================== */
+const hexRgb = h => { const m = String(h).replace('#', '').match(/^([0-9a-f]{3}|[0-9a-f]{6})$/i); if (!m) return [128, 128, 128]; const s = m[1].length === 3 ? m[1].replace(/./g, c => c + c) : m[1]; return [0, 2, 4].map(i => parseInt(s.slice(i, i + 2), 16)); };
+const lum = h => { const [r, g, b] = hexRgb(h); return (.2126 * r + .7152 * g + .0722 * b) / 255; };
+const inkOn = h => (lum(h) > .55 ? '#1d2a24' : '#f4efe2');
+
+function clientFrame(name, w, h, bg, inner, S) {
+  const ink = inkOn(bg);
+  return `<section class="frame client" data-name="${name}" style="width:${w}px;height:${h}px;background:${bg};color:${ink}">
+    <div class="tex" style="background-image:var(--grain);opacity:.35;mix-blend-mode:${lum(bg) > .55 ? 'multiply' : 'soft-light'}"></div>
+    ${inner}
+    <div class="meta footbar" style="left:0;right:0;bottom:0;height:${Math.round(h * .07)}px;padding:0 ${w * .075}px;background:#162d27;color:#f4efe2">
+      ${brand(Math.round(w / 50))}<span class="mono" style="font-size:${Math.round(w / 58)}px;color:rgba(244,239,226,.62)">Case study · ${esc(S.host)}</span>
+    </div>
+  </section>`;
+}
+
+// A browser window. It shows the full-page capture, so motion can scroll it.
+function browserHTML(S, x, y, w, viewH, rot = 0, scroll = true) {
+  const bar = Math.round(w * .045), fullH = w * S.heights.desktop / 1440;
+  const dist = Math.max(0, Math.min(fullH - viewH, fullH * .72));
+  return `<div class="device" data-rise style="left:${x}px;top:${y}px;width:${w}px;transform:rotate(${rot}deg)">
+    <div class="browser" style="border-radius:${w * .014}px">
+      <div class="bbar" style="height:${bar}px;padding:0 ${bar * .5}px">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url mono" style="font-size:${bar * .34}px">${esc(S.host)}</span><span style="width:${bar * 1.6}px"></span>
+      </div>
+      <div class="screen" style="height:${viewH}px"><img src="${S.desktopFull}" ${scroll ? `data-scroll="${dist}"` : ''} style="width:100%"></div>
+    </div>
+  </div>`;
+}
+
+// A phone, showing the mobile full-page capture from `at` (0–1) of the way down.
+function phoneHTML(S, x, y, w, at = 0, rot = 0, scroll = false) {
+  const sw = w * .92, sh = sw * 844 / 390, fullH = sw * S.heights.mobile / 390;
+  const max = Math.max(0, fullH - sh), off = Math.min(max, fullH * at);
+  return `<div class="device" data-rise style="left:${x}px;top:${y}px;width:${w}px;transform:rotate(${rot}deg)">
+    <div class="phone" style="border-radius:${w * .15}px;padding:${w * .04}px">
+      <div class="screen" style="height:${sh}px;border-radius:${w * .115}px"><img src="${S.mobileFull}" ${scroll ? `data-scroll="${Math.min(max, fullH * .75)}"` : ''} style="width:100%;transform:translateY(${-off}px)"></div>
+    </div>
+  </div>`;
+}
+
+function servicesHTML(size) {
+  return POST.services.length ? `<ul class="services mono" style="font-size:${size}px">${POST.services.map(s => `<li><span class="arrow">→</span>${esc(s)}</li>`).join('')}</ul>` : '';
+}
+
+function showcase(cards) {
+  const S = POST.showcase, bg = S.background, alt = S.palette.find(c => c !== bg && Math.abs(lum(c) - lum(bg)) > .08) || S.accent;
+  const out = [], slides = [];
+  const count = () => slides.length;
+  const nm = i => 'instagram-' + String(i).padStart(2, '0');
+
+  // Cover (Tannic)
+  slides.push(i => frame(nm(i), 1080, 1350, `
+    <div class="meta mono" style="left:84px;right:84px;top:84px;font-size:22px"><span class="chip">${esc(POST.kicker)}</span><span class="dim">${String(i).padStart(2, '0')} / ${String(count()).padStart(2, '0')}</span></div>
+    <div class="head" style="position:absolute;left:84px;right:84px;top:190px">${titleHTML(118)}
+      <div style="margin-top:44px">${servicesHTML(26)}</div></div>
+    ${browserHTML(S, 470, 820, 700, 420, -4, false)}
+    <div class="meta" style="left:84px;right:84px;bottom:72px">${brand(22)}<span class="mono dim" style="font-size:20px">Swipe →</span></div>`, true));
+
+  // Brand world (client)
+  slides.push(i => clientFrame(nm(i), 1080, 1350, bg, `
+    <div class="meta mono" style="left:84px;right:84px;top:84px;font-size:22px;opacity:.7"><span>The brand</span><span>${String(i).padStart(2, '0')} / ${String(count()).padStart(2, '0')}</span></div>
+    <div class="head" style="position:absolute;left:84px;right:84px;top:230px;height:520px;display:flex;align-items:center;justify-content:center">
+      ${S.logo ? `<img src="${S.logo}" style="width:72%;max-height:100%;object-fit:contain">` : `<div class="serif" style="font-size:120px;color:inherit;text-align:center">${esc(POST.title)}</div>`}
+    </div>
+    <div class="swatches" data-rise style="position:absolute;left:84px;right:84px;top:830px">
+      ${S.palette.slice(0, 5).map(c => `<div class="sw"><span style="background:${c}"></span><em class="mono">${esc(c)}</em></div>`).join('')}
+    </div>
+    ${S.fonts.heading ? `<p class="mono" data-rise style="position:absolute;left:84px;right:84px;top:1030px;font-size:20px;opacity:.7;text-align:center">Type · ${esc(S.fonts.heading)}${S.fonts.body && S.fonts.body !== S.fonts.heading ? ' / ' + esc(S.fonts.body) : ''}</p>` : ''}`, S));
+
+  // Desktop (client)
+  slides.push(i => clientFrame(nm(i), 1080, 1350, alt, `
+    <div class="meta mono" style="left:84px;right:84px;top:84px;font-size:22px;opacity:.7"><span>Desktop</span><span>${String(i).padStart(2, '0')} / ${String(count()).padStart(2, '0')}</span></div>
+    ${browserHTML(S, 70, 190, 940, 900)}`, S));
+
+  // Phones (client)
+  slides.push(i => clientFrame(nm(i), 1080, 1350, bg, `
+    <div class="meta mono" style="left:84px;right:84px;top:84px;font-size:22px;opacity:.7"><span>Mobile</span><span>${String(i).padStart(2, '0')} / ${String(count()).padStart(2, '0')}</span></div>
+    ${phoneHTML(S, 20, 330, 380, .3, -4)}${phoneHTML(S, 680, 330, 380, .55, 4)}${phoneHTML(S, 320, 200, 440, 0, 0)}`, S));
+
+  // Any sketch, code or note cards (Tannic, taped)
+  cards.forEach((c, k) => slides.push(i => frame(nm(i), 1080, 1350, `
+    <div class="meta mono" style="left:84px;right:84px;top:84px;font-size:22px"><span class="eyebrow">Behind the build</span><span class="dim">${String(i).padStart(2, '0')} / ${String(count()).padStart(2, '0')}</span></div>
+    ${cardHTML(c, 540, c.note ? 610 : 660, 860, c.note ? 860 : 960, k % 2 ? 2 : -2, 30)}
+    ${c.note ? `<p class="muted" style="position:absolute;left:110px;right:110px;bottom:150px;font-size:30px;line-height:1.45;text-align:center">${esc(c.note)}</p>` : ''}`)));
+
+  // Quote (Tannic), if there is one
+  if (POST.quote) slides.push(i => frame(nm(i), 1080, 1350, `
+    <div class="meta mono" style="left:84px;right:84px;top:84px;font-size:22px"><span class="eyebrow">In their words</span><span class="dim">${String(i).padStart(2, '0')} / ${String(count()).padStart(2, '0')}</span></div>
+    <div class="head" style="position:absolute;left:110px;right:110px;top:300px">
+      <div class="script" style="font-size:260px;line-height:.4">“</div>
+      <p class="serif" style="font-size:${POST.quote.length > 140 ? 52 : 64}px;line-height:1.2;margin-top:40px">${esc(POST.quote)}</p>
+      ${POST.quoteBy ? `<p class="mono eyebrow" style="font-size:22px;margin-top:48px">${esc(POST.quoteBy)}</p>` : ''}
+    </div>
+    <div class="meta" style="left:84px;right:84px;bottom:72px">${brand(22)}<span class="mono dim" style="font-size:20px">Swipe →</span></div>`, true));
+
+  // Close (Tannic)
+  slides.push(i => frame(nm(i), 1080, 1350, `
+    <div class="meta mono" style="left:84px;right:84px;top:84px;font-size:22px"><span class="eyebrow">Visit</span><span class="dim">${String(i).padStart(2, '0')} / ${String(count()).padStart(2, '0')}</span></div>
+    <div class="head" style="position:absolute;left:84px;right:84px;top:300px">
+      <h2 class="serif" style="font-size:${S.host.length > 18 ? 84 : 110}px">${esc(S.host)}</h2>
+      <p class="script" style="font-size:150px;line-height:.9;margin:10px 0 0 60px">made with care</p>
+      <div style="margin-top:70px">${servicesHTML(24)}</div>
+    </div>
+    ${phoneHTML(S, 730, 650, 270, 0, 5)}
+    <div class="meta" style="left:84px;right:84px;bottom:72px">${brand(22)}<span class="mono dim" style="font-size:20px">${esc(POST.cta)}</span></div>`, true));
+
+  if (POST.formats.includes('instagram')) slides.forEach((s, k) => out.push(s(k + 1)));
+
+  if (POST.formats.includes('story')) out.push(`<section class="frame ${POST.backdrop}" data-name="story" style="width:1080px;height:1920px">${contours(1080, 1920, POST.slug + 'story')}
+    <div style="position:absolute;left:0;right:0;top:880px;bottom:0;background:${bg}"><div class="tex" style="background-image:var(--grain);opacity:.35;mix-blend-mode:${lum(bg) > .55 ? 'multiply' : 'soft-light'}"></div></div>
+    <div class="meta mono" style="left:90px;right:90px;top:120px;font-size:24px"><span class="chip">${esc(POST.kicker)}</span><span class="dim">${esc(S.host)}</span></div>
+    <div class="head" style="position:absolute;left:90px;right:90px;top:220px">${titleHTML(120)}<div style="margin-top:40px">${servicesHTML(26)}</div></div>
+    ${phoneHTML(S, 290, 700, 500, 0, 0, true)}
+    <div class="meta" style="left:90px;right:90px;bottom:70px;color:${inkOn(bg)}">${brand(24).replace('class="brand"', `class="brand" style="color:${inkOn(bg)}"`)}<span class="mono" style="font-size:20px;opacity:.7">${esc(POST.cta)}</span></div>
+  </section>`);
+
+  if (POST.formats.includes('pinterest')) out.push(`<section class="frame ${POST.backdrop}" data-name="pinterest" style="width:1000px;height:1500px">${contours(1000, 1500, POST.slug + 'pin')}
+    <div style="position:absolute;left:0;right:0;top:0;height:860px;background:${bg}"><div class="tex" style="background-image:var(--grain);opacity:.35;mix-blend-mode:${lum(bg) > .55 ? 'multiply' : 'soft-light'}"></div></div>
+    ${browserHTML(S, 60, 110, 760, 470, -2, false)}${phoneHTML(S, 650, 320, 290, 0, 4)}
+    <div class="head" style="position:absolute;left:80px;right:80px;top:960px"><p class="mono eyebrow" style="font-size:22px">${esc(POST.kicker)}</p><div style="margin-top:24px">${titleHTML(96)}</div><div style="margin-top:30px">${servicesHTML(22)}</div></div>
+    <div class="meta" style="left:80px;right:80px;bottom:60px">${brand(22)}<span class="mono dim" style="font-size:18px">${esc(S.host)}</span></div>
+  </section>`);
+
+  if (POST.formats.includes('linkedin')) out.push(`<section class="frame ${POST.backdrop}" data-name="linkedin" style="width:1200px;height:1200px">${contours(1200, 1200, POST.slug + 'li')}
+    <div style="position:absolute;left:0;right:0;top:420px;bottom:0;background:${bg}"><div class="tex" style="background-image:var(--grain);opacity:.35;mix-blend-mode:${lum(bg) > .55 ? 'multiply' : 'soft-light'}"></div></div>
+    <div class="head" style="position:absolute;left:80px;right:560px;top:80px"><p class="mono eyebrow" style="font-size:20px">${esc(POST.kicker)}</p><div style="margin-top:22px">${titleHTML(84)}</div></div>
+    <div style="position:absolute;left:660px;right:80px;top:110px">${servicesHTML(20)}</div>
+    ${browserHTML(S, 70, 470, 800, 560, -1.5, false)}${phoneHTML(S, 820, 400, 300, 0, 3)}
+    <div class="meta" style="left:80px;right:80px;bottom:50px;color:${inkOn(bg)}">${brand(20).replace('class="brand"', `class="brand" style="color:${inkOn(bg)}"`)}<span class="mono" style="font-size:18px;opacity:.7">${esc(S.host)}</span></div>
+  </section>`);
+
+  window.MOTION_TARGETS = { instagram: 'instagram-03', story: 'story' };
+  return out;
+}
+
+/* =====================================================================
    Motion: every frame gets a paused timeline; render.mjs seeks through it.
    Cards drop in and get taped down one by one, drawings reveal, code types
    itself out and notes write themselves on.
@@ -421,6 +581,27 @@ function build(frameEl) {
 
   frameEl.querySelectorAll('.head > *, .meta').forEach((el, i) => {
     t = Math.max(t, add(el, [{ opacity: 0, transform: 'translateY(18px)' }, { opacity: 1, transform: 'none' }], { delay: 150 + i * 120, duration: 650, easing: 'cubic-bezier(.2,.8,.2,1)' }));
+  });
+
+  // Showcase devices and swatches rise into place, then screens scroll
+  // through the site with a pause at each stop.
+  frameEl.querySelectorAll('[data-rise]').forEach((el, i) => {
+    t = Math.max(t, add(el, [{ opacity: 0, translate: '0 60px' }, { opacity: 1, translate: '0 0' }], { delay: 500 + i * 220, duration: 800, easing: EASE_LAND }));
+  });
+  frameEl.querySelectorAll('[data-scroll]').forEach(img => {
+    const d = +img.dataset.scroll;
+    if (d < 40) return;
+    const at = y => `translateY(${-y}px)`;
+    // Ends back at the top, so the clip loops and stills show the first screen.
+    const stops = [0, d * .4, d * .75, d, 0];
+    const keys = [], hold = .55, move = 1.1, total = stops.length * hold + (stops.length - 1) * move;
+    let s = 0;
+    stops.forEach((y, k) => {
+      keys.push({ transform: at(y), offset: s / total }); s += hold;
+      keys.push({ transform: at(y), offset: Math.min(1, s / total), easing: 'cubic-bezier(.6,0,.25,1)' }); s += move;
+    });
+    keys[keys.length - 1].offset = 1;
+    t = Math.max(t, add(img, keys, { delay: t + 200, duration: total * 1000, easing: 'linear' }));
   });
 
   let start = Math.max(700, t - 250);
@@ -484,10 +665,13 @@ window.durationOf = name => TIMELINES[name].duration;
   }
 
   const out = [];
-  if (POST.formats.includes('instagram')) out.push(...instagram(cards));
-  if (POST.formats.includes('story')) out.push(...story(cards));
-  if (POST.formats.includes('pinterest')) out.push(...pinterest(cards));
-  if (POST.formats.includes('linkedin')) out.push(...linkedin(cards));
+  if (POST.type === 'showcase') out.push(...showcase(cards));
+  else {
+    if (POST.formats.includes('instagram')) out.push(...instagram(cards));
+    if (POST.formats.includes('story')) out.push(...story(cards));
+    if (POST.formats.includes('pinterest')) out.push(...pinterest(cards));
+    if (POST.formats.includes('linkedin')) out.push(...linkedin(cards));
+  }
   document.getElementById('out').innerHTML = out.join('');
   await document.fonts.ready;
   fillSlots();

@@ -68,6 +68,54 @@ cleanly. Each clip is rendered frame by frame, so the text stays sharp. Use
 
 Motion takes longer to render, about a minute per clip.
 
+## Case studies from a live site
+
+For client work with its own look (Beer & Ballet, Raise the Bar), make a
+showcase post. Copy `posts/_showcase/`, rename the folder and set the url:
+
+```yaml
+type: showcase
+url: https://beerandballet.com
+title: Beer & Ballet
+services:
+  - custom web development
+  - brand illustration & development
+```
+
+The renderer visits the site, closes cookie banners and popups, and captures
+the desktop and mobile pages top to bottom. It reads the brand's colours,
+typefaces and logo off the page, then builds the carousel:
+
+| Slide | Look |
+|---|---|
+| Cover: "case study" chip, title and what we did | Tannic |
+| The brand: logo, palette swatches, typefaces | Client |
+| Desktop: the site in a browser window | Client |
+| Mobile: three phones at different points down the page | Client |
+| Any sketches, code or notes in the folder | Tannic, taped |
+| A quote, if you add `quote:` | Tannic |
+| Visit: the address, "made with care", a phone | Tannic |
+
+Tannic slides open and close the carousel, and the client's world sits in the
+middle. Their colours stay theirs, and a slim Tannic bar along the bottom
+keeps every slide ours. Story, Pinterest and LinkedIn versions pair a browser
+and a phone on the client's colours under a Tannic header. With
+`motion: true`, the devices rise in, then the site scrolls down the page and
+back to the top, so it loops.
+
+The captures are saved in the post's `capture/` folder and reused. The site
+is only visited again when the url or capture settings change, or when you run
+the workflow by hand with **recapture** ticked, for example after the site
+changes.
+
+If something looks off:
+
+- **Wrong colours or fonts:** override them under `brand:` in `post.yml`.
+- **Wrong or missing logo:** drop a logo file in the folder and set `logo:`.
+- **A banner or popup still showing:** add its CSS selector under `hide:`.
+- **Blank images or a half-loaded page:** add `wait: 3000` for slow sites.
+- **A page other than the homepage:** set `path: /tickets/`.
+
 ## Getting good results
 
 - **Phone photos:** shoot straight down in even daylight and crop to the paper
@@ -88,11 +136,15 @@ Motion takes longer to render, about a minute per clip.
 - `render/render.mjs` finds post folders (skipping ones that start with `_`),
   skips unchanged posts, screenshots each image from `render/template.html`,
   and for motion seeks the page's animation frame by frame into ffmpeg.
+- `render/capture.mjs` visits showcase sites with the same headless Chrome,
+  saves the screenshots and reads the brand.
 - `render/template.html` does the paper removal, syntax highlighting, card
   layout, tape, texture and animation.
 - `.github/workflows/studio-notes.yml` runs it on every push to `main` that
   touches `studio-notes/`, and commits the results back. You can also run it
-  by hand from the Actions tab, with **force** ticked to re-render everything.
+  by hand from the Actions tab, with **force** ticked to re-render everything, or **recapture** to visit
+  showcase sites again. If one post fails (a site is down, say), the others
+  still get committed.
 - To run it on your own machine (needs ffmpeg for motion):
   `cd studio-notes/render && npm install && npx playwright install chromium && node render.mjs`.
 - None of this is part of the website theme, so it never deploys to Bluehost.
