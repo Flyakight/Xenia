@@ -8,8 +8,8 @@ Facts and years match the timeline's cited data. If you edit a caption, keep the
 
 ## Instagram
 
-### Carousel (9 slides, 1080×1350)
-Upload in order: `ig-carousel-01.png` → `ig-carousel-09.png`.
+### Carousel (10 slides, 1080×1350)
+Upload in order: `ig-carousel-01.png` → `ig-carousel-10.png`.
 
 | Slide | What it shows |
 |---|---|
@@ -21,7 +21,8 @@ Upload in order: `ig-carousel-01.png` → `ig-carousel-09.png`.
 | 06 | 1885: One very useful copper spray |
 | 07 | 1976: California wins a blind tasting in Paris |
 | 08 | Meanwhile, down south |
-| 09 | 34 moments. 67 sources. One glass. |
+| 09 | Drawn by hand: the vine, morel and cap as pinned sketchbook cards |
+| 10 | 34 moments. 67 sources. One glass. |
 
 **Caption**
 
@@ -42,10 +43,31 @@ Upload in order: `ig-carousel-01.png` → `ig-carousel-09.png`.
 > #winehistory #winelover #bordeaux #napavalley #judgmentofparis #datavisualization #dataviz #interactivedesign #webdesign #glassmorphism #illustration #handdrawn #hospitalitydesign #tannicstudio
 
 **Alt text** (set per slide)
-- 01: "Cream poster reading 'Who held the glass' in serif and script type, with hand-drawn grape vines."
-- 03–07: "[Year] in large terracotta numerals above a short caption and a line chart of wine influence by country, with the relevant country's line highlighted and its sources listed below."
+- 01: "Forest-green poster reading 'Who held the glass' in cream serif and gold script type, over a faint pattern of hand-drawn grape vines."
+- 02: "The words 'The center of the wine world keeps moving' above a dotted path through Rome, Bordeaux, Porto, Napa and the Barossa."
+- 03–07: "[Year] in large gold numerals above a short caption and a line chart of wine influence by country, with the relevant country's line highlighted and its sources listed below."
 - 08: "Line chart of Southern Hemisphere wine influence for Australia, Chile, Argentina, South Africa and New Zealand, with four key years listed."
-- 09: "Phone showing the timeline with a dark glass citation card open, beside the text '34 moments. 67 sources. One glass.'"
+- 09: "Three hand-drawn illustrations taped to the page like sketchbook cards: a grapevine on green, a morel and a gilled mushroom on cream paper."
+- 10: "Phone showing the timeline with a dark glass citation card open, beside the text '34 moments. 67 sources. One glass.'"
+
+### Sketchbook post (1080×1350)
+File: `ig-sketchbook.png`. A standalone post that spotlights the illustrations. It works a few days after the launch, or on its own.
+
+**Caption**
+
+> Forage often. 🍄
+>
+> Before anything was coded, it was drawn. The vine, the morel and the little field cap that live on our wine timeline all started as pencil and paint in the sketchbook.
+>
+> On the page they become texture, pattern and a bit of company for the data. Here they are on their own.
+>
+> Explore the timeline they grew up in at the link in bio.
+
+**Hashtags** (first comment)
+
+> #botanicalillustration #sketchbook #pencildrawing #morel #mushroomart #grapevine #illustratorsoninstagram #handdrawn #designprocess #tannicstudio
+
+**Alt text:** "Three hand-drawn illustrations taped to a forest-green page like sketchbook cards: a grapevine in cream line on a green card, and a morel and a gilled mushroom on cream paper, each labelled with a number and a handwritten name."
 
 ### Story (1080×1920)
 File: `ig-story.png`. Add a **link sticker** over the "Tap the link" line, pointing to the page.
@@ -72,6 +94,11 @@ Link every pin to the page.
 - **Title:** Southern Hemisphere Wine History: From Mission Vines to Marlborough
 - **Description:** Chile, Argentina, South Africa, Australia and New Zealand, from the first vines in Chile in 1548 to Cloudy Bay's global breakout in 1985. An interactive timeline with every fact cited. #newworldwine #winehistory #sauvignonblanc
 - **Board ideas:** New World Wine · Wine History
+
+**Pin 4: `pinterest-04-sketchbook.png`**
+- **Title:** Botanical Sketchbook: Vine, Morel & Field Mushroom Illustrations
+- **Description:** Hand-drawn pencil and paint studies of a grapevine, a morel and a gilled field mushroom from the Tannic Studio sketchbook, drawn for an interactive wine history timeline. #botanicalillustration #mushroomart #sketchbook
+- **Board ideas:** Botanical Illustration · Sketchbook Inspiration · Mushroom Art
 
 ---
 
@@ -126,6 +153,7 @@ Post as one shot with multiple attachments, or split into three shots: the hero 
 4. `dribbble-03-citations.png`
 5. `dribbble-05-south.png`
 6. `dribbble-04-mobile.png`
+7. `dribbble-07-illustrations.png` (or post it as its own illustration shot)
 
 **Title:** Who Held the Glass: Interactive Wine History Timeline
 
@@ -159,6 +187,9 @@ Post as one shot with multiple attachments, or split into three shots: the hero 
 | 1 | LinkedIn | Post 1 (launch) |
 | 2 | Dribbble | Motion shot + attachments |
 | 3 | Pinterest | Pin 1 |
+| 4 | Instagram | Sketchbook post |
 | 5 | LinkedIn | Post 2 (behind the build) |
 | 6 | Pinterest | Pin 2 |
+| 7 | Dribbble | Illustration shot (if posted separately) |
+| 8 | Pinterest | Pin 4 (sketchbook) |
 | 9 | Pinterest | Pin 3 |
