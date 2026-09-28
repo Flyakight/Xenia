@@ -1,6 +1,6 @@
-# Renders Studio Notes posts: taped-sketch images for Instagram, Pinterest and
-# LinkedIn, from the sketches and post.yml in each studio-notes/posts/ folder.
-# The finished images are committed back into that folder's out/ directory.
+# Renders Studio Notes posts: taped-card images (and MP4s for posts with
+# `motion: true`) from the sketches, code, notes and post.yml in each
+# studio-notes/posts/ folder. Results are committed back into that folder's out/.
 
 name: Render Studio Notes
 
@@ -40,6 +40,7 @@ jobs:
         run: |
           npm install --no-audit --no-fund
           npx playwright install --with-deps chromium
+          command -v ffmpeg || (sudo apt-get update && sudo apt-get install -y ffmpeg)
 
       - name: Render posts
         working-directory: studio-notes/render

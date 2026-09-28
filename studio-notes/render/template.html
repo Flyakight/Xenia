@@ -7,63 +7,102 @@
 @font-face{font-family:'Fraunces';src:url('node_modules/@fontsource-variable/fraunces/files/fraunces-latin-full-normal.woff2') format('woff2');font-weight:100 900;font-display:block}
 @font-face{font-family:'Mrs Saint Delafield';src:url('node_modules/@fontsource/mrs-saint-delafield/files/mrs-saint-delafield-latin-400-normal.woff2') format('woff2');font-display:block}
 @font-face{font-family:'Inter';src:url('node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2') format('woff2');font-weight:100 900;font-display:block}
-@font-face{font-family:'Fira Code';src:url('node_modules/@fontsource/fira-code/files/fira-code-latin-500-normal.woff2') format('woff2');font-weight:400 600;font-display:block}
+@font-face{font-family:'Fira Code';src:url('node_modules/@fontsource/fira-code/files/fira-code-latin-400-normal.woff2') format('woff2');font-weight:400;font-display:block}
+@font-face{font-family:'Fira Code';src:url('node_modules/@fontsource/fira-code/files/fira-code-latin-500-normal.woff2') format('woff2');font-weight:500 600;font-display:block}
 
 :root{
-  --forest:#162d27;--cream:#f4efe2;--ink-rgb:244,239,226;
-  --accent:#d8c57c;--accent-rgb:216,197,124;--rose:#8a4a5c;
   --grain:url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
   --fiber:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.4' numOctaves='2' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .5 -.12'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:#333;display:flex;flex-direction:column;gap:40px;padding:40px;align-items:flex-start;font-family:'Inter',sans-serif;color:var(--cream)}
-.frame{position:relative;overflow:hidden;isolation:isolate;flex:none;color:var(--cream);
-  background:radial-gradient(ellipse at 12% 8%,#27473c 0%,transparent 55%),radial-gradient(ellipse at 90% 95%,#0b1a16 0%,transparent 60%),var(--forest)}
+body{background:#333;display:flex;flex-direction:column;gap:40px;padding:40px;align-items:flex-start;font-family:'Inter',sans-serif}
+
+/* Backdrops ------------------------------------------------------------ */
+.frame{position:relative;overflow:hidden;isolation:isolate;flex:none;color:var(--ink);
+  --ink:#f4efe2;--ink-rgb:244,239,226;--accent:#d8c57c;--line:rgba(244,239,226,.055);--line-strong:rgba(244,239,226,.1);
+  background:radial-gradient(ellipse at 12% 8%,#27473c 0%,transparent 55%),radial-gradient(ellipse at 90% 95%,#0b1a16 0%,transparent 60%),#162d27}
+.frame.moss{background:radial-gradient(ellipse at 15% 10%,#4a7262 0%,transparent 55%),radial-gradient(ellipse at 90% 95%,#1c3a30 0%,transparent 60%),#2e5446}
+.frame.kraft{--ink:#1d2a24;--ink-rgb:29,42,36;--accent:#6e2f3e;--line:rgba(29,42,36,.08);--line-strong:rgba(29,42,36,.14);
+  background:radial-gradient(ellipse at 20% 10%,#c9a878 0%,transparent 55%),radial-gradient(ellipse at 90% 95%,#8a6a45 0%,transparent 60%),#b08d61}
 .frame::before{content:'';position:absolute;inset:0;z-index:-1;background-image:var(--grain);opacity:.55;mix-blend-mode:soft-light}
 .frame::after{content:'';position:absolute;inset:0;z-index:-1;background-image:var(--fiber);background-size:600px 600px;opacity:.07}
+.frame.kraft::after{opacity:.16}
 .tex{position:absolute;inset:0;z-index:-2;pointer-events:none}
 .tex svg{position:absolute;inset:0;width:100%;height:100%}
 .tex.wall img{position:absolute;opacity:.08;filter:sepia(.2)}
+.kraft .tex.wall img{filter:brightness(.25) sepia(.4);opacity:.1}
+
 .mono{font-family:'Fira Code',monospace;text-transform:uppercase;letter-spacing:.18em;font-weight:500}
 .eyebrow{color:var(--accent)}
-.serif{font-family:'Fraunces',serif;font-variation-settings:"SOFT" 100,"WONK" 1;font-weight:400;letter-spacing:-.02em;line-height:.98;color:var(--cream)}
+.serif{font-family:'Fraunces',serif;font-variation-settings:"SOFT" 100,"WONK" 1;font-weight:400;letter-spacing:-.02em;line-height:.98;color:var(--ink)}
 .script{font-family:'Mrs Saint Delafield',cursive;color:var(--accent);font-weight:400;letter-spacing:0;line-height:.5}
 .muted{color:rgba(var(--ink-rgb),.74)}
-.brand{font-family:'Fira Code',monospace;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--cream)}
+.dim{color:rgba(var(--ink-rgb),.55)}
+.brand{font-family:'Fira Code',monospace;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--ink)}
 .brand b{color:var(--accent);font-weight:500}
 .meta{position:absolute;display:flex;justify-content:space-between;align-items:center}
 
+/* Cards ---------------------------------------------------------------- */
+.pin{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none}
 .card{position:absolute;border-radius:6px;box-shadow:0 2px 0 rgba(0,0,0,.08),0 40px 70px -30px rgba(0,0,0,.75)}
+.kraft .card{box-shadow:0 2px 0 rgba(0,0,0,.08),0 30px 60px -30px rgba(40,25,10,.7)}
 .card .paper{position:absolute;inset:0;border-radius:6px;overflow:hidden}
+.card .paper::before{content:'';position:absolute;inset:0;background-image:var(--grain);opacity:.35;mix-blend-mode:multiply}
 .card.cream .paper{background:#f1ead8}
-.card.cream .paper::before{content:'';position:absolute;inset:0;background-image:var(--grain);opacity:.35;mix-blend-mode:multiply}
 .card.moss .paper{background:radial-gradient(ellipse at 30% 20%,#35574a,#1d3a31 70%)}
-.card.moss .paper::before{content:'';position:absolute;inset:0;background-image:var(--grain);opacity:.5;mix-blend-mode:soft-light}
-.card img{position:absolute;object-fit:contain}
+.card.moss .paper::before{opacity:.5;mix-blend-mode:soft-light}
+.card.sticky .paper{background:linear-gradient(170deg,#ecd98f,#dcc676 70%,#cdb562)}
+.card.kraft .paper{background:linear-gradient(170deg,#c7a57a,#b79065)}
+.card.index .paper{background:#f5f0e2}
+.card.code .paper{background:linear-gradient(160deg,#18332b,#0e1f1a 70%)}
+.card.code .paper::before{opacity:.4;mix-blend-mode:soft-light}
+.card .body{position:absolute;overflow:hidden}
+.card .body img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
 .card .cap{position:absolute;left:7%;right:7%;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:0 12px}
-.card .no{font-family:'Fira Code',monospace;font-weight:500;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap}
-.card.cream .no{color:rgba(22,45,39,.6)}
-.card.moss .no{color:rgba(244,239,226,.6)}
-.card .name{font-family:'Mrs Saint Delafield',cursive;line-height:1;white-space:nowrap;margin-left:auto}
-.card.cream .name{color:var(--rose)}
-.card.moss .name{color:var(--accent)}
+.card .no{font-family:'Fira Code',monospace;font-weight:500;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap;color:rgba(22,45,39,.6)}
+.card .name{font-family:'Mrs Saint Delafield',cursive;line-height:1;white-space:nowrap;margin-left:auto;color:#8a4a5c}
+.card.moss .no,.card.code .no{color:rgba(244,239,226,.55)}
+.card.moss .name,.card.code .name{color:#d8c57c}
+.card.sticky .name,.card.kraft .name{color:#5c2a36}
 .tape{position:absolute;background:rgba(236,228,205,.55);box-shadow:0 1px 3px rgba(0,0,0,.15);z-index:2}
+.kraft .tape{background:rgba(245,238,220,.6)}
+
+/* Note cards */
+.note{font-family:'Fraunces',serif;font-variation-settings:"SOFT" 100,"WONK" 1;color:#1f2e28;display:flex;flex-direction:column;justify-content:center}
+.note .ln{white-space:pre-wrap}
+.card.index .paper::after{content:'';position:absolute;left:0;right:0;top:9%;height:2px;background:rgba(168,80,106,.5)}
+
+/* Code cards */
+.code-head{position:absolute;left:0;right:0;top:0;display:flex;align-items:center;justify-content:space-between;font-family:'Fira Code',monospace;color:rgba(244,239,226,.62);border-bottom:1px solid rgba(244,239,226,.1)}
+.code-head .lang{color:#162d27;background:#d8c57c;border-radius:99px;padding:.15em .7em;text-transform:uppercase;letter-spacing:.12em;font-weight:500}
+.code-lines{position:absolute;left:0;right:0;bottom:0;font-family:'Fira Code',monospace;color:#e9e3d2;font-variant-ligatures:none}
+.code-lines .row{display:flex;white-space:pre}
+.code-lines .gut{flex:none;text-align:right;color:rgba(244,239,226,.24);user-select:none}
+.code-lines .src{overflow:hidden;text-overflow:clip}
+.t-com{color:rgba(244,239,226,.42)}
+.t-str{color:#dda3b4}
+.t-key{color:#d8c57c}
+.t-num{color:#b8c49a}
+.t-tag{color:#8fbfae}
+.t-att{color:#c2d6c9}
+.caret{display:inline-block;width:.55em;height:1.1em;vertical-align:-.15em;background:#d8c57c}
 </style>
 </head>
 <body>
 <div id="out"></div>
 <script>
 /*
- * Studio Notes: turns a folder of sketches + post.yml into taped-card posts.
- * render.mjs sets window.POST and screenshots every .frame.
+ * Studio Notes: sketches, code and notes -> taped-card posts.
+ * render.mjs sets window.POST, then screenshots each .frame (or, for motion,
+ * seeks the animation with window.seek() frame by frame).
  */
 const POST = window.POST;
 const VINE = '../../tannic-studio/assets/glass/vine.png';
 const esc = s => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
 
-/* ---------------------------------------------------------------------
+/* =====================================================================
    Image prep: knock out paper, trim to the drawing, pick a card colour.
-   --------------------------------------------------------------------- */
+   ===================================================================== */
 const smooth = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
 
 async function prepare(src, mode) {
@@ -136,9 +175,58 @@ async function prepare(src, mode) {
   return { url: o.toDataURL('image/png'), aspect: o.width / o.height, light };
 }
 
-/* ---------------------------------------------------------------------
+/* =====================================================================
+   Code: a small highlighter in the Tannic palette.
+   ===================================================================== */
+const LANGS = {
+  js:   { com: /\/\*[\s\S]*?\*\/|\/\/[^\n]*/, key: /\b(?:const|let|var|function|return|if|else|for|while|of|in|new|class|import|export|from|async|await|true|false|null|undefined|this|typeof)\b/ },
+  css:  { com: /\/\*[\s\S]*?\*\//, key: /@[\w-]+|!important/, att: /[\w-]+(?=\s*:[^;{]*[;}])/ },
+  php:  { com: /\/\*[\s\S]*?\*\/|\/\/[^\n]*|#[^\n]*/, key: /\b(?:function|return|if|else|elseif|foreach|as|echo|array|new|class|public|private|static|true|false|null|require_once|use)\b|\$\w+/ },
+  html: { com: /<!--[\s\S]*?-->/, tag: /<\/?[a-zA-Z][\w:-]*|\/?>/, att: /\b[\w:-]+(?==)/ },
+  py:   { com: /#[^\n]*/, key: /\b(?:def|return|if|elif|else|for|while|in|import|from|as|class|True|False|None|with|lambda|yield|async|await)\b/ },
+  sh:   { com: /#[^\n]*/, key: /\b(?:if|then|fi|for|do|done|echo|export|cd|git|npm|node)\b/ },
+  text: {},
+};
+LANGS.ts = LANGS.jsx = LANGS.tsx = LANGS.mjs = LANGS.js; LANGS.svg = LANGS.xml = LANGS.vue = LANGS.html;
+LANGS.scss = LANGS.css; LANGS.bash = LANGS.sh; LANGS.yml = LANGS.yaml = LANGS.sh;
+
+function highlight(src, lang) {
+  const L = LANGS[lang] || LANGS.text;
+  const parts = [['com', L.com], ['str', /"(?:\\.|[^"\\\n])*"|'(?:\\.|[^'\\\n])*'|`(?:\\.|[^`\\])*`/], ['tag', L.tag], ['key', L.key], ['att', L.att], ['num', /\b\d+(?:\.\d+)?(?:px|em|rem|%|s|ms|deg|vw|vh)?\b|#[0-9a-fA-F]{3,8}\b/]]
+    .filter(p => p[1]);
+  const re = new RegExp(parts.map(p => `(${p[1].source})`).join('|'), 'g');
+  const groupOf = [];
+  parts.forEach(([name, r]) => { groupOf.push(name); const extra = new RegExp(r.source + '|').exec('').length - 1; for (let i = 0; i < extra; i++) groupOf.push(null); });
+  let out = '', last = 0, m;
+  while ((m = re.exec(src))) {
+    if (!m[0]) { re.lastIndex++; continue; }
+    out += esc(src.slice(last, m.index));
+    let gi = 1; while (gi < m.length && m[gi] === undefined) gi++;
+    const cls = groupOf[gi - 1];
+    out += cls ? `<span class="t-${cls}">${esc(m[0])}</span>` : esc(m[0]);
+    last = re.lastIndex;
+  }
+  return out + esc(src.slice(last));
+}
+
+// Highlight the whole snippet, then split it back into lines, carrying any
+// open span (a multi-line comment, say) across the break.
+function highlightLines(src, lang) {
+  const html = highlight(src, lang), lines = [];
+  let cur = '', open = [];
+  for (let i = 0; i < html.length; i++) {
+    if (html[i] === '\n') { lines.push(cur + '</span>'.repeat(open.length)); cur = open.map(c => `<span class="${c}">`).join(''); continue; }
+    if (html.startsWith('<span class="', i)) { const j = html.indexOf('">', i); open.push(html.slice(i + 13, j)); cur += html.slice(i, j + 2); i = j + 1; continue; }
+    if (html.startsWith('</span>', i)) { open.pop(); cur += '</span>'; i += 6; continue; }
+    cur += html[i];
+  }
+  lines.push(cur);
+  return lines;
+}
+
+/* =====================================================================
    Texture: terroir contours + vine wallpaper, seeded per frame.
-   --------------------------------------------------------------------- */
+   ===================================================================== */
 function rng(seed) { let x = 0; for (const ch of seed) x = (x * 31 + ch.charCodeAt(0)) >>> 0; return () => { x = (x * 1664525 + 1013904223) >>> 0; return x / 4294967296; }; }
 function contours(w, h, seed) {
   const r = rng(seed); let p = '';
@@ -151,7 +239,7 @@ function contours(w, h, seed) {
         const a = t / 96 * 6.2832, m = 1 + waves.reduce((s, v) => s + v.a * Math.sin(v.f * a + v.p + i * .18), 0);
         d += (t ? 'L' : 'M') + (cx + Math.cos(a) * base * m * 1.25).toFixed(1) + ',' + (cy + Math.sin(a) * base * m).toFixed(1);
       }
-      p += `<path d="${d}Z" fill="none" stroke="rgba(244,239,226,${i % 4 ? .055 : .1})" stroke-width="${i % 4 ? 1.3 : 1.8}"/>`;
+      p += `<path d="${d}Z" fill="none" stroke="var(${i % 4 ? '--line' : '--line-strong'})" stroke-width="${i % 4 ? 1.3 : 1.8}"/>`;
     }
   }
   return `<div class="tex"><svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">${p}</svg></div>`;
@@ -163,47 +251,91 @@ function wallpaper(w, h, seed) {
   return `<div class="tex wall">${o}</div>`;
 }
 function frame(name, w, h, inner, wall) {
-  return `<section class="frame" data-name="${name}" style="width:${w}px;height:${h}px">${contours(w, h, POST.slug + name)}${wall ? wallpaper(w, h, POST.slug + name) : ''}${inner}</section>`;
+  return `<section class="frame ${POST.backdrop}" data-name="${name}" style="width:${w}px;height:${h}px">${contours(w, h, POST.slug + name)}${wall && POST.wallpaper ? wallpaper(w, h, POST.slug + name) : ''}${inner}</section>`;
 }
 const brand = s => `<div class="brand" style="font-size:${s}px">Tannic<b>.Studio</b></div>`;
 
-/* ---------------------------------------------------------------------
-   Cards
-   --------------------------------------------------------------------- */
-// Fit a card into a box: image area on top, caption band below.
+/* =====================================================================
+   Cards: every kind shares a padded body plus a caption band.
+   ===================================================================== */
+const PAD = .07, CAP = .2;
+// Card height per unit of width.
+const kOf = card => PAD + (1 - 2 * PAD) / card.aspect + CAP;
+
 function fit(card, maxW, maxH) {
-  const k = .84 / card.img.aspect + .28;          // card height per unit width
-  const cw = Math.min(maxW, maxH / k);
-  return { w: cw, h: cw * k };
-}
-function cardHTML(card, cx, cy, maxW, maxH, rot, cap) {
-  const { w, h } = fit(card, maxW, maxH);
-  const x = cx - w / 2, y = cy - h / 2;
-  const imgH = w * .84 / card.img.aspect;
-  cap = cap || Math.max(15, w / 20);
-  return `<div class="card ${card.paper}" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px;transform:rotate(${rot}deg)">
-      <div class="paper"></div>
-      <img src="${card.img.url}" style="left:${w * .08}px;top:${w * .08}px;width:${w * .84}px;height:${imgH}px">
-      <div class="cap" style="bottom:${w * .055}px"><span class="no" style="font-size:${cap * .72}px">${esc(card.no)}</span><span class="name" style="font-size:${cap * 2.3}px">${esc(card.label)}</span></div>
-    </div>
-    <div class="tape" style="left:${cx - w * .17}px;top:${y - h * .03}px;width:${w * .34}px;height:${Math.max(26, w * .075)}px;transform:rotate(${rot - 3}deg)"></div>`;
+  const cw = Math.min(maxW, maxH / kOf(card));
+  return { w: cw, h: cw * kOf(card) };
 }
 
-// Loose, hand-pinned arrangements for 1–4 cards within a box.
-const LAYOUTS = {
+function bodyHTML(card, bw, bh) {
+  if (card.kind === 'image') return `<img src="${card.img.url}">`;
+  if (card.kind === 'note') {
+    const lines = card.text.split('\n');
+    const longest = Math.max(...lines.map(l => l.length), 8);
+    const fs = Math.min(bw / (longest * .5), bh / (lines.length * 1.45) , bw / 9);
+    // Index cards get ruled lines that sit exactly under each line of text.
+    const ruled = card.paper === 'index'
+      ? `justify-content:flex-start;padding-top:${fs * .5}px;background-image:linear-gradient(to bottom,transparent calc(100% - 1px),rgba(74,122,109,.3) 0);background-size:100% ${fs * 1.45}px;background-position:0 ${fs * .5 + fs * .12}px;`
+      : '';
+    return `<div class="note" style="position:absolute;inset:0;font-size:${fs}px;line-height:1.45;${ruled}">${lines.map(l => `<div class="ln" data-reveal="write">${esc(l) || '&nbsp;'}</div>`).join('')}</div>`;
+  }
+  // code
+  const fs = bw / (card.cols * .6 + 4.2), head = fs * 2.4, gut = String(card.lines.length).length * .6 + 1.2;
+  return `<div class="code-head" style="height:${head}px;font-size:${fs * .9}px;padding:0 ${fs * .6}px"><span>${esc(card.filename)}</span><span class="lang" style="font-size:${fs * .62}px">${esc(card.lang)}</span></div>
+    <div class="code-lines" style="top:${head + fs * .7}px;font-size:${fs}px;line-height:1.55">${card.lines.map((l, i) =>
+      `<div class="row"><span class="gut" style="width:${gut}em;padding-right:1em">${i + 1}</span><span class="src" data-reveal="type" data-chars="${card.raw[i].length}">${l || ' '}</span></div>`).join('')}</div>`;
+}
+
+function cardHTML(card, cx, cy, maxW, maxH, rot, cap) {
+  const { w, h } = fit(card, maxW, maxH);
+  const x = cx - w / 2, y = cy - h / 2, p = w * PAD, bw = w - 2 * p, bh = bw / card.aspect;
+  cap = cap || Math.max(15, w / 20);
+  return `<div class="pin" data-cx="${cx}" data-cy="${cy}" data-rot="${rot}">
+    <div class="card ${card.paper}" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px;transform:rotate(${rot}deg)">
+      <div class="paper"></div>
+      <div class="body" data-kind="${card.kind}" style="left:${p}px;top:${p}px;width:${bw}px;height:${bh}px">${bodyHTML(card, bw, bh)}</div>
+      <div class="cap" style="bottom:${w * .055}px"><span class="no" style="font-size:${cap * .72}px">${esc(card.no)}</span><span class="name" style="font-size:${cap * 2.3}px">${esc(card.label)}</span></div>
+    </div>
+    <div class="tape" style="left:${cx - w * .17}px;top:${y - h * .03}px;width:${w * .34}px;height:${Math.max(26, w * .075)}px;transform:rotate(${rot - 3}deg)"></div>
+  </div>`;
+}
+
+/* Layouts ---------------------------------------------------------------- */
+const COLLAGE = {
   1: [[.5, .5, .78, .96, -2]],
   2: [[.26, .46, .49, .9, -3], [.75, .54, .47, .9, 3]],
   3: [[.26, .5, .49, .94, -4], [.75, .26, .46, .5, 5], [.74, .77, .44, .45, -3]],
   4: [[.27, .27, .48, .5, -4], [.74, .25, .46, .48, 4], [.28, .76, .46, .46, 3], [.73, .75, .46, .48, -3]],
 };
+function placements(n, layout) {
+  if (layout === 'fan') {
+    // A hand of cards: each overlaps the last by about a quarter, fanned
+    // around the middle with the outer cards dipping a little.
+    if (n === 1) return [[.5, .5, .78, .96, -2]];
+    const mw = Math.min(.58, 1.75 / (n + 1.6));
+    const step = (1 - mw - .04) / (n - 1);
+    return Array.from({ length: n }, (_, i) => {
+      const t = i / (n - 1) - .5;
+      return [.02 + mw / 2 + i * step, .5 + t * t * .14, mw, .88, t * 18];
+    });
+  }
+  if (layout === 'grid') {
+    const cols = n === 1 ? 1 : 2, rows = Math.ceil(n / cols);
+    return Array.from({ length: n }, (_, i) => {
+      const c = i % cols, r = Math.floor(i / cols);
+      const lastSolo = n % 2 === 1 && i === n - 1 && cols === 2;
+      return [lastSolo ? .5 : (c + .5) / cols, (r + .5) / rows, .92 / cols, .92 / rows, (i % 2 ? 1.2 : -1.2)];
+    });
+  }
+  return COLLAGE[n];
+}
 function collage(cards, X, Y, W, H) {
-  const set = cards.slice(0, 4), L = LAYOUTS[set.length];
+  const set = cards.slice(0, 4), L = placements(set.length, POST.layout);
   return set.map((c, i) => { const [cx, cy, mw, mh, rot] = L[i]; return cardHTML(c, X + cx * W, Y + cy * H, mw * W, mh * H, rot); }).join('');
 }
 
-// A collage that starts wherever the text above it ends, filled in after the
-// text has been laid out and measured.
-let slots = [];
+// A collage that starts wherever the text above it ends.
+const slots = [];
 function slot(cards, x, w, bottom) {
   slots.push(cards);
   return `<div class="slot" data-i="${slots.length - 1}" data-x="${x}" data-w="${w}" data-bottom="${bottom}"></div>`;
@@ -224,13 +356,13 @@ function titleHTML(size) {
   return `<h1 class="serif" style="font-size:${s}px;padding-bottom:${POST.script ? s * .32 : 0}px">${esc(POST.title)}${POST.script ? `<span class="script" style="display:block;font-size:${s * 1.55}px;line-height:.7;margin:-.02em 0 0 ${s * 1.1}px">${esc(POST.script)}</span>` : ''}</h1>`;
 }
 
-/* ---------------------------------------------------------------------
+/* =====================================================================
    Formats
-   --------------------------------------------------------------------- */
+   ===================================================================== */
 function instagram(cards) {
   const multi = cards.length > 1, total = multi ? cards.length + 1 : 1, out = [];
-  const meta = i => `<div class="meta mono" style="left:84px;right:84px;top:84px;font-size:22px"><span class="eyebrow">${esc(POST.kicker)}</span><span style="color:rgba(244,239,226,.55)">${total > 1 ? String(i).padStart(2, '0') + ' / ' + String(total).padStart(2, '0') : esc(POST.client || '')}</span></div>`;
-  const foot = i => `<div class="meta" style="left:84px;right:84px;bottom:72px">${brand(22)}<span class="mono" style="font-size:20px;color:rgba(244,239,226,.55)">${i < total ? 'Swipe →' : esc(POST.cta || '')}</span></div>`;
+  const meta = i => `<div class="meta mono" style="left:84px;right:84px;top:84px;font-size:22px"><span class="eyebrow">${esc(POST.kicker)}</span><span class="dim">${total > 1 ? String(i).padStart(2, '0') + ' / ' + String(total).padStart(2, '0') : esc(POST.client || '')}</span></div>`;
+  const foot = i => `<div class="meta" style="left:84px;right:84px;bottom:72px">${brand(22)}<span class="mono dim" style="font-size:20px">${i < total ? 'Swipe →' : esc(POST.cta || '')}</span></div>`;
   out.push(frame('instagram-01', 1080, 1350, `${meta(1)}
     <div class="head" style="position:absolute;left:84px;right:84px;top:160px">${titleHTML(96)}
       ${POST.note ? `<p class="muted" style="font-size:30px;line-height:1.45;margin-top:30px;max-width:860px">${esc(POST.note)}</p>` : ''}</div>
@@ -244,6 +376,16 @@ function instagram(cards) {
   });
   return out;
 }
+function story(cards) {
+  return [frame('story', 1080, 1920, `
+    <div class="head" style="position:absolute;left:90px;right:90px;top:220px">
+      <p class="mono eyebrow" style="font-size:24px">${esc(POST.kicker)}</p>
+      <div style="margin-top:30px">${titleHTML(110)}</div>
+      ${POST.note ? `<p class="muted" style="font-size:32px;line-height:1.45;margin-top:34px">${esc(POST.note)}</p>` : ''}
+    </div>
+    ${slot(cards, 50, 980, 250)}
+    <div class="meta" style="left:90px;right:90px;bottom:110px">${brand(24)}<span class="mono dim" style="font-size:20px">${esc(POST.cta || '')}</span></div>`, true)];
+}
 function pinterest(cards) {
   return [frame('pinterest', 1000, 1500, `
     <div class="head" style="position:absolute;left:80px;right:80px;top:100px">
@@ -252,7 +394,7 @@ function pinterest(cards) {
       ${POST.note ? `<p class="muted" style="font-size:30px;line-height:1.4;margin-top:34px">${esc(POST.note)}</p>` : ''}
     </div>
     ${slot(cards, 50, 900, 130)}
-    <div class="meta" style="left:80px;right:80px;bottom:70px">${brand(22)}<span class="mono" style="font-size:18px;color:rgba(244,239,226,.55)">${esc(POST.client || 'Drawn by hand')}</span></div>`, true)];
+    <div class="meta" style="left:80px;right:80px;bottom:70px">${brand(22)}<span class="mono dim" style="font-size:18px">${esc(POST.client || 'Drawn by hand')}</span></div>`, true)];
 }
 function linkedin(cards) {
   return [frame('linkedin', 1200, 1200, `
@@ -261,26 +403,98 @@ function linkedin(cards) {
       <div style="margin-top:22px">${titleHTML(80)}</div>
     </div>
     ${slot(cards, 60, 1080, 110)}
-    <div class="meta" style="left:80px;right:80px;bottom:56px">${brand(20)}<span class="mono" style="font-size:18px;color:rgba(244,239,226,.55)">${esc(POST.client || '')}</span></div>`)];
+    <div class="meta" style="left:80px;right:80px;bottom:56px">${brand(20)}<span class="mono dim" style="font-size:18px">${esc(POST.client || '')}</span></div>`)];
 }
 
-/* ---------------------------------------------------------------------
+/* =====================================================================
+   Motion: every frame gets a paused timeline; render.mjs seeks through it.
+   Cards drop in and get taped down one by one, drawings reveal, code types
+   itself out and notes write themselves on.
+   ===================================================================== */
+const TIMELINES = {};
+const EASE_LAND = 'cubic-bezier(.2,1.25,.4,1)';
+
+function build(frameEl) {
+  const anims = [];
+  const add = (el, keys, opts) => { const a = el.animate(keys, { fill: 'both', ...opts }); a.pause(); anims.push(a); return opts.delay + opts.duration; };
+  let t = 0;
+
+  frameEl.querySelectorAll('.head > *, .meta').forEach((el, i) => {
+    t = Math.max(t, add(el, [{ opacity: 0, transform: 'translateY(18px)' }, { opacity: 1, transform: 'none' }], { delay: 150 + i * 120, duration: 650, easing: 'cubic-bezier(.2,.8,.2,1)' }));
+  });
+
+  let start = Math.max(700, t - 250);
+  frameEl.querySelectorAll('.pin').forEach((pin, i) => {
+    const card = pin.querySelector('.card'), tape = pin.querySelector('.tape'), body = pin.querySelector('.body');
+    const rot = +pin.dataset.rot, at = start + i * 520;
+    card.style.transformOrigin = '50% 50%';
+    add(card, [
+      { opacity: 0, transform: `translateY(-70px) rotate(${rot + (i % 2 ? -7 : 7)}deg) scale(1.06)` },
+      { opacity: 1, offset: .35 },
+      { opacity: 1, transform: `rotate(${rot}deg)` },
+    ], { delay: at, duration: 700, easing: EASE_LAND });
+    tape.style.transformOrigin = '0% 50%';
+    add(tape, [{ opacity: 0, transform: `rotate(${rot - 3}deg) scaleX(0)` }, { opacity: 1, transform: `rotate(${rot - 3}deg) scaleX(1)` }], { delay: at + 560, duration: 260, easing: 'cubic-bezier(.3,.7,.3,1)' });
+
+    let c = at + 650;
+    if (body.dataset.kind === 'image') {
+      c = add(body.firstElementChild, [{ clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)' }], { delay: c, duration: 900, easing: 'cubic-bezier(.5,0,.3,1)' });
+    } else {
+      body.querySelectorAll('[data-reveal]').forEach(el => {
+        const typing = el.dataset.reveal === 'type';
+        const n = typing ? Math.max(1, +el.dataset.chars) : el.textContent.length;
+        const dur = typing ? Math.min(900, 40 + n * 22) : Math.min(1100, 200 + n * 28);
+        add(el, [{ clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)' }], { delay: c, duration: dur, easing: typing ? `steps(${Math.max(1, n)})` : 'linear' });
+        c += dur + (typing ? 40 : 90);
+      });
+    }
+    t = Math.max(t, c);
+  });
+
+  TIMELINES[frameEl.dataset.name] = { anims, duration: t + 1800 };
+}
+
+window.seek = (name, ms) => { const tl = TIMELINES[name]; tl.anims.forEach(a => { a.currentTime = Math.min(ms, tl.duration); }); };
+window.durationOf = name => TIMELINES[name].duration;
+
+/* =====================================================================
    Build
-   --------------------------------------------------------------------- */
+   ===================================================================== */
 (async () => {
   const cards = [];
   for (const [i, c] of POST.cards.entries()) {
-    const img = await prepare(c.src, c.paperMode || POST.paperMode);
-    cards.push({ ...c, img, paper: c.card || (img.light ? 'moss' : 'cream'), no: `No. ${String(i + 1).padStart(2, '0')}${c.tag ? ' · ' + c.tag : ''}` });
+    const card = { ...c, no: `No. ${String(i + 1).padStart(2, '0')}${c.tag ? ' · ' + c.tag : ''}` };
+    if (c.kind === 'image') {
+      card.img = await prepare(c.src, c.paperMode || POST.paperMode);
+      card.aspect = card.img.aspect;
+      card.paper = c.card || (card.img.light ? 'moss' : 'cream');
+    } else if (c.kind === 'note') {
+      card.paper = ['index', 'sticky', 'kraft'].includes(c.style) ? c.style : 'index';
+      card.aspect = card.paper === 'sticky' ? 1.05 : card.paper === 'kraft' ? 1.25 : 1.6;
+    } else {
+      const raw = c.text.replace(/\t/g, '  ').replace(/\s+$/, '').split('\n').slice(0, 24);
+      const indent = Math.min(...raw.filter(l => l.trim()).map(l => l.match(/^ */)[0].length));
+      card.raw = raw.map(l => l.slice(indent));
+      card.cols = Math.min(72, Math.max(28, ...card.raw.map(l => l.length)));
+      card.lines = highlightLines(card.raw.join('\n'), c.lang);
+      card.paper = 'code';
+      card.aspect = (card.cols * .6 + 4.2) / (card.raw.length * 1.55 + 3.6);
+    }
+    cards.push(card);
   }
+
   const out = [];
   if (POST.formats.includes('instagram')) out.push(...instagram(cards));
+  if (POST.formats.includes('story')) out.push(...story(cards));
   if (POST.formats.includes('pinterest')) out.push(...pinterest(cards));
   if (POST.formats.includes('linkedin')) out.push(...linkedin(cards));
   document.getElementById('out').innerHTML = out.join('');
   await document.fonts.ready;
   fillSlots();
   await Promise.all([...document.images].map(i => i.decode().catch(() => {})));
+
+  // Stills show the finished state.
+  document.querySelectorAll('.frame').forEach(f => { build(f); window.seek(f.dataset.name, Infinity); });
   window.READY = true;
 })().catch(e => { window.READY_ERROR = String(e && e.stack || e); });
 </script>

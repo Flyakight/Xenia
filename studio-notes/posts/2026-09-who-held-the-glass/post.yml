@@ -4,6 +4,9 @@ script: sketches
 kicker: Behind the build
 note: The vine, the morel and a little field cap, drawn before a line of code for our wine history timeline.
 client: Tannic Studio journal
+layout: fan
+backdrop: moss
+motion: true
 cards:
   - file: 01-vine.png
     label: the vine

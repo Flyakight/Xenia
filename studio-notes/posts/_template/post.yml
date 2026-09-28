@@ -1,14 +1,28 @@
 # Copy this folder, rename it (e.g. 2026-10-juniper-homepage), add your sketches,
-# and fill in whatever you like below. Every line is optional.
+# code or notes, and fill in whatever you like below. Every line is optional.
 #
 # Lines starting with # are notes and are ignored.
 
 title: Homepage wireframes      # big serif title
-script: first pass              # handwritten gold line under the title
-kicker: Behind the build        # small gold label at the top
+script: first pass              # handwritten line under the title
+kicker: Behind the build        # small label at the top
 note: Pencil layouts for the new homepage, before a single line of code.
 client: Juniper & Rye           # small text in the corner
 cta: Link in bio                # text on the last slide
+
+# The look
+layout: collage                 # collage (loose pin-up) | fan (a hand of cards) | grid (tidy)
+backdrop: forest                # forest | moss (lighter green) | kraft (brown paper)
+wallpaper: true                 # faint vine pattern behind cover images
+
+# Which images to make. Delete any you don't need.
+formats: [instagram, pinterest, linkedin]   # also: story (1080×1920)
+
+# Motion: cards drop in and get taped down, drawings reveal, code types out,
+# notes write themselves on.
+#   motion: true               -> motion-instagram.mp4 and motion-story.mp4
+#   motion: [story]            -> just one of them
+motion: false
 
 # Paper removal for phone photos of sketches:
 #   auto   = remove the paper unless the image already has a transparent background
@@ -16,18 +30,34 @@ cta: Link in bio                # text on the last slide
 #   keep   = leave the image exactly as it is
 paper: auto
 
-# Which images to make. Delete any you don't need.
-formats: [instagram, pinterest, linkedin]
-
-# The sketches, in order. Leave this whole section out to use every image in
-# the folder in filename order, with labels taken from the filenames.
+# The cards, in order. Leave this whole section out to use every file in the
+# folder in filename order. Images become sketch cards, .txt/.md files become
+# notes, and code files (.js .css .php .html .svg .py …) become code cards.
 cards:
+  # A sketch or photo in this folder
   - file: 01-homepage.jpg
     label: homepage             # handwritten name on the card
     tag: Wireframe              # small typed label after the number
-    note: The first pass at the hero and menu.   # optional line under this card's slide
-  - file: 02-menu.jpg
-    label: the menu
-    tag: Wireframe
+    note: The first pass at the hero and menu.   # line under this card's own slide
   # card: moss                  # force a green card (light drawings) or cream (dark ones)
   # paper: keep                 # per-image override of the paper setting above
+
+  # A code file in this folder
+  - file: hero.css
+    label: the hero
+    tag: CSS
+
+  # Code typed straight in here (keep the | and indent the lines under it)
+  - code: |
+      .hero { min-height: 85vh; }
+    lang: css                   # js, css, php, html, svg, py, sh …
+    filename: style.css         # shown in the card's tab
+    label: first styles
+
+  # A note typed straight in here
+  - text: |
+      Menu lives top right.
+      Reservations always one tap away.
+    style: sticky               # index (ruled card) | sticky (gold) | kraft (brown tag)
+    label: note to self
+    tag: Note
